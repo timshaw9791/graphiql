@@ -34,6 +34,7 @@ import {
   introspectionQuery,
   introspectionQuerySansSubscriptions,
 } from '../utility/introspectionQueries';
+import { EditToken } from './EditToken';
 
 const DEFAULT_DOC_EXPLORER_WIDTH = 350;
 const DEFAULT_VARIABLE_EXPLORER_HEIGHT = 200;
@@ -103,8 +104,12 @@ export class GraphiQL extends React.Component {
           queryFacts && queryFacts.operations,
         );
 
+    // 绑定this
+    this.handleTokenChange = this.handleTokenChange.bind(this);
+
     // Initialize state
     this.state = {
+      xToken: null,
       schema: props.schema,
       query,
       variables,
@@ -245,6 +250,9 @@ export class GraphiQL extends React.Component {
     const logo =
       find(children, child => child.type === GraphiQL.Logo) ||
       <GraphiQL.Logo />;
+    /*
+    EditToken组件
+*/
 
     const toolbar =
       find(children, child => child.type === GraphiQL.Toolbar) ||
@@ -254,11 +262,14 @@ export class GraphiQL extends React.Component {
           title="Prettify Query (Shift-Ctrl-P)"
           label="Prettify"
         />
+
         <ToolbarButton
           onClick={this.handleToggleHistory}
-          title="Show History"
+          title="Show History (Ctrl-H)"
           label="History"
         />
+
+        <EditToken onTokenChange={this.handleTokenChange} />
 
       </GraphiQL.Toolbar>;
 
@@ -583,7 +594,6 @@ export class GraphiQL extends React.Component {
   _fetchQuery(query, variables, operationName, cb) {
     const fetcher = this.props.fetcher;
     let jsonVariables = null;
-
     try {
       jsonVariables = variables && variables.trim() !== ''
         ? JSON.parse(variables)
@@ -596,11 +606,14 @@ export class GraphiQL extends React.Component {
       throw new Error('Variables are not a JSON object.');
     }
 
-    const fetch = fetcher({
-      query,
-      variables: jsonVariables,
-      operationName,
-    });
+    const fetch = fetcher(
+      {
+        query,
+        variables: jsonVariables,
+        operationName,
+      },
+      this.state.xToken,
+    );
 
     if (isPromise(fetch)) {
       // If fetcher returned a Promise, then call the callback when the promise
@@ -739,6 +752,8 @@ export class GraphiQL extends React.Component {
     const editor = this.getQueryEditor();
     editor.setValue(print(parse(editor.getValue())));
   };
+
+  handleSettings = () => {};
 
   handleEditQuery = debounce(100, value => {
     const queryFacts = this._updateQueryFacts(
@@ -992,6 +1007,12 @@ export class GraphiQL extends React.Component {
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   };
+
+  handleTokenChange(xToken) {
+    let token = null;
+    token = xToken;
+    this.setState({ xToken: token });
+  }
 }
 
 // Configure the UI by providing this Component as a child of GraphiQL.

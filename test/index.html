@@ -105,12 +105,13 @@
       }
 
       // Defines a GraphQL fetcher using the fetch API.
-      function graphQLFetcher(graphQLParams) {
+      function graphQLFetcher(graphQLParams,xtoken) {
         return fetch('/graphql', {
           method: 'post',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'x-auth-token':xtoken
           },
           body: JSON.stringify(graphQLParams),
           credentials: 'include',
