@@ -25,7 +25,6 @@ export default class FieldDoc extends React.Component {
 
   render() {
     const field = this.props.field;
-
     let argsDef;
     if (field.args && field.args.length > 0) {
       argsDef = (

@@ -20,7 +20,9 @@ import Argument from './Argument';
 import MarkdownContent from './MarkdownContent';
 import TypeLink from './TypeLink';
 import DefaultValue from './DefaultValue';
-
+// 引用HandleDescription方法和TextContent组件 用来处理field的description
+import { HandleDescription } from './HandleDescription';
+import TextContent from './TextContent';
 export default class TypeDoc extends React.Component {
   static propTypes = {
     schema: PropTypes.instanceOf(GraphQLSchema),
@@ -66,11 +68,11 @@ export default class TypeDoc extends React.Component {
       typesDef = (
         <div className="doc-category">
           <div className="doc-category-title">{typesTitle}</div>
-          {types.map(subtype => (
+          {types.map(subtype =>
             <div key={subtype.name} className="doc-category-item">
               <TypeLink type={subtype} onClick={onClickType} />
-            </div>
-          ))}
+            </div>,
+          )}
         </div>
       );
     }
@@ -86,15 +88,15 @@ export default class TypeDoc extends React.Component {
           <div className="doc-category-title">{'fields'}</div>
           {fields
             .filter(field => !field.isDeprecated)
-            .map(field => (
+            .map(field =>
               <Field
                 key={field.name}
                 type={type}
                 field={field}
                 onClickType={onClickType}
                 onClickField={onClickField}
-              />
-            ))}
+              />,
+            )}
         </div>
       );
 
@@ -103,21 +105,21 @@ export default class TypeDoc extends React.Component {
         deprecatedFieldsDef = (
           <div className="doc-category">
             <div className="doc-category-title">{'deprecated fields'}</div>
-            {!this.state.showDeprecated ? (
-              <button className="show-btn" onClick={this.handleShowDeprecated}>
-                {'Show deprecated fields...'}
-              </button>
-            ) : (
-              deprecatedFields.map(field => (
-                <Field
-                  key={field.name}
-                  type={type}
-                  field={field}
-                  onClickType={onClickType}
-                  onClickField={onClickField}
-                />
-              ))
-            )}
+            {!this.state.showDeprecated
+              ? <button
+                  className="show-btn"
+                  onClick={this.handleShowDeprecated}>
+                  {'Show deprecated fields...'}
+                </button>
+              : deprecatedFields.map(field =>
+                  <Field
+                    key={field.name}
+                    type={type}
+                    field={field}
+                    onClickType={onClickType}
+                    onClickField={onClickField}
+                  />,
+                )}
           </div>
         );
       }
@@ -141,15 +143,15 @@ export default class TypeDoc extends React.Component {
         deprecatedValuesDef = (
           <div className="doc-category">
             <div className="doc-category-title">{'deprecated values'}</div>
-            {!this.state.showDeprecated ? (
-              <button className="show-btn" onClick={this.handleShowDeprecated}>
-                {'Show deprecated values...'}
-              </button>
-            ) : (
-              deprecatedValues.map(value => (
-                <EnumValue key={value.name} value={value} />
-              ))
-            )}
+            {!this.state.showDeprecated
+              ? <button
+                  className="show-btn"
+                  onClick={this.handleShowDeprecated}>
+                  {'Show deprecated values...'}
+                </button>
+              : deprecatedValues.map(value =>
+                  <EnumValue key={value.name} value={value} />,
+                )}
           </div>
         );
       }
@@ -183,30 +185,28 @@ function Field({ type, field, onClickType, onClickField }) {
         {field.name}
       </a>
       {field.args &&
-        field.args.length > 0 && [
-          '(',
-          <span key="args">
-            {field.args.map(arg => (
-              <Argument key={arg.name} arg={arg} onClickType={onClickType} />
-            ))}
-          </span>,
-          ')',
-        ]}
+      field.args.length > 0 && [
+        '(',
+        <span key="args">
+          {field.args.map(arg =>
+            <Argument key={arg.name} arg={arg} onClickType={onClickType} />,
+          )}
+        </span>,
+        ')',
+      ]}
       {': '}
       <TypeLink type={field.type} onClick={onClickType} />
       <DefaultValue field={field} />
-      {field.description && (
-        <MarkdownContent
+      {field.description &&
+        <TextContent
           className="field-short-description"
-          markdown={field.description}
-        />
-      )}
-      {field.deprecationReason && (
+          Text={HandleDescription(field.description)}
+        />}
+      {field.deprecationReason &&
         <MarkdownContent
           className="doc-deprecation"
           markdown={field.deprecationReason}
-        />
-      )}
+        />}
     </div>
   );
 }
@@ -226,12 +226,11 @@ function EnumValue({ value }) {
         className="doc-value-description"
         markdown={value.description}
       />
-      {value.deprecationReason && (
+      {value.deprecationReason &&
         <MarkdownContent
           className="doc-deprecation"
           markdown={value.deprecationReason}
-        />
-      )}
+        />}
     </div>
   );
 }
