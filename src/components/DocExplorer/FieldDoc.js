@@ -12,6 +12,8 @@ import PropTypes from 'prop-types';
 import Argument from './Argument';
 import MarkdownContent from './MarkdownContent';
 import TypeLink from './TypeLink';
+import TextContent from './TextContent';
+import { HandleDescription } from './HandleDescription';
 
 export default class FieldDoc extends React.Component {
   static propTypes = {
@@ -49,9 +51,9 @@ export default class FieldDoc extends React.Component {
 
     return (
       <div>
-        <MarkdownContent
+        <TextContent
           className="doc-type-description"
-          markdown={field.description || 'No Description'}
+          text={HandleDescription(field.description) || 'No Description'}
         />
         {field.deprecationReason &&
           <MarkdownContent

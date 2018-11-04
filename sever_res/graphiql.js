@@ -438,8 +438,8 @@
           './DocExplorer/SearchBox': 8,
           './DocExplorer/SearchResults': 9,
           './DocExplorer/TypeDoc': 11,
-          graphql: 98,
-          'prop-types': 239,
+          graphql: 99,
+          'prop-types': 240,
         },
       ],
       2: [
@@ -520,7 +520,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { './DefaultValue': 3, './TypeLink': 12, 'prop-types': 239 },
+        { './DefaultValue': 3, './TypeLink': 12, 'prop-types': 240 },
       ],
       3: [
         function(require, module, exports) {
@@ -588,7 +588,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { graphql: 98, 'prop-types': 239 },
+        { graphql: 99, 'prop-types': 240 },
       ],
       4: [
         function(require, module, exports) {
@@ -637,6 +637,12 @@
             var _TypeLink = require('./TypeLink');
 
             var _TypeLink2 = _interopRequireDefault(_TypeLink);
+
+            var _TextContent = require('./TextContent');
+
+            var _TextContent2 = _interopRequireDefault(_TextContent);
+
+            var _HandleDescription = require('./HandleDescription');
 
             function _interopRequireDefault(obj) {
               return obj && obj.__esModule ? obj : { default: obj };
@@ -756,9 +762,12 @@
                     return _react2.default.createElement(
                       'div',
                       null,
-                      _react2.default.createElement(_MarkdownContent2.default, {
+                      _react2.default.createElement(_TextContent2.default, {
                         className: 'doc-type-description',
-                        markdown: field.description || 'No Description',
+                        text:
+                          (0, _HandleDescription.HandleDescription)(
+                            field.description,
+                          ) || 'No Description',
                       }),
                       field.deprecationReason &&
                         _react2.default.createElement(
@@ -806,9 +815,11 @@
         },
         {
           './Argument': 2,
+          './HandleDescription': 5,
           './MarkdownContent': 6,
+          './TextContent': 10,
           './TypeLink': 12,
-          'prop-types': 239,
+          'prop-types': 240,
         },
       ],
       5: [
@@ -818,7 +829,6 @@
             value: true,
           });
           exports.HandleDescription = HandleDescription;
-
           // 处理后端传过来的描述内容
 
           function HandleDescription(des) {
@@ -989,7 +999,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'markdown-it': 178, 'prop-types': 239 },
+        { 'markdown-it': 179, 'prop-types': 240 },
       ],
       7: [
         function(require, module, exports) {
@@ -1202,7 +1212,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { './MarkdownContent': 6, './TypeLink': 12, 'prop-types': 239 },
+        { './MarkdownContent': 6, './TypeLink': 12, 'prop-types': 240 },
       ],
       8: [
         function(require, module, exports) {
@@ -1372,7 +1382,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { '../../utility/debounce': 29, 'prop-types': 239 },
+        { '../../utility/debounce': 29, 'prop-types': 240 },
       ],
       9: [
         function(require, module, exports) {
@@ -1755,7 +1765,7 @@
           './Argument': 2,
           './MarkdownContent': 6,
           './TypeLink': 12,
-          'prop-types': 239,
+          'prop-types': 240,
         },
       ],
       10: [
@@ -1866,20 +1876,20 @@
                 {
                   key: 'shouldComponentUpdate',
                   value: function shouldComponentUpdate(nextProps) {
-                    return this.props.Text !== nextProps.Text;
+                    return this.props.text !== nextProps.text;
                   },
                 },
                 {
                   key: 'render',
                   value: function render() {
-                    var Text = this.props.Text;
+                    var text = this.props.text;
 
-                    if (!Text) {
+                    if (!text) {
                       return _react2.default.createElement('div', null);
                     }
                     return _react2.default.createElement('div', {
                       className: this.props.className,
-                      dangerouslySetInnerHTML: { __html: Text },
+                      dangerouslySetInnerHTML: { __html: text },
                     });
                   },
                 },
@@ -1889,7 +1899,7 @@
             })(_react2.default.Component);
 
             TextContent.propTypes = {
-              Text: _propTypes2.default.string,
+              text: _propTypes2.default.string,
               className: _propTypes2.default.string,
             };
             exports.default = TextContent;
@@ -1902,7 +1912,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 239 },
+        { 'prop-types': 240 },
       ],
       11: [
         function(require, module, exports) {
@@ -1911,6 +1921,7 @@
             Object.defineProperty(exports, '__esModule', {
               value: true,
             });
+            exports.emitter = undefined;
 
             var _createClass = (function() {
               function defineProperties(target, props) {
@@ -1964,6 +1975,8 @@
 
             var _TextContent2 = _interopRequireDefault(_TextContent);
 
+            var _ToolbarButton = require('../ToolbarButton');
+
             function _interopRequireDefault(obj) {
               return obj && obj.__esModule ? obj : { default: obj };
             }
@@ -2016,6 +2029,8 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *  LICENSE file in the root directory of this source tree.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
+            var EventEmitter = require('events').EventEmitter;
+            var emitter = (exports.emitter = new EventEmitter());
             // 引用HandleDescription方法和TextContent组件 用来处理field的description
 
             var TypeDoc = (function(_React$Component) {
@@ -2056,7 +2071,6 @@
                     var type = this.props.type;
                     var onClickType = this.props.onClickType;
                     var onClickField = this.props.onClickField;
-
                     var typesTitle = void 0;
                     var types = void 0;
                     if (type instanceof _graphql.GraphQLUnionType) {
@@ -2288,10 +2302,31 @@
                 _react2.default.createElement(_DefaultValue2.default, {
                   field: field,
                 }),
+                // 判断type的名称来区分是否显示按钮
+                // Determine the name of type to distinguish whether a button is displayed or not
+                type.name === 'Test' ||
+                  type.name === 'QueryType_JPA' ||
+                  type.name === 'Mutation_SpringMVC'
+                  ? _react2.default.createElement(
+                      _ToolbarButton.ToolbarButton,
+                      {
+                        title: 'Statement',
+                        onClick: function onClick() {
+                          emitter.emit('Statement', {
+                            field: field,
+                            queryOrMutation: !(
+                              type.name === 'Mutation_SpringMVC'
+                            ),
+                          });
+                        },
+                        label: 'Statement',
+                      },
+                    )
+                  : '',
                 field.description &&
                   _react2.default.createElement(_TextContent2.default, {
                     className: 'field-short-description',
-                    Text: (0, _HandleDescription.HandleDescription)(
+                    text: (0, _HandleDescription.HandleDescription)(
                       field.description,
                     ),
                   }),
@@ -2346,14 +2381,16 @@
           ));
         },
         {
+          '../ToolbarButton': 20,
           './Argument': 2,
           './DefaultValue': 3,
           './HandleDescription': 5,
           './MarkdownContent': 6,
           './TextContent': 10,
           './TypeLink': 12,
-          graphql: 98,
-          'prop-types': 239,
+          events: 70,
+          graphql: 99,
+          'prop-types': 240,
         },
       ],
       12: [
@@ -2521,7 +2558,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { graphql: 98, 'prop-types': 239 },
+        { graphql: 99, 'prop-types': 240 },
       ],
       13: [
         function(require, module, exports) {
@@ -2664,7 +2701,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 239 },
+        { 'prop-types': 240 },
       ],
       14: [
         function(require, module, exports) {
@@ -2926,7 +2963,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 239 },
+        { 'prop-types': 240 },
       ],
       15: [
         function(require, module, exports) {
@@ -3000,6 +3037,8 @@
             var _reactDom2 = _interopRequireDefault(_reactDom);
 
             var _graphql = require('graphql');
+
+            var _TypeDoc = require('./DocExplorer/TypeDoc');
 
             var _reactHotKeys = require('react-hot-keys');
 
@@ -3222,6 +3261,8 @@
                 {
                   key: 'componentDidMount',
                   value: function componentDidMount() {
+                    var _this2 = this;
+
                     // Only fetch schema via introspection if a schema has not been
                     // provided, including if `null` was provided.
                     if (this.state.schema === undefined) {
@@ -3230,14 +3271,19 @@
 
                     // Utility for keeping CodeMirror correctly sized.
                     this.codeMirrorSizer = new _CodeMirrorSizer2.default();
-
                     global.g = this;
+                    this.statement = _TypeDoc.emitter.addListener(
+                      'Statement',
+                      function(data) {
+                        return _this2.handleAutoStatement(data);
+                      },
+                    );
                   },
                 },
                 {
                   key: 'componentWillReceiveProps',
                   value: function componentWillReceiveProps(nextProps) {
-                    var _this2 = this;
+                    var _this3 = this;
 
                     var nextSchema = this.state.schema;
                     var nextQuery = this.state.query;
@@ -3298,9 +3344,9 @@
                         response: nextResponse,
                       },
                       function() {
-                        if (_this2.state.schema === undefined) {
-                          _this2.docExplorerComponent.reset();
-                          _this2._fetchSchema();
+                        if (_this3.state.schema === undefined) {
+                          _this3.docExplorerComponent.reset();
+                          _this3._fetchSchema();
                         }
                       },
                     );
@@ -3347,12 +3393,13 @@
                       'historyPaneOpen',
                       this.state.historyPaneOpen,
                     );
+                    _TypeDoc.emitter.removeListener(this.statement);
                   },
                 },
                 {
                   key: 'render',
                   value: function render() {
-                    var _this3 = this;
+                    var _this4 = this;
 
                     var children = _react2.default.Children.toArray(
                       this.props.children,
@@ -3496,7 +3543,7 @@
                             'div',
                             {
                               ref: function ref(n) {
-                                _this3.editorBarComponent = n;
+                                _this4.editorBarComponent = n;
                               },
                               className: 'editorBar',
                               onDoubleClick: this.handleResetResize,
@@ -3509,7 +3556,7 @@
                                 _QueryEditor.QueryEditor,
                                 {
                                   ref: function ref(n) {
-                                    _this3.queryEditorComponent = n;
+                                    _this4.queryEditorComponent = n;
                                   },
                                   schema: this.state.schema,
                                   value: this.state.query,
@@ -3545,7 +3592,7 @@
                                   _VariableEditor.VariableEditor,
                                   {
                                     ref: function ref(n) {
-                                      _this3.variableEditorComponent = n;
+                                      _this4.variableEditorComponent = n;
                                     },
                                     value: this.state.variables,
                                     variableToType: this.state.variableToType,
@@ -3574,7 +3621,7 @@
                                 _ResultViewer.ResultViewer,
                                 {
                                   ref: function ref(c) {
-                                    _this3.resultComponent = c;
+                                    _this4.resultComponent = c;
                                   },
                                   value: this.state.response,
                                   editorTheme: this.props.editorTheme,
@@ -3600,7 +3647,7 @@
                             _DocExplorer.DocExplorer,
                             {
                               ref: function ref(c) {
-                                _this3.docExplorerComponent = c;
+                                _this4.docExplorerComponent = c;
                               },
                               schema: this.state.schema,
                             },
@@ -3765,7 +3812,7 @@
                 {
                   key: '_fetchSchema',
                   value: function _fetchSchema() {
-                    var _this4 = this;
+                    var _this5 = this;
 
                     var fetcher = this.props.fetcher;
 
@@ -3807,7 +3854,7 @@
                         // If a schema was provided while this fetch was underway, then
                         // satisfy the race condition by respecting the already
                         // provided schema.
-                        if (_this4.state.schema !== undefined) {
+                        if (_this5.state.schema !== undefined) {
                           return;
                         }
 
@@ -3817,16 +3864,16 @@
                           );
                           var queryFacts = (0, _getQueryFacts2.default)(
                             schema,
-                            _this4.state.query,
+                            _this5.state.query,
                           );
-                          _this4.setState(
+                          _this5.setState(
                             _extends({ schema: schema }, queryFacts),
                           );
                         } else {
                           var responseString = typeof result === 'string'
                             ? result
                             : JSON.stringify(result, null, 2);
-                          _this4.setState({
+                          _this5.setState({
                             // Set schema to `null` to explicitly indicate that no schema exists.
                             schema: null,
                             response: responseString,
@@ -3834,7 +3881,7 @@
                         }
                       })
                       .catch(function(error) {
-                        _this4.setState({
+                        _this5.setState({
                           schema: null,
                           response: error && String(error.stack || error),
                         });
@@ -3849,7 +3896,7 @@
                     operationName,
                     cb,
                   ) {
-                    var _this5 = this;
+                    var _this6 = this;
 
                     var fetcher = this.props.fetcher;
                     var jsonVariables = null;
@@ -3884,7 +3931,7 @@
                       // If fetcher returned a Promise, then call the callback when the promise
                       // resolves, otherwise handle the error.
                       fetch.then(cb).catch(function(error) {
-                        _this5.setState({
+                        _this6.setState({
                           isWaitingForResponse: false,
                           response: error && String(error.stack || error),
                         });
@@ -3896,14 +3943,14 @@
                       var subscription = fetch.subscribe({
                         next: cb,
                         error: function error(_error) {
-                          _this5.setState({
+                          _this6.setState({
                             isWaitingForResponse: false,
                             response: _error && String(_error.stack || _error),
                             subscription: null,
                           });
                         },
                         complete: function complete() {
-                          _this5.setState({
+                          _this6.setState({
                             isWaitingForResponse: false,
                             subscription: null,
                           });
@@ -3985,6 +4032,94 @@
                     this.setState({ xToken: token });
                   },
                 },
+                {
+                  key: 'handleAutoStatement',
+                  value: function handleAutoStatement(data) {
+                    if (data.queryOrMutation) {
+                      this.handleQuery(data);
+                    } else {
+                      this.handleMutation(data);
+                    }
+                  },
+                },
+                {
+                  key: 'handleQuery',
+                  value: function handleQuery(data) {
+                    var defaultStatement = 'query Q{';
+                    var statement = defaultStatement + data.field.name + '{ ';
+                    // 最外层没有做判断直接获取到type下的Fields
+                    var fields = data.field.type.getFields();
+                    // 遍历fields判断其类型
+                    for (var m in fields) {
+                      // GraphQLScalarType
+                      if (
+                        fields[m].type instanceof _graphql.GraphQLScalarType
+                      ) {
+                        statement += fields[m].name + ' ';
+                      } else if (
+                        fields[m].type instanceof _graphql.GraphQLList
+                      ) {
+                        // GraphQLList
+                        var contentFields = fields[m].type.ofType.getFields();
+                        statement += fields[m].name + '{ ';
+                        // 判断GraphQLList下面的每个元素
+                        for (var i in contentFields) {
+                          if (
+                            contentFields[i].type instanceof
+                            _graphql.GraphQLScalarType
+                          ) {
+                            statement += contentFields[i].name + ' ';
+                          } else if (
+                            contentFields[i].type instanceof
+                            _graphql.GraphQLObjectType
+                          ) {
+                            // GraphQLObjectType
+                            statement += contentFields[i].name + '{ id }';
+                          } else if (
+                            contentFields[i].type instanceof
+                            _graphql.GraphQLList
+                          ) {
+                            // 说明该对象存在item，itemsList为单个获取到的item中的对象
+                            statement += contentFields[i].name + '{ ';
+                            var itemList = contentFields[
+                              i
+                            ].type.ofType.getFields();
+                            for (var j in itemList) {
+                              if (
+                                itemList[j].type instanceof
+                                _graphql.GraphQLScalarType
+                              ) {
+                                statement += itemList[j].name + ' ';
+                              } else if (
+                                itemList[j].type instanceof
+                                _graphql.GraphQLObjectType
+                              ) {
+                                statement += itemList[j].name + '{ id }';
+                              }
+                            }
+                            statement += ' }';
+                          }
+                        }
+                        statement += ' }';
+                      } else if (
+                        fields[m].type instanceof _graphql.GraphQLObjectType
+                      ) {
+                        // GraphQLObjectType
+                        statement += fields[m].name + '{ id }';
+                      }
+                    }
+                    statement += ' } }';
+                    console.log(statement);
+                    this.setState({ query: statement });
+                    this.handlePrettifyQuery();
+                  },
+                },
+                {
+                  key: 'handleMutation',
+                  value: function handleMutation(data) {
+                    console.log(data);
+                  },
+                },
               ]);
 
               return GraphiQL;
@@ -4016,25 +4151,25 @@
             };
 
             var _initialiseProps = function _initialiseProps() {
-              var _this6 = this;
+              var _this7 = this;
 
               this.handleClickReference = function(reference) {
-                _this6.setState({ docExplorerOpen: true }, function() {
-                  _this6.docExplorerComponent.showDocForReference(reference);
+                _this7.setState({ docExplorerOpen: true }, function() {
+                  _this7.docExplorerComponent.showDocForReference(reference);
                 });
               };
 
               this.handleRunQuery = function(selectedOperationName) {
-                _this6._editorQueryID++;
-                var queryID = _this6._editorQueryID;
+                _this7._editorQueryID++;
+                var queryID = _this7._editorQueryID;
 
                 // Use the edited query after autoCompleteLeafs() runs or,
                 // in case autoCompletion fails (the function returns undefined),
                 // the current query from the editor.
                 var editedQuery =
-                  _this6.autoCompleteLeafs() || _this6.state.query;
-                var variables = _this6.state.variables;
-                var operationName = _this6.state.operationName;
+                  _this7.autoCompleteLeafs() || _this7.state.query;
+                var variables = _this7.state.variables;
+                var operationName = _this7.state.operationName;
 
                 // If an operation was explicitly provided, different from the current
                 // operation name, then report that it changed.
@@ -4043,24 +4178,24 @@
                   selectedOperationName !== operationName
                 ) {
                   operationName = selectedOperationName;
-                  _this6.handleEditOperationName(operationName);
+                  _this7.handleEditOperationName(operationName);
                 }
 
                 try {
-                  _this6.setState({
+                  _this7.setState({
                     isWaitingForResponse: true,
                     response: null,
                     operationName: operationName,
                   });
 
                   // _fetchQuery may return a subscription.
-                  var subscription = _this6._fetchQuery(
+                  var subscription = _this7._fetchQuery(
                     editedQuery,
                     variables,
                     operationName,
                     function(result) {
-                      if (queryID === _this6._editorQueryID) {
-                        _this6.setState({
+                      if (queryID === _this7._editorQueryID) {
+                        _this7.setState({
                           isWaitingForResponse: false,
                           response: JSON.stringify(result, null, 2),
                         });
@@ -4068,9 +4203,9 @@
                     },
                   );
 
-                  _this6.setState({ subscription: subscription });
+                  _this7.setState({ subscription: subscription });
                 } catch (error) {
-                  _this6.setState({
+                  _this7.setState({
                     isWaitingForResponse: false,
                     response: error.message,
                   });
@@ -4078,8 +4213,8 @@
               };
 
               this.handleStopQuery = function() {
-                var subscription = _this6.state.subscription;
-                _this6.setState({
+                var subscription = _this7.state.subscription;
+                _this7.setState({
                   isWaitingForResponse: false,
                   subscription: null,
                 });
@@ -4089,7 +4224,7 @@
               };
 
               this.handlePrettifyQuery = function() {
-                var editor = _this6.getQueryEditor();
+                var editor = _this7.getQueryEditor();
                 editor.setValue(
                   (0, _graphql.print)((0, _graphql.parse)(editor.getValue())),
                 );
@@ -4100,13 +4235,13 @@
               this.handleEditQuery = (0, _debounce2.default)(100, function(
                 value,
               ) {
-                var queryFacts = _this6._updateQueryFacts(
+                var queryFacts = _this7._updateQueryFacts(
                   value,
-                  _this6.state.operationName,
-                  _this6.state.operations,
-                  _this6.state.schema,
+                  _this7.state.operationName,
+                  _this7.state.operations,
+                  _this7.state.schema,
                 );
-                _this6.setState(
+                _this7.setState(
                   _extends(
                     {
                       query: value,
@@ -4114,8 +4249,8 @@
                     queryFacts,
                   ),
                 );
-                if (_this6.props.onEditQuery) {
-                  return _this6.props.onEditQuery(value);
+                if (_this7.props.onEditQuery) {
+                  return _this7.props.onEditQuery(value);
                 }
               });
 
@@ -4134,7 +4269,7 @@
                   )(prevOperations, operationName, queryFacts.operations);
 
                   // Report changing of operationName if it changed.
-                  var onEditOperationName = _this6.props.onEditOperationName;
+                  var onEditOperationName = _this7.props.onEditOperationName;
                   if (
                     onEditOperationName &&
                     operationName !== updatedOperationName
@@ -4152,21 +4287,21 @@
               };
 
               this.handleEditVariables = function(value) {
-                _this6.setState({ variables: value });
-                if (_this6.props.onEditVariables) {
-                  _this6.props.onEditVariables(value);
+                _this7.setState({ variables: value });
+                if (_this7.props.onEditVariables) {
+                  _this7.props.onEditVariables(value);
                 }
               };
 
               this.handleEditOperationName = function(operationName) {
-                var onEditOperationName = _this6.props.onEditOperationName;
+                var onEditOperationName = _this7.props.onEditOperationName;
                 if (onEditOperationName) {
                   onEditOperationName(operationName);
                 }
               };
 
               this.handleHintInformationRender = function(elem) {
-                elem.addEventListener('click', _this6._onClickHintInformation);
+                elem.addEventListener('click', _this7._onClickHintInformation);
 
                 var _onRemoveFn = void 0;
                 elem.addEventListener(
@@ -4175,25 +4310,25 @@
                     elem.removeEventListener('DOMNodeRemoved', _onRemoveFn);
                     elem.removeEventListener(
                       'click',
-                      _this6._onClickHintInformation,
+                      _this7._onClickHintInformation,
                     );
                   }),
                 );
               };
 
               this.handleEditorRunQuery = function() {
-                _this6._runQueryAtCursor();
+                _this7._runQueryAtCursor();
               };
 
               this._onClickHintInformation = function(event) {
                 if (event.target.className === 'typeName') {
                   var typeName = event.target.innerHTML;
-                  var schema = _this6.state.schema;
+                  var schema = _this7.state.schema;
                   if (schema) {
                     var type = schema.getType(typeName);
                     if (type) {
-                      _this6.setState({ docExplorerOpen: true }, function() {
-                        _this6.docExplorerComponent.showDoc(type);
+                      _this7.setState({ docExplorerOpen: true }, function() {
+                        _this7.docExplorerComponent.showDoc(type);
                       });
                     }
                   }
@@ -4201,20 +4336,20 @@
               };
 
               this.handleToggleDocs = function() {
-                if (typeof _this6.props.onToggleDocs === 'function') {
-                  _this6.props.onToggleDocs(!_this6.state.docExplorerOpen);
+                if (typeof _this7.props.onToggleDocs === 'function') {
+                  _this7.props.onToggleDocs(!_this7.state.docExplorerOpen);
                 }
-                _this6.setState({
-                  docExplorerOpen: !_this6.state.docExplorerOpen,
+                _this7.setState({
+                  docExplorerOpen: !_this7.state.docExplorerOpen,
                 });
               };
 
               this.handleToggleHistory = function() {
-                if (typeof _this6.props.onToggleHistory === 'function') {
-                  _this6.props.onToggleHistory(!_this6.state.historyPaneOpen);
+                if (typeof _this7.props.onToggleHistory === 'function') {
+                  _this7.props.onToggleHistory(!_this7.state.historyPaneOpen);
                 }
-                _this6.setState({
-                  historyPaneOpen: !_this6.state.historyPaneOpen,
+                _this7.setState({
+                  historyPaneOpen: !_this7.state.historyPaneOpen,
                 });
               };
 
@@ -4223,13 +4358,13 @@
                 variables,
                 operationName,
               ) {
-                _this6.handleEditQuery(query);
-                _this6.handleEditVariables(variables);
-                _this6.handleEditOperationName(operationName);
+                _this7.handleEditQuery(query);
+                _this7.handleEditVariables(variables);
+                _this7.handleEditOperationName(operationName);
               };
 
               this.handleResizeStart = function(downEvent) {
-                if (!_this6._didClickDragBar(downEvent)) {
+                if (!_this7._didClickDragBar(downEvent)) {
                   return;
                 }
 
@@ -4245,14 +4380,14 @@
                   }
 
                   var editorBar = _reactDom2.default.findDOMNode(
-                    _this6.editorBarComponent,
+                    _this7.editorBarComponent,
                   );
                   var leftSize =
                     moveEvent.clientX -
                     (0, _elementPosition.getLeft)(editorBar) -
                     offset;
                   var rightSize = editorBar.clientWidth - leftSize;
-                  _this6.setState({ editorFlex: leftSize / rightSize });
+                  _this7.setState({ editorFlex: leftSize / rightSize });
                 };
 
                 var onMouseUp = (function(_onMouseUp) {
@@ -4277,13 +4412,13 @@
               };
 
               this.handleResetResize = function() {
-                _this6.setState({ editorFlex: 1 });
+                _this7.setState({ editorFlex: 1 });
               };
 
               this.handleDocsResizeStart = function(downEvent) {
                 downEvent.preventDefault();
 
-                var hadWidth = _this6.state.docExplorerWidth;
+                var hadWidth = _this7.state.docExplorerWidth;
                 var offset =
                   downEvent.clientX -
                   (0, _elementPosition.getLeft)(downEvent.target);
@@ -4293,7 +4428,7 @@
                     return onMouseUp();
                   }
 
-                  var app = _reactDom2.default.findDOMNode(_this6);
+                  var app = _reactDom2.default.findDOMNode(_this7);
                   var cursorPos =
                     moveEvent.clientX -
                     (0, _elementPosition.getLeft)(app) -
@@ -4301,9 +4436,9 @@
                   var docsSize = app.clientWidth - cursorPos;
 
                   if (docsSize < 100) {
-                    _this6.setState({ docExplorerOpen: false });
+                    _this7.setState({ docExplorerOpen: false });
                   } else {
-                    _this6.setState({
+                    _this7.setState({
                       docExplorerOpen: true,
                       docExplorerWidth: Math.min(docsSize, 650),
                     });
@@ -4321,8 +4456,8 @@
 
                   return onMouseUp;
                 })(function() {
-                  if (!_this6.state.docExplorerOpen) {
-                    _this6.setState({ docExplorerWidth: hadWidth });
+                  if (!_this7.state.docExplorerOpen) {
+                    _this7.setState({ docExplorerWidth: hadWidth });
                   }
 
                   document.removeEventListener('mousemove', onMouseMove);
@@ -4336,7 +4471,7 @@
               };
 
               this.handleDocsResetResize = function() {
-                _this6.setState({
+                _this7.setState({
                   docExplorerWidth: DEFAULT_DOC_EXPLORER_WIDTH,
                 });
               };
@@ -4345,8 +4480,8 @@
                 downEvent.preventDefault();
 
                 var didMove = false;
-                var wasOpen = _this6.state.variableEditorOpen;
-                var hadHeight = _this6.state.variableEditorHeight;
+                var wasOpen = _this7.state.variableEditorOpen;
+                var hadHeight = _this7.state.variableEditorHeight;
                 var offset =
                   downEvent.clientY -
                   (0, _elementPosition.getTop)(downEvent.target);
@@ -4359,7 +4494,7 @@
                   didMove = true;
 
                   var editorBar = _reactDom2.default.findDOMNode(
-                    _this6.editorBarComponent,
+                    _this7.editorBarComponent,
                   );
                   var topSize =
                     moveEvent.clientY -
@@ -4367,12 +4502,12 @@
                     offset;
                   var bottomSize = editorBar.clientHeight - topSize;
                   if (bottomSize < 60) {
-                    _this6.setState({
+                    _this7.setState({
                       variableEditorOpen: false,
                       variableEditorHeight: hadHeight,
                     });
                   } else {
-                    _this6.setState({
+                    _this7.setState({
                       variableEditorOpen: true,
                       variableEditorHeight: bottomSize,
                     });
@@ -4391,7 +4526,7 @@
                   return onMouseUp;
                 })(function() {
                   if (!didMove) {
-                    _this6.setState({ variableEditorOpen: !wasOpen });
+                    _this7.setState({ variableEditorOpen: !wasOpen });
                   }
 
                   document.removeEventListener('mousemove', onMouseMove);
@@ -4519,6 +4654,7 @@
           '../utility/getSelectedOperationName': 34,
           '../utility/introspectionQueries': 35,
           './DocExplorer': 1,
+          './DocExplorer/TypeDoc': 11,
           './EditToken': 13,
           './ExecuteButton': 14,
           './QueryEditor': 17,
@@ -4529,9 +4665,9 @@
           './ToolbarMenu': 22,
           './ToolbarSelect': 23,
           './VariableEditor': 24,
-          graphql: 98,
-          'prop-types': 239,
-          'react-hot-keys': 242,
+          graphql: 99,
+          'prop-types': 240,
+          'react-hot-keys': 243,
         },
       ],
       16: [
@@ -4818,7 +4954,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 239 },
+        { 'prop-types': 240 },
       ],
       17: [
         function(require, module, exports) {
@@ -4921,6 +5057,9 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *  LICENSE file in the root directory of this source tree.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
+            var EventEmitter = require('events').EventEmitter;
+            var emitter = new EventEmitter();
+
             var md = new _markdownIt2.default();
             var AUTO_COMPLETE_AFTER_KEY = /^[a-zA-Z0-9_@(]$/;
 
@@ -5008,6 +5147,12 @@
                     require('codemirror-graphql/info');
                     require('codemirror-graphql/jump');
                     require('codemirror-graphql/mode');
+
+                    this.autoQuery = emitter.addListener('AutoQuery', function(
+                      msg,
+                    ) {
+                      return console.log('a' + msg);
+                    });
 
                     this.editor = CodeMirror(this._node, {
                       value: this.props.value || '',
@@ -5140,6 +5285,8 @@
                     this.editor.off('keyup', this._onKeyUp);
                     this.editor.off('hasCompletion', this._onHasCompletion);
                     this.editor = null;
+
+                    emitter.removeListener(this.autoQuery); // 取消事件
                   },
                 },
                 {
@@ -5239,9 +5386,10 @@
           'codemirror/addon/search/search': 65,
           'codemirror/addon/search/searchcursor': 66,
           'codemirror/keymap/sublime': 67,
-          graphql: 98,
-          'markdown-it': 178,
-          'prop-types': 239,
+          events: 70,
+          graphql: 99,
+          'markdown-it': 179,
+          'prop-types': 240,
         },
       ],
       18: [
@@ -5573,8 +5721,8 @@
         {
           '../utility/QueryStore': 27,
           './HistoryQuery': 16,
-          graphql: 98,
-          'prop-types': 239,
+          graphql: 99,
+          'prop-types': 240,
         },
       ],
       19: [
@@ -5843,7 +5991,7 @@
           'codemirror/addon/search/search': 65,
           'codemirror/addon/search/searchcursor': 66,
           'codemirror/keymap/sublime': 67,
-          'prop-types': 239,
+          'prop-types': 240,
         },
       ],
       20: [
@@ -6010,7 +6158,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 239 },
+        { 'prop-types': 240 },
       ],
       21: [
         function(require, module, exports) {
@@ -6303,7 +6451,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 239 },
+        { 'prop-types': 240 },
       ],
       23: [
         function(require, module, exports) {
@@ -6600,7 +6748,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 239 },
+        { 'prop-types': 240 },
       ],
       24: [
         function(require, module, exports) {
@@ -6974,7 +7122,7 @@
           'codemirror/addon/search/jump-to-line': 64,
           'codemirror/addon/search/searchcursor': 66,
           'codemirror/keymap/sublime': 67,
-          'prop-types': 239,
+          'prop-types': 240,
         },
       ],
       25: [
@@ -7597,7 +7745,7 @@
             return str.substring(indentStart, indentEnd);
           }
         },
-        { graphql: 98 },
+        { graphql: 99 },
       ],
       32: [
         function(require, module, exports) {
@@ -7702,7 +7850,7 @@
             return variableToType;
           }
         },
-        { graphql: 98 },
+        { graphql: 99 },
       ],
       34: [
         function(require, module, exports) {
@@ -7783,7 +7931,7 @@
           var introspectionQuerySansSubscriptions = (exports.introspectionQuerySansSubscriptions =
             '\n  query IntrospectionQuery {\n    __schema {\n      queryType { name }\n      mutationType { name }\n      types {\n        ...FullType\n      }\n      directives {\n        name\n        description\n        locations\n        args {\n          ...InputValue\n        }\n      }\n    }\n  }\n\n  fragment FullType on __Type {\n    kind\n    name\n    description\n    fields(includeDeprecated: true) {\n      name\n      description\n      args {\n        ...InputValue\n      }\n      type {\n        ...TypeRef\n      }\n      isDeprecated\n      deprecationReason\n    }\n    inputFields {\n      ...InputValue\n    }\n    interfaces {\n      ...TypeRef\n    }\n    enumValues(includeDeprecated: true) {\n      name\n      description\n      isDeprecated\n      deprecationReason\n    }\n    possibleTypes {\n      ...TypeRef\n    }\n  }\n\n  fragment InputValue on __InputValue {\n    name\n    description\n    type { ...TypeRef }\n    defaultValue\n  }\n\n  fragment TypeRef on __Type {\n    kind\n    name\n    ofType {\n      kind\n      name\n      ofType {\n        kind\n        name\n        ofType {\n          kind\n          name\n          ofType {\n            kind\n            name\n            ofType {\n              kind\n              name\n              ofType {\n                kind\n                name\n                ofType {\n                  kind\n                  name\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n');
         },
-        { graphql: 98 },
+        { graphql: 99 },
       ],
       36: [
         function(require, module, exports) {
@@ -7938,7 +8086,7 @@
             return '<a class="typeName">' + type.name + '</a>';
           }
         },
-        { codemirror: 68, graphql: 98, 'markdown-it': 178 },
+        { codemirror: 68, graphql: 99, 'markdown-it': 179 },
       ],
       38: [
         function(require, module, exports) {
@@ -8530,7 +8678,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'util/': 251 },
+        { 'util/': 252 },
       ],
       39: [
         function(require, module, exports) {
@@ -8639,7 +8787,7 @@
             return results;
           });
         },
-        { codemirror: 68, 'graphql-language-service-interface': 79 },
+        { codemirror: 68, 'graphql-language-service-interface': 80 },
       ],
       40: [
         function(require, module, exports) {
@@ -8897,7 +9045,7 @@
           './utils/getTypeInfo': 47,
           './utils/info-addon': 49,
           codemirror: 68,
-          graphql: 98,
+          graphql: 99,
         },
       ],
       41: [
@@ -9056,7 +9204,7 @@
             return results;
           });
         },
-        { codemirror: 68, 'graphql-language-service-interface': 79 },
+        { codemirror: 68, 'graphql-language-service-interface': 80 },
       ],
       43: [
         function(require, module, exports) {
@@ -9136,7 +9284,7 @@
             return level * this.config.indentUnit;
           }
         },
-        { codemirror: 68, 'graphql-language-service-parser': 83 },
+        { codemirror: 68, 'graphql-language-service-parser': 84 },
       ],
       44: [
         function(require, module, exports) {
@@ -9294,7 +9442,7 @@
             ],
           };
         },
-        { codemirror: 68, 'graphql-language-service-parser': 83 },
+        { codemirror: 68, 'graphql-language-service-parser': 84 },
       ],
       45: [
         function(require, module, exports) {
@@ -9376,7 +9524,7 @@
             return fieldDef.name.slice(0, 2) === '__';
           }
         },
-        { graphql: 98 },
+        { graphql: 99 },
       ],
       46: [
         function(require, module, exports) {
@@ -9588,8 +9736,8 @@
         },
         {
           './forEachState': 46,
-          graphql: 98,
-          'graphql/type/introspection': 121,
+          graphql: 99,
+          'graphql/type/introspection': 122,
         },
       ],
       48: [
@@ -10689,7 +10837,7 @@
           '../utils/forEachState': 46,
           '../utils/hintList': 48,
           codemirror: 68,
-          graphql: 98,
+          graphql: 99,
         },
       ],
       53: [
@@ -10925,7 +11073,7 @@
             return Array.prototype.concat.apply([], array.map(mapper));
           }
         },
-        { '../utils/jsonParse': 50, codemirror: 68, graphql: 98 },
+        { '../utils/jsonParse': 50, codemirror: 68, graphql: 99 },
       ],
       54: [
         function(require, module, exports) {
@@ -11104,7 +11252,7 @@
             };
           }
         },
-        { codemirror: 68, 'graphql-language-service-parser': 83 },
+        { codemirror: 68, 'graphql-language-service-parser': 84 },
       ],
       55: [
         function(require, module, exports) {
@@ -32442,6 +32590,310 @@
       ],
       70: [
         function(require, module, exports) {
+          // Copyright Joyent, Inc. and other Node contributors.
+          //
+          // Permission is hereby granted, free of charge, to any person obtaining a
+          // copy of this software and associated documentation files (the
+          // "Software"), to deal in the Software without restriction, including
+          // without limitation the rights to use, copy, modify, merge, publish,
+          // distribute, sublicense, and/or sell copies of the Software, and to permit
+          // persons to whom the Software is furnished to do so, subject to the
+          // following conditions:
+          //
+          // The above copyright notice and this permission notice shall be included
+          // in all copies or substantial portions of the Software.
+          //
+          // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+          // OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+          // MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+          // NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+          // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+          // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+          // USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+          function EventEmitter() {
+            this._events = this._events || {};
+            this._maxListeners = this._maxListeners || undefined;
+          }
+          module.exports = EventEmitter;
+
+          // Backwards-compat with node 0.10.x
+          EventEmitter.EventEmitter = EventEmitter;
+
+          EventEmitter.prototype._events = undefined;
+          EventEmitter.prototype._maxListeners = undefined;
+
+          // By default EventEmitters will print a warning if more than 10 listeners are
+          // added to it. This is a useful default which helps finding memory leaks.
+          EventEmitter.defaultMaxListeners = 10;
+
+          // Obviously not all Emitters should be limited to 10. This function allows
+          // that to be increased. Set to zero for unlimited.
+          EventEmitter.prototype.setMaxListeners = function(n) {
+            if (!isNumber(n) || n < 0 || isNaN(n))
+              throw TypeError('n must be a positive number');
+            this._maxListeners = n;
+            return this;
+          };
+
+          EventEmitter.prototype.emit = function(type) {
+            var er, handler, len, args, i, listeners;
+
+            if (!this._events) this._events = {};
+
+            // If there is no 'error' event listener then throw.
+            if (type === 'error') {
+              if (
+                !this._events.error ||
+                (isObject(this._events.error) && !this._events.error.length)
+              ) {
+                er = arguments[1];
+                if (er instanceof Error) {
+                  throw er; // Unhandled 'error' event
+                } else {
+                  // At least give some kind of context to the user
+                  var err = new Error(
+                    'Uncaught, unspecified "error" event. (' + er + ')',
+                  );
+                  err.context = er;
+                  throw err;
+                }
+              }
+            }
+
+            handler = this._events[type];
+
+            if (isUndefined(handler)) return false;
+
+            if (isFunction(handler)) {
+              switch (arguments.length) {
+                // fast cases
+                case 1:
+                  handler.call(this);
+                  break;
+                case 2:
+                  handler.call(this, arguments[1]);
+                  break;
+                case 3:
+                  handler.call(this, arguments[1], arguments[2]);
+                  break;
+                // slower
+                default:
+                  args = Array.prototype.slice.call(arguments, 1);
+                  handler.apply(this, args);
+              }
+            } else if (isObject(handler)) {
+              args = Array.prototype.slice.call(arguments, 1);
+              listeners = handler.slice();
+              len = listeners.length;
+              for (i = 0; i < len; i++) listeners[i].apply(this, args);
+            }
+
+            return true;
+          };
+
+          EventEmitter.prototype.addListener = function(type, listener) {
+            var m;
+
+            if (!isFunction(listener))
+              throw TypeError('listener must be a function');
+
+            if (!this._events) this._events = {};
+
+            // To avoid recursion in the case that type === "newListener"! Before
+            // adding it to the listeners, first emit "newListener".
+            if (this._events.newListener)
+              this.emit(
+                'newListener',
+                type,
+                isFunction(listener.listener) ? listener.listener : listener,
+              );
+
+            if (!this._events[type])
+              // Optimize the case of one listener. Don't need the extra array object.
+              this._events[type] = listener;
+            else if (isObject(this._events[type]))
+              // If we've already got an array, just append.
+              this._events[type].push(listener);
+            else
+              // Adding the second element, need to change to array.
+              this._events[type] = [this._events[type], listener];
+
+            // Check for listener leak
+            if (isObject(this._events[type]) && !this._events[type].warned) {
+              if (!isUndefined(this._maxListeners)) {
+                m = this._maxListeners;
+              } else {
+                m = EventEmitter.defaultMaxListeners;
+              }
+
+              if (m && m > 0 && this._events[type].length > m) {
+                this._events[type].warned = true;
+                console.error(
+                  '(node) warning: possible EventEmitter memory ' +
+                    'leak detected. %d listeners added. ' +
+                    'Use emitter.setMaxListeners() to increase limit.',
+                  this._events[type].length,
+                );
+                if (typeof console.trace === 'function') {
+                  // not supported in IE 10
+                  console.trace();
+                }
+              }
+            }
+
+            return this;
+          };
+
+          EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+          EventEmitter.prototype.once = function(type, listener) {
+            if (!isFunction(listener))
+              throw TypeError('listener must be a function');
+
+            var fired = false;
+
+            function g() {
+              this.removeListener(type, g);
+
+              if (!fired) {
+                fired = true;
+                listener.apply(this, arguments);
+              }
+            }
+
+            g.listener = listener;
+            this.on(type, g);
+
+            return this;
+          };
+
+          // emits a 'removeListener' event iff the listener was removed
+          EventEmitter.prototype.removeListener = function(type, listener) {
+            var list, position, length, i;
+
+            if (!isFunction(listener))
+              throw TypeError('listener must be a function');
+
+            if (!this._events || !this._events[type]) return this;
+
+            list = this._events[type];
+            length = list.length;
+            position = -1;
+
+            if (
+              list === listener ||
+              (isFunction(list.listener) && list.listener === listener)
+            ) {
+              delete this._events[type];
+              if (this._events.removeListener)
+                this.emit('removeListener', type, listener);
+            } else if (isObject(list)) {
+              for (i = length; i-- > 0; ) {
+                if (
+                  list[i] === listener ||
+                  (list[i].listener && list[i].listener === listener)
+                ) {
+                  position = i;
+                  break;
+                }
+              }
+
+              if (position < 0) return this;
+
+              if (list.length === 1) {
+                list.length = 0;
+                delete this._events[type];
+              } else {
+                list.splice(position, 1);
+              }
+
+              if (this._events.removeListener)
+                this.emit('removeListener', type, listener);
+            }
+
+            return this;
+          };
+
+          EventEmitter.prototype.removeAllListeners = function(type) {
+            var key, listeners;
+
+            if (!this._events) return this;
+
+            // not listening for removeListener, no need to emit
+            if (!this._events.removeListener) {
+              if (arguments.length === 0) this._events = {};
+              else if (this._events[type]) delete this._events[type];
+              return this;
+            }
+
+            // emit removeListener for all listeners on all events
+            if (arguments.length === 0) {
+              for (key in this._events) {
+                if (key === 'removeListener') continue;
+                this.removeAllListeners(key);
+              }
+              this.removeAllListeners('removeListener');
+              this._events = {};
+              return this;
+            }
+
+            listeners = this._events[type];
+
+            if (isFunction(listeners)) {
+              this.removeListener(type, listeners);
+            } else if (listeners) {
+              // LIFO order
+              while (listeners.length)
+                this.removeListener(type, listeners[listeners.length - 1]);
+            }
+            delete this._events[type];
+
+            return this;
+          };
+
+          EventEmitter.prototype.listeners = function(type) {
+            var ret;
+            if (!this._events || !this._events[type]) ret = [];
+            else if (isFunction(this._events[type])) ret = [this._events[type]];
+            else ret = this._events[type].slice();
+            return ret;
+          };
+
+          EventEmitter.prototype.listenerCount = function(type) {
+            if (this._events) {
+              var evlistener = this._events[type];
+
+              if (isFunction(evlistener)) return 1;
+              else if (evlistener) return evlistener.length;
+            }
+            return 0;
+          };
+
+          EventEmitter.listenerCount = function(emitter, type) {
+            return emitter.listenerCount(type);
+          };
+
+          function isFunction(arg) {
+            return typeof arg === 'function';
+          }
+
+          function isNumber(arg) {
+            return typeof arg === 'number';
+          }
+
+          function isObject(arg) {
+            return typeof arg === 'object' && arg !== null;
+          }
+
+          function isUndefined(arg) {
+            return arg === void 0;
+          }
+        },
+        {},
+      ],
+      71: [
+        function(require, module, exports) {
           'use strict';
           /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -32482,7 +32934,7 @@
         },
         {},
       ],
-      71: [
+      72: [
         function(require, module, exports) {
           (function(process) {
             /**
@@ -32548,9 +33000,9 @@
             module.exports = invariant;
           }.call(this, require('_process')));
         },
-        { _process: 235 },
+        { _process: 236 },
       ],
-      72: [
+      73: [
         function(require, module, exports) {
           (function(process) {
             /**
@@ -32637,9 +33089,9 @@
             module.exports = warning;
           }.call(this, require('_process')));
         },
-        { './emptyFunction': 70, _process: 235 },
+        { './emptyFunction': 71, _process: 236 },
       ],
-      73: [
+      74: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -33016,15 +33468,15 @@
           })());
         },
         {
-          './getAutocompleteSuggestions': 75,
-          './getDefinition': 76,
-          './getDiagnostics': 77,
-          graphql: 98,
-          'graphql-language-service-utils': 87,
-          'graphql/language/kinds': 108,
+          './getAutocompleteSuggestions': 76,
+          './getDefinition': 77,
+          './getDiagnostics': 78,
+          graphql: 99,
+          'graphql-language-service-utils': 88,
+          'graphql/language/kinds': 109,
         },
       ],
-      74: [
+      75: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -33241,9 +33693,9 @@
             return d[aLength][bLength];
           }
         },
-        { graphql: 98, 'graphql/type/introspection': 121 },
+        { graphql: 99, 'graphql/type/introspection': 122 },
       ],
-      75: [
+      76: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -33939,12 +34391,12 @@
           }
         },
         {
-          './autocompleteUtils': 74,
-          graphql: 98,
-          'graphql-language-service-parser': 83,
+          './autocompleteUtils': 75,
+          graphql: 99,
+          'graphql-language-service-parser': 84,
         },
       ],
-      76: [
+      77: [
         function(require, module, exports) {
           (function(process) {
             'use strict';
@@ -34094,9 +34546,9 @@
             }
           }.call(this, require('_process')));
         },
-        { _process: 235, assert: 38, 'graphql-language-service-utils': 87 },
+        { _process: 236, assert: 38, 'graphql-language-service-utils': 88 },
       ],
-      77: [
+      78: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -34282,12 +34734,12 @@
         },
         {
           assert: 38,
-          graphql: 98,
-          'graphql-language-service-parser': 83,
-          'graphql-language-service-utils': 87,
+          graphql: 99,
+          'graphql-language-service-parser': 84,
+          'graphql-language-service-utils': 88,
         },
       ],
-      78: [
+      79: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -34450,12 +34902,12 @@
           }
         },
         {
-          graphql: 98,
-          'graphql-language-service-utils': 87,
-          'graphql/language/kinds': 108,
+          graphql: 99,
+          'graphql-language-service-utils': 88,
+          'graphql/language/kinds': 109,
         },
       ],
-      79: [
+      80: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -34561,15 +35013,15 @@
           });
         },
         {
-          './GraphQLLanguageService': 73,
-          './autocompleteUtils': 74,
-          './getAutocompleteSuggestions': 75,
-          './getDefinition': 76,
-          './getDiagnostics': 77,
-          './getOutline': 78,
+          './GraphQLLanguageService': 74,
+          './autocompleteUtils': 75,
+          './getAutocompleteSuggestions': 76,
+          './getDefinition': 77,
+          './getDiagnostics': 78,
+          './getOutline': 79,
         },
       ],
-      80: [
+      81: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -34780,7 +35232,7 @@
         },
         {},
       ],
-      81: [
+      82: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -34854,7 +35306,7 @@
         },
         {},
       ],
-      82: [
+      83: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35248,9 +35700,9 @@
             };
           }
         },
-        { './RuleHelpers': 81 },
+        { './RuleHelpers': 82 },
       ],
-      83: [
+      84: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35334,13 +35786,13 @@
           }
         },
         {
-          './CharacterStream': 80,
-          './RuleHelpers': 81,
-          './Rules': 82,
-          './onlineParser': 84,
+          './CharacterStream': 81,
+          './RuleHelpers': 82,
+          './Rules': 83,
+          './onlineParser': 85,
         },
       ],
-      84: [
+      85: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35668,9 +36120,9 @@
             }
           }
         },
-        { './Rules': 82 },
+        { './Rules': 83 },
       ],
-      85: [
+      86: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35774,7 +36226,7 @@
         },
         {},
       ],
-      86: [
+      87: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35835,9 +36287,9 @@
             );
           }
         },
-        { './Range': 85, graphql: 98 },
+        { './Range': 86, graphql: 99 },
       ],
-      87: [
+      88: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35896,12 +36348,12 @@
           });
         },
         {
-          './Range': 85,
-          './getASTNodeAtPosition': 86,
-          './validateWithCustomRules': 88,
+          './Range': 86,
+          './getASTNodeAtPosition': 87,
+          './validateWithCustomRules': 89,
         },
       ],
-      88: [
+      89: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35947,9 +36399,9 @@
    *  
    */
         },
-        { graphql: 98, 'graphql/validation/rules/NoUnusedFragments': 155 },
+        { graphql: 99, 'graphql/validation/rules/NoUnusedFragments': 156 },
       ],
-      89: [
+      90: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36074,9 +36526,9 @@
             name: { value: 'GraphQLError' },
           });
         },
-        { '../language/location': 110 },
+        { '../language/location': 111 },
       ],
-      90: [
+      91: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36116,9 +36568,9 @@
  *  of patent rights can be found in the PATENTS file in the same directory.
  */
         },
-        { '../jsutils/invariant': 100 },
+        { '../jsutils/invariant': 101 },
       ],
-      91: [
+      92: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36162,13 +36614,13 @@
           });
         },
         {
-          './GraphQLError': 89,
-          './formatError': 90,
-          './locatedError': 92,
-          './syntaxError': 93,
+          './GraphQLError': 90,
+          './formatError': 91,
+          './locatedError': 93,
+          './syntaxError': 94,
         },
       ],
-      92: [
+      93: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36211,9 +36663,9 @@
  *  of patent rights can be found in the PATENTS file in the same directory.
  */
         },
-        { './GraphQLError': 89 },
+        { './GraphQLError': 90 },
       ],
-      93: [
+      94: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36290,9 +36742,9 @@
             return Array(len - str.length + 1).join(' ') + str;
           }
         },
-        { '../language/location': 110, './GraphQLError': 89 },
+        { '../language/location': 111, './GraphQLError': 90 },
       ],
-      94: [
+      95: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -37639,20 +38091,20 @@
           }
         },
         {
-          '../error': 91,
-          '../jsutils/invariant': 100,
-          '../jsutils/isNullish': 102,
-          '../language/kinds': 108,
-          '../type/definition': 118,
-          '../type/directives': 119,
-          '../type/introspection': 121,
-          '../type/schema': 123,
-          '../utilities/typeFromAST': 141,
-          './values': 96,
-          iterall: 175,
+          '../error': 92,
+          '../jsutils/invariant': 101,
+          '../jsutils/isNullish': 103,
+          '../language/kinds': 109,
+          '../type/definition': 119,
+          '../type/directives': 120,
+          '../type/introspection': 122,
+          '../type/schema': 124,
+          '../utilities/typeFromAST': 142,
+          './values': 97,
+          iterall: 176,
         },
       ],
-      95: [
+      96: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -37689,9 +38141,9 @@
             },
           });
         },
-        { './execute': 94, './values': 96 },
+        { './execute': 95, './values': 97 },
       ],
-      96: [
+      97: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -38044,23 +38496,23 @@
           }
         },
         {
-          '../error': 91,
-          '../jsutils/find': 99,
-          '../jsutils/invariant': 100,
-          '../jsutils/isInvalid': 101,
-          '../jsutils/isNullish': 102,
-          '../jsutils/keyMap': 103,
-          '../language/kinds': 108,
-          '../language/printer': 112,
-          '../type/definition': 118,
-          '../utilities/isValidJSValue': 136,
-          '../utilities/isValidLiteralValue': 137,
-          '../utilities/typeFromAST': 141,
-          '../utilities/valueFromAST': 142,
-          iterall: 175,
+          '../error': 92,
+          '../jsutils/find': 100,
+          '../jsutils/invariant': 101,
+          '../jsutils/isInvalid': 102,
+          '../jsutils/isNullish': 103,
+          '../jsutils/keyMap': 104,
+          '../language/kinds': 109,
+          '../language/printer': 113,
+          '../type/definition': 119,
+          '../utilities/isValidJSValue': 137,
+          '../utilities/isValidLiteralValue': 138,
+          '../utilities/typeFromAST': 142,
+          '../utilities/valueFromAST': 143,
+          iterall: 176,
         },
       ],
-      97: [
+      98: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -38187,12 +38639,12 @@
           }
         },
         {
-          './execution/execute': 94,
-          './language/parser': 111,
-          './validation/validate': 171,
+          './execution/execute': 95,
+          './language/parser': 112,
+          './validation/validate': 172,
         },
       ],
-      98: [
+      99: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -38974,17 +39426,17 @@
           });
         },
         {
-          './error': 91,
-          './execution': 95,
-          './graphql': 97,
-          './language': 107,
-          './subscription': 115,
-          './type': 120,
-          './utilities': 134,
-          './validation': 143,
+          './error': 92,
+          './execution': 96,
+          './graphql': 98,
+          './language': 108,
+          './subscription': 116,
+          './type': 121,
+          './utilities': 135,
+          './validation': 144,
         },
       ],
-      99: [
+      100: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39011,7 +39463,7 @@
         },
         {},
       ],
-      100: [
+      101: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39036,7 +39488,7 @@
         },
         {},
       ],
-      101: [
+      102: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39062,7 +39514,7 @@
         },
         {},
       ],
-      102: [
+      103: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39088,7 +39540,7 @@
         },
         {},
       ],
-      103: [
+      104: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39136,7 +39588,7 @@
         },
         {},
       ],
-      104: [
+      105: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39178,7 +39630,7 @@
         },
         {},
       ],
-      105: [
+      106: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39218,7 +39670,7 @@
         },
         {},
       ],
-      106: [
+      107: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39314,7 +39766,7 @@
         },
         {},
       ],
-      107: [
+      108: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39441,16 +39893,16 @@
           exports.Kind = Kind;
         },
         {
-          './kinds': 108,
-          './lexer': 109,
-          './location': 110,
-          './parser': 111,
-          './printer': 112,
-          './source': 113,
-          './visitor': 114,
+          './kinds': 109,
+          './lexer': 110,
+          './location': 111,
+          './parser': 112,
+          './printer': 113,
+          './source': 114,
+          './visitor': 115,
         },
       ],
-      108: [
+      109: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39550,7 +40002,7 @@
         },
         {},
       ],
-      109: [
+      110: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -40272,9 +40724,9 @@
             );
           }
         },
-        { '../error': 91 },
+        { '../error': 92 },
       ],
-      110: [
+      111: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -40317,7 +40769,7 @@
         },
         {},
       ],
-      111: [
+      112: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -41443,9 +41895,9 @@
             return nodes;
           }
         },
-        { '../error': 91, './kinds': 108, './lexer': 109, './source': 113 },
+        { '../error': 92, './kinds': 109, './lexer': 110, './source': 114 },
       ],
-      112: [
+      113: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -41818,9 +42270,9 @@
             return maybeString && maybeString.replace(/\n/g, '\n  ');
           }
         },
-        { './visitor': 114 },
+        { './visitor': 115 },
       ],
-      113: [
+      114: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -41857,7 +42309,7 @@
         },
         {},
       ],
-      114: [
+      115: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -42295,7 +42747,7 @@
         },
         {},
       ],
-      115: [
+      116: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -42317,9 +42769,9 @@
             },
           });
         },
-        { './subscribe': 117 },
+        { './subscribe': 118 },
       ],
-      116: [
+      117: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -42413,9 +42865,9 @@
             return { value: value, done: false };
           }
         },
-        { iterall: 175 },
+        { iterall: 176 },
       ],
-      117: [
+      118: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -42647,14 +43099,14 @@
           }
         },
         {
-          '../execution/execute': 94,
-          '../jsutils/invariant': 100,
-          '../type/schema': 123,
-          './mapAsyncIterator': 116,
-          iterall: 175,
+          '../execution/execute': 95,
+          '../jsutils/invariant': 101,
+          '../type/schema': 124,
+          './mapAsyncIterator': 117,
+          iterall: 176,
         },
       ],
-      118: [
+      119: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -43711,13 +44163,13 @@
             GraphQLNonNull.prototype.toString;
         },
         {
-          '../jsutils/invariant': 100,
-          '../jsutils/isNullish': 102,
-          '../language/kinds': 108,
-          '../utilities/assertValidName': 125,
+          '../jsutils/invariant': 101,
+          '../jsutils/isNullish': 103,
+          '../language/kinds': 109,
+          '../utilities/assertValidName': 126,
         },
       ],
-      119: [
+      120: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -43913,13 +44365,13 @@
           ]);
         },
         {
-          '../jsutils/invariant': 100,
-          '../utilities/assertValidName': 125,
-          './definition': 118,
-          './scalars': 122,
+          '../jsutils/invariant': 101,
+          '../utilities/assertValidName': 126,
+          './definition': 119,
+          './scalars': 123,
         },
       ],
-      120: [
+      121: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -44236,14 +44688,14 @@
           });
         },
         {
-          './definition': 118,
-          './directives': 119,
-          './introspection': 121,
-          './scalars': 122,
-          './schema': 123,
+          './definition': 119,
+          './directives': 120,
+          './introspection': 122,
+          './scalars': 123,
+          './schema': 124,
         },
       ],
-      121: [
+      122: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -44877,15 +45329,15 @@
           });
         },
         {
-          '../jsutils/isInvalid': 101,
-          '../language/printer': 112,
-          '../utilities/astFromValue': 126,
-          './definition': 118,
-          './directives': 119,
-          './scalars': 122,
+          '../jsutils/isInvalid': 102,
+          '../language/printer': 113,
+          '../utilities/astFromValue': 127,
+          './definition': 119,
+          './directives': 120,
+          './scalars': 123,
         },
       ],
-      122: [
+      123: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -45054,9 +45506,9 @@
             },
           ));
         },
-        { '../language/kinds': 108, './definition': 118 },
+        { '../language/kinds': 109, './definition': 119 },
       ],
-      123: [
+      124: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -45439,15 +45891,15 @@
           }
         },
         {
-          '../jsutils/find': 99,
-          '../jsutils/invariant': 100,
-          '../utilities/typeComparators': 140,
-          './definition': 118,
-          './directives': 119,
-          './introspection': 121,
+          '../jsutils/find': 100,
+          '../jsutils/invariant': 101,
+          '../utilities/typeComparators': 141,
+          './definition': 119,
+          './directives': 120,
+          './introspection': 122,
         },
       ],
-      124: [
+      125: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -45750,14 +46202,14 @@
           }
         },
         {
-          '../jsutils/find': 99,
-          '../language/kinds': 108,
-          '../type/definition': 118,
-          '../type/introspection': 121,
-          './typeFromAST': 141,
+          '../jsutils/find': 100,
+          '../language/kinds': 109,
+          '../type/definition': 119,
+          '../type/introspection': 122,
+          './typeFromAST': 142,
         },
       ],
-      125: [
+      126: [
         function(require, module, exports) {
           (function(process) {
             'use strict';
@@ -45843,9 +46295,9 @@
             }
           }.call(this, require('_process')));
         },
-        { _process: 235 },
+        { _process: 236 },
       ],
-      126: [
+      127: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -46032,16 +46484,16 @@
  */
         },
         {
-          '../jsutils/invariant': 100,
-          '../jsutils/isInvalid': 101,
-          '../jsutils/isNullish': 102,
-          '../language/kinds': 108,
-          '../type/definition': 118,
-          '../type/scalars': 122,
-          iterall: 175,
+          '../jsutils/invariant': 101,
+          '../jsutils/isInvalid': 102,
+          '../jsutils/isNullish': 103,
+          '../language/kinds': 109,
+          '../type/definition': 119,
+          '../type/scalars': 123,
+          iterall: 176,
         },
       ],
-      127: [
+      128: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -46622,21 +47074,21 @@
           }
         },
         {
-          '../execution/values': 96,
-          '../jsutils/invariant': 100,
-          '../jsutils/keyValMap': 104,
-          '../language/kinds': 108,
-          '../language/lexer': 109,
-          '../language/parser': 111,
-          '../type/definition': 118,
-          '../type/directives': 119,
-          '../type/introspection': 121,
-          '../type/scalars': 122,
-          '../type/schema': 123,
-          './valueFromAST': 142,
+          '../execution/values': 97,
+          '../jsutils/invariant': 101,
+          '../jsutils/keyValMap': 105,
+          '../language/kinds': 109,
+          '../language/lexer': 110,
+          '../language/parser': 112,
+          '../type/definition': 119,
+          '../type/directives': 120,
+          '../type/introspection': 122,
+          '../type/scalars': 123,
+          '../type/schema': 124,
+          './valueFromAST': 143,
         },
       ],
-      128: [
+      129: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -47036,19 +47488,19 @@
           }
         },
         {
-          '../jsutils/invariant': 100,
-          '../jsutils/keyMap': 103,
-          '../jsutils/keyValMap': 104,
-          '../language/parser': 111,
-          '../type/definition': 118,
-          '../type/directives': 119,
-          '../type/introspection': 121,
-          '../type/scalars': 122,
-          '../type/schema': 123,
-          './valueFromAST': 142,
+          '../jsutils/invariant': 101,
+          '../jsutils/keyMap': 104,
+          '../jsutils/keyValMap': 105,
+          '../language/parser': 112,
+          '../type/definition': 119,
+          '../type/directives': 120,
+          '../type/introspection': 122,
+          '../type/scalars': 123,
+          '../type/schema': 124,
+          './valueFromAST': 143,
         },
       ],
-      129: [
+      130: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -47085,7 +47537,7 @@
         },
         {},
       ],
-      130: [
+      131: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -47759,21 +48211,21 @@
           }
         },
         {
-          '../error/GraphQLError': 89,
-          '../jsutils/invariant': 100,
-          '../jsutils/keyMap': 103,
-          '../jsutils/keyValMap': 104,
-          '../language/kinds': 108,
-          '../type/definition': 118,
-          '../type/directives': 119,
-          '../type/introspection': 121,
-          '../type/scalars': 122,
-          '../type/schema': 123,
-          './buildASTSchema': 127,
-          './valueFromAST': 142,
+          '../error/GraphQLError': 90,
+          '../jsutils/invariant': 101,
+          '../jsutils/keyMap': 104,
+          '../jsutils/keyValMap': 105,
+          '../language/kinds': 109,
+          '../type/definition': 119,
+          '../type/directives': 120,
+          '../type/introspection': 122,
+          '../type/scalars': 123,
+          '../type/schema': 124,
+          './buildASTSchema': 128,
+          './valueFromAST': 143,
         },
       ],
-      131: [
+      132: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -48389,9 +48841,9 @@
             return breakingChanges;
           }
         },
-        { '../type/definition': 118, '../type/schema': 123 },
+        { '../type/definition': 119, '../type/schema': 124 },
       ],
-      132: [
+      133: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -48478,14 +48930,14 @@
  */
         },
         {
-          '../error/GraphQLError': 89,
-          '../language/visitor': 114,
-          '../type/definition': 118,
-          '../type/schema': 123,
-          './TypeInfo': 124,
+          '../error/GraphQLError': 90,
+          '../language/visitor': 115,
+          '../type/definition': 119,
+          '../type/schema': 124,
+          './TypeInfo': 125,
         },
       ],
-      133: [
+      134: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -48532,9 +48984,9 @@
  *  of patent rights can be found in the PATENTS file in the same directory.
  */
         },
-        { '../language/kinds': 108 },
+        { '../language/kinds': 109 },
       ],
-      134: [
+      135: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -48746,27 +49198,27 @@
           });
         },
         {
-          './TypeInfo': 124,
-          './assertValidName': 125,
-          './astFromValue': 126,
-          './buildASTSchema': 127,
-          './buildClientSchema': 128,
-          './concatAST': 129,
-          './extendSchema': 130,
-          './findBreakingChanges': 131,
-          './findDeprecatedUsages': 132,
-          './getOperationAST': 133,
-          './introspectionQuery': 135,
-          './isValidJSValue': 136,
-          './isValidLiteralValue': 137,
-          './schemaPrinter': 138,
-          './separateOperations': 139,
-          './typeComparators': 140,
-          './typeFromAST': 141,
-          './valueFromAST': 142,
+          './TypeInfo': 125,
+          './assertValidName': 126,
+          './astFromValue': 127,
+          './buildASTSchema': 128,
+          './buildClientSchema': 129,
+          './concatAST': 130,
+          './extendSchema': 131,
+          './findBreakingChanges': 132,
+          './findDeprecatedUsages': 133,
+          './getOperationAST': 134,
+          './introspectionQuery': 136,
+          './isValidJSValue': 137,
+          './isValidLiteralValue': 138,
+          './schemaPrinter': 139,
+          './separateOperations': 140,
+          './typeComparators': 141,
+          './typeFromAST': 142,
+          './valueFromAST': 143,
         },
       ],
-      135: [
+      136: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -48785,7 +49237,7 @@
         },
         {},
       ],
-      136: [
+      137: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -48927,13 +49379,13 @@
           }
         },
         {
-          '../jsutils/invariant': 100,
-          '../jsutils/isNullish': 102,
-          '../type/definition': 118,
-          iterall: 175,
+          '../jsutils/invariant': 101,
+          '../jsutils/isNullish': 103,
+          '../type/definition': 119,
+          iterall: 176,
         },
       ],
-      137: [
+      138: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49091,14 +49543,14 @@
  */
         },
         {
-          '../jsutils/invariant': 100,
-          '../jsutils/keyMap': 103,
-          '../language/kinds': 108,
-          '../language/printer': 112,
-          '../type/definition': 118,
+          '../jsutils/invariant': 101,
+          '../jsutils/keyMap': 104,
+          '../language/kinds': 109,
+          '../language/printer': 113,
+          '../type/definition': 119,
         },
       ],
-      138: [
+      139: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49512,17 +49964,17 @@
           }
         },
         {
-          '../jsutils/invariant': 100,
-          '../jsutils/isInvalid': 101,
-          '../jsutils/isNullish': 102,
-          '../language/printer': 112,
-          '../type/definition': 118,
-          '../type/directives': 119,
-          '../type/scalars': 122,
-          '../utilities/astFromValue': 126,
+          '../jsutils/invariant': 101,
+          '../jsutils/isInvalid': 102,
+          '../jsutils/isNullish': 103,
+          '../language/printer': 113,
+          '../type/definition': 119,
+          '../type/directives': 120,
+          '../type/scalars': 123,
+          '../utilities/astFromValue': 127,
         },
       ],
-      139: [
+      140: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49627,9 +50079,9 @@
             }
           }
         },
-        { '../language/visitor': 114 },
+        { '../language/visitor': 115 },
       ],
-      140: [
+      141: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49773,9 +50225,9 @@
             return false;
           }
         },
-        { '../type/definition': 118 },
+        { '../type/definition': 119 },
       ],
-      141: [
+      142: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49854,12 +50306,12 @@
           var typeFromAST = (exports.typeFromAST = typeFromASTImpl);
         },
         {
-          '../jsutils/invariant': 100,
-          '../language/kinds': 108,
-          '../type/definition': 118,
+          '../jsutils/invariant': 101,
+          '../language/kinds': 109,
+          '../type/definition': 119,
         },
       ],
-      142: [
+      143: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50077,15 +50529,15 @@
           }
         },
         {
-          '../jsutils/invariant': 100,
-          '../jsutils/isInvalid': 101,
-          '../jsutils/isNullish': 102,
-          '../jsutils/keyMap': 103,
-          '../language/kinds': 108,
-          '../type/definition': 118,
+          '../jsutils/invariant': 101,
+          '../jsutils/isInvalid': 102,
+          '../jsutils/isNullish': 103,
+          '../jsutils/keyMap': 104,
+          '../language/kinds': 109,
+          '../type/definition': 119,
         },
       ],
-      143: [
+      144: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50351,37 +50803,37 @@
           });
         },
         {
-          './rules/ArgumentsOfCorrectType': 144,
-          './rules/DefaultValuesOfCorrectType': 145,
-          './rules/FieldsOnCorrectType': 146,
-          './rules/FragmentsOnCompositeTypes': 147,
-          './rules/KnownArgumentNames': 148,
-          './rules/KnownDirectives': 149,
-          './rules/KnownFragmentNames': 150,
-          './rules/KnownTypeNames': 151,
-          './rules/LoneAnonymousOperation': 152,
-          './rules/NoFragmentCycles': 153,
-          './rules/NoUndefinedVariables': 154,
-          './rules/NoUnusedFragments': 155,
-          './rules/NoUnusedVariables': 156,
-          './rules/OverlappingFieldsCanBeMerged': 157,
-          './rules/PossibleFragmentSpreads': 158,
-          './rules/ProvidedNonNullArguments': 159,
-          './rules/ScalarLeafs': 160,
-          './rules/SingleFieldSubscriptions': 161,
-          './rules/UniqueArgumentNames': 162,
-          './rules/UniqueDirectivesPerLocation': 163,
-          './rules/UniqueFragmentNames': 164,
-          './rules/UniqueInputFieldNames': 165,
-          './rules/UniqueOperationNames': 166,
-          './rules/UniqueVariableNames': 167,
-          './rules/VariablesAreInputTypes': 168,
-          './rules/VariablesInAllowedPosition': 169,
-          './specifiedRules': 170,
-          './validate': 171,
+          './rules/ArgumentsOfCorrectType': 145,
+          './rules/DefaultValuesOfCorrectType': 146,
+          './rules/FieldsOnCorrectType': 147,
+          './rules/FragmentsOnCompositeTypes': 148,
+          './rules/KnownArgumentNames': 149,
+          './rules/KnownDirectives': 150,
+          './rules/KnownFragmentNames': 151,
+          './rules/KnownTypeNames': 152,
+          './rules/LoneAnonymousOperation': 153,
+          './rules/NoFragmentCycles': 154,
+          './rules/NoUndefinedVariables': 155,
+          './rules/NoUnusedFragments': 156,
+          './rules/NoUnusedVariables': 157,
+          './rules/OverlappingFieldsCanBeMerged': 158,
+          './rules/PossibleFragmentSpreads': 159,
+          './rules/ProvidedNonNullArguments': 160,
+          './rules/ScalarLeafs': 161,
+          './rules/SingleFieldSubscriptions': 162,
+          './rules/UniqueArgumentNames': 163,
+          './rules/UniqueDirectivesPerLocation': 164,
+          './rules/UniqueFragmentNames': 165,
+          './rules/UniqueInputFieldNames': 166,
+          './rules/UniqueOperationNames': 167,
+          './rules/UniqueVariableNames': 168,
+          './rules/VariablesAreInputTypes': 169,
+          './rules/VariablesInAllowedPosition': 170,
+          './specifiedRules': 171,
+          './validate': 172,
         },
       ],
-      144: [
+      145: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50452,12 +50904,12 @@
           }
         },
         {
-          '../../error': 91,
-          '../../language/printer': 112,
-          '../../utilities/isValidLiteralValue': 137,
+          '../../error': 92,
+          '../../language/printer': 113,
+          '../../utilities/isValidLiteralValue': 138,
         },
       ],
-      145: [
+      146: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50567,13 +51019,13 @@
           }
         },
         {
-          '../../error': 91,
-          '../../language/printer': 112,
-          '../../type/definition': 118,
-          '../../utilities/isValidLiteralValue': 137,
+          '../../error': 92,
+          '../../language/printer': 113,
+          '../../type/definition': 119,
+          '../../utilities/isValidLiteralValue': 138,
         },
       ],
-      146: [
+      147: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50739,13 +51191,13 @@
           }
         },
         {
-          '../../error': 91,
-          '../../jsutils/quotedOrList': 105,
-          '../../jsutils/suggestionList': 106,
-          '../../type/definition': 118,
+          '../../error': 92,
+          '../../jsutils/quotedOrList': 106,
+          '../../jsutils/suggestionList': 107,
+          '../../type/definition': 119,
         },
       ],
-      147: [
+      148: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50836,13 +51288,13 @@
           }
         },
         {
-          '../../error': 91,
-          '../../language/printer': 112,
-          '../../type/definition': 118,
-          '../../utilities/typeFromAST': 141,
+          '../../error': 92,
+          '../../language/printer': 113,
+          '../../type/definition': 119,
+          '../../utilities/typeFromAST': 142,
         },
       ],
-      148: [
+      149: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51012,15 +51464,15 @@
           }
         },
         {
-          '../../error': 91,
-          '../../jsutils/find': 99,
-          '../../jsutils/invariant': 100,
-          '../../jsutils/quotedOrList': 105,
-          '../../jsutils/suggestionList': 106,
-          '../../language/kinds': 108,
+          '../../error': 92,
+          '../../jsutils/find': 100,
+          '../../jsutils/invariant': 101,
+          '../../jsutils/quotedOrList': 106,
+          '../../jsutils/suggestionList': 107,
+          '../../language/kinds': 109,
         },
       ],
-      149: [
+      150: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51189,13 +51641,13 @@
           }
         },
         {
-          '../../error': 91,
-          '../../jsutils/find': 99,
-          '../../language/kinds': 108,
-          '../../type/directives': 119,
+          '../../error': 92,
+          '../../jsutils/find': 100,
+          '../../language/kinds': 109,
+          '../../type/directives': 120,
         },
       ],
-      150: [
+      151: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51242,9 +51694,9 @@
             };
           }
         },
-        { '../../error': 91 },
+        { '../../error': 92 },
       ],
-      151: [
+      152: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51333,12 +51785,12 @@
           }
         },
         {
-          '../../error': 91,
-          '../../jsutils/quotedOrList': 105,
-          '../../jsutils/suggestionList': 106,
+          '../../error': 92,
+          '../../jsutils/quotedOrList': 106,
+          '../../jsutils/suggestionList': 107,
         },
       ],
-      152: [
+      153: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51391,9 +51843,9 @@
             };
           }
         },
-        { '../../error': 91, '../../language/kinds': 108 },
+        { '../../error': 92, '../../language/kinds': 109 },
       ],
-      153: [
+      154: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51499,9 +51951,9 @@
             }
           }
         },
-        { '../../error': 91 },
+        { '../../error': 92 },
       ],
-      154: [
+      155: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51572,9 +52024,9 @@
             };
           }
         },
-        { '../../error': 91 },
+        { '../../error': 92 },
       ],
-      155: [
+      156: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51644,9 +52096,9 @@
             };
           }
         },
-        { '../../error': 91 },
+        { '../../error': 92 },
       ],
-      156: [
+      157: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51720,9 +52172,9 @@
             };
           }
         },
-        { '../../error': 91 },
+        { '../../error': 92 },
       ],
-      157: [
+      158: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -52637,15 +53089,15 @@
           }
         },
         {
-          '../../error': 91,
-          '../../jsutils/find': 99,
-          '../../language/kinds': 108,
-          '../../language/printer': 112,
-          '../../type/definition': 118,
-          '../../utilities/typeFromAST': 141,
+          '../../error': 92,
+          '../../jsutils/find': 100,
+          '../../language/kinds': 109,
+          '../../language/printer': 113,
+          '../../type/definition': 119,
+          '../../utilities/typeFromAST': 142,
         },
       ],
-      158: [
+      159: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -52767,12 +53219,12 @@
           }
         },
         {
-          '../../error': 91,
-          '../../utilities/typeComparators': 140,
-          '../../utilities/typeFromAST': 141,
+          '../../error': 92,
+          '../../utilities/typeComparators': 141,
+          '../../utilities/typeFromAST': 142,
         },
       ],
-      159: [
+      160: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -52906,12 +53358,12 @@
           }
         },
         {
-          '../../error': 91,
-          '../../jsutils/keyMap': 103,
-          '../../type/definition': 118,
+          '../../error': 92,
+          '../../jsutils/keyMap': 104,
+          '../../type/definition': 119,
         },
       ],
-      160: [
+      161: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -52992,9 +53444,9 @@
             };
           }
         },
-        { '../../error': 91, '../../type/definition': 118 },
+        { '../../error': 92, '../../type/definition': 119 },
       ],
-      161: [
+      162: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53045,9 +53497,9 @@
             };
           }
         },
-        { '../../error': 91 },
+        { '../../error': 92 },
       ],
-      162: [
+      163: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53103,9 +53555,9 @@
             };
           }
         },
-        { '../../error': 91 },
+        { '../../error': 92 },
       ],
-      163: [
+      164: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53166,9 +53618,9 @@
             };
           }
         },
-        { '../../error': 91 },
+        { '../../error': 92 },
       ],
-      164: [
+      165: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53220,9 +53672,9 @@
             };
           }
         },
-        { '../../error': 91 },
+        { '../../error': 92 },
       ],
-      165: [
+      166: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53285,9 +53737,9 @@
             };
           }
         },
-        { '../../error': 91 },
+        { '../../error': 92 },
       ],
-      166: [
+      167: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53347,9 +53799,9 @@
             };
           }
         },
-        { '../../error': 91 },
+        { '../../error': 92 },
       ],
-      167: [
+      168: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53403,9 +53855,9 @@
             };
           }
         },
-        { '../../error': 91 },
+        { '../../error': 92 },
       ],
-      168: [
+      169: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53474,13 +53926,13 @@
           }
         },
         {
-          '../../error': 91,
-          '../../language/printer': 112,
-          '../../type/definition': 118,
-          '../../utilities/typeFromAST': 141,
+          '../../error': 92,
+          '../../language/printer': 113,
+          '../../type/definition': 119,
+          '../../utilities/typeFromAST': 142,
         },
       ],
-      169: [
+      170: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53583,13 +54035,13 @@
           }
         },
         {
-          '../../error': 91,
-          '../../type/definition': 118,
-          '../../utilities/typeComparators': 140,
-          '../../utilities/typeFromAST': 141,
+          '../../error': 92,
+          '../../type/definition': 119,
+          '../../utilities/typeComparators': 141,
+          '../../utilities/typeFromAST': 142,
         },
       ],
-      170: [
+      171: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53746,35 +54198,35 @@
           // Spec Section: "Lone Anonymous Operation"
         },
         {
-          './rules/ArgumentsOfCorrectType': 144,
-          './rules/DefaultValuesOfCorrectType': 145,
-          './rules/FieldsOnCorrectType': 146,
-          './rules/FragmentsOnCompositeTypes': 147,
-          './rules/KnownArgumentNames': 148,
-          './rules/KnownDirectives': 149,
-          './rules/KnownFragmentNames': 150,
-          './rules/KnownTypeNames': 151,
-          './rules/LoneAnonymousOperation': 152,
-          './rules/NoFragmentCycles': 153,
-          './rules/NoUndefinedVariables': 154,
-          './rules/NoUnusedFragments': 155,
-          './rules/NoUnusedVariables': 156,
-          './rules/OverlappingFieldsCanBeMerged': 157,
-          './rules/PossibleFragmentSpreads': 158,
-          './rules/ProvidedNonNullArguments': 159,
-          './rules/ScalarLeafs': 160,
-          './rules/SingleFieldSubscriptions': 161,
-          './rules/UniqueArgumentNames': 162,
-          './rules/UniqueDirectivesPerLocation': 163,
-          './rules/UniqueFragmentNames': 164,
-          './rules/UniqueInputFieldNames': 165,
-          './rules/UniqueOperationNames': 166,
-          './rules/UniqueVariableNames': 167,
-          './rules/VariablesAreInputTypes': 168,
-          './rules/VariablesInAllowedPosition': 169,
+          './rules/ArgumentsOfCorrectType': 145,
+          './rules/DefaultValuesOfCorrectType': 146,
+          './rules/FieldsOnCorrectType': 147,
+          './rules/FragmentsOnCompositeTypes': 148,
+          './rules/KnownArgumentNames': 149,
+          './rules/KnownDirectives': 150,
+          './rules/KnownFragmentNames': 151,
+          './rules/KnownTypeNames': 152,
+          './rules/LoneAnonymousOperation': 153,
+          './rules/NoFragmentCycles': 154,
+          './rules/NoUndefinedVariables': 155,
+          './rules/NoUnusedFragments': 156,
+          './rules/NoUnusedVariables': 157,
+          './rules/OverlappingFieldsCanBeMerged': 158,
+          './rules/PossibleFragmentSpreads': 159,
+          './rules/ProvidedNonNullArguments': 160,
+          './rules/ScalarLeafs': 161,
+          './rules/SingleFieldSubscriptions': 162,
+          './rules/UniqueArgumentNames': 163,
+          './rules/UniqueDirectivesPerLocation': 164,
+          './rules/UniqueFragmentNames': 165,
+          './rules/UniqueInputFieldNames': 166,
+          './rules/UniqueOperationNames': 167,
+          './rules/UniqueVariableNames': 168,
+          './rules/VariablesAreInputTypes': 169,
+          './rules/VariablesInAllowedPosition': 170,
         },
       ],
-      171: [
+      172: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -54072,16 +54524,16 @@
           })());
         },
         {
-          '../error': 91,
-          '../jsutils/invariant': 100,
-          '../language/kinds': 108,
-          '../language/visitor': 114,
-          '../type/schema': 123,
-          '../utilities/TypeInfo': 124,
-          './specifiedRules': 170,
+          '../error': 92,
+          '../jsutils/invariant': 101,
+          '../language/kinds': 109,
+          '../language/visitor': 115,
+          '../type/schema': 124,
+          '../utilities/TypeInfo': 125,
+          './specifiedRules': 171,
         },
       ],
-      172: [
+      173: [
         function(require, module, exports) {
           /*!
  * hotkeys-js v3.3.8
@@ -54517,7 +54969,7 @@
         },
         {},
       ],
-      173: [
+      174: [
         function(require, module, exports) {
           /*! hotkeys-js v3.3.8 | MIT (c) 2018 kenny wong <wowohoo@qq.com> | http://jaywcjlove.github.io/hotkeys */
           'use strict';
@@ -54815,7 +55267,7 @@
         },
         {},
       ],
-      174: [
+      175: [
         function(require, module, exports) {
           (function(process) {
             if (process.env.NODE_ENV === 'production') {
@@ -54826,12 +55278,12 @@
           }.call(this, require('_process')));
         },
         {
-          './dist/hotkeys.common.js': 172,
-          './dist/hotkeys.common.min.js': 173,
-          _process: 235,
+          './dist/hotkeys.common.js': 173,
+          './dist/hotkeys.common.min.js': 174,
+          _process: 236,
         },
       ],
-      175: [
+      176: [
         function(require, module, exports) {
           /**
  * Copyright (c) 2016, Lee Byron
@@ -55497,7 +55949,7 @@
         },
         {},
       ],
-      176: [
+      177: [
         function(require, module, exports) {
           'use strict';
           ////////////////////////////////////////////////////////////////////////////////
@@ -56191,9 +56643,9 @@
 
           module.exports = LinkifyIt;
         },
-        { './lib/re': 177 },
+        { './lib/re': 178 },
       ],
-      177: [
+      178: [
         function(require, module, exports) {
           'use strict';
           module.exports = function(opts) {
@@ -56415,20 +56867,20 @@
           };
         },
         {
-          'uc.micro/categories/Cc/regex': 243,
-          'uc.micro/categories/P/regex': 245,
-          'uc.micro/categories/Z/regex': 246,
-          'uc.micro/properties/Any/regex': 248,
+          'uc.micro/categories/Cc/regex': 244,
+          'uc.micro/categories/P/regex': 246,
+          'uc.micro/categories/Z/regex': 247,
+          'uc.micro/properties/Any/regex': 249,
         },
       ],
-      178: [
+      179: [
         function(require, module, exports) {
           'use strict';
           module.exports = require('./lib/');
         },
-        { './lib/': 187 },
+        { './lib/': 188 },
       ],
-      179: [
+      180: [
         function(require, module, exports) {
           // HTML5 entities map: { name -> utf16string }
           //
@@ -56438,7 +56890,7 @@
         },
         { 'entities/maps/entities.json': 69 },
       ],
-      180: [
+      181: [
         function(require, module, exports) {
           // List of valid html blocks names, accorting to commonmark spec
           // http://jgm.github.io/CommonMark/spec.html#html-blocks
@@ -56512,7 +56964,7 @@
         },
         {},
       ],
-      181: [
+      182: [
         function(require, module, exports) {
           // Regexps to match html elements
 
@@ -56561,7 +57013,7 @@
         },
         {},
       ],
-      182: [
+      183: [
         function(require, module, exports) {
           // Utilities
           //
@@ -56879,13 +57331,13 @@
           exports.normalizeReference = normalizeReference;
         },
         {
-          './entities': 179,
-          mdurl: 233,
-          'uc.micro': 247,
-          'uc.micro/categories/P/regex': 245,
+          './entities': 180,
+          mdurl: 234,
+          'uc.micro': 248,
+          'uc.micro/categories/P/regex': 246,
         },
       ],
-      183: [
+      184: [
         function(require, module, exports) {
           // Just a shortcut for bulk export
           'use strict';
@@ -56894,12 +57346,12 @@
           exports.parseLinkTitle = require('./parse_link_title');
         },
         {
-          './parse_link_destination': 184,
-          './parse_link_label': 185,
-          './parse_link_title': 186,
+          './parse_link_destination': 185,
+          './parse_link_label': 186,
+          './parse_link_title': 187,
         },
       ],
-      184: [
+      185: [
         function(require, module, exports) {
           // Parse link destination
           //
@@ -56992,9 +57444,9 @@
             return result;
           };
         },
-        { '../common/utils': 182 },
+        { '../common/utils': 183 },
       ],
-      185: [
+      186: [
         function(require, module, exports) {
           // Parse link label
           //
@@ -57053,7 +57505,7 @@
         },
         {},
       ],
-      186: [
+      187: [
         function(require, module, exports) {
           // Parse link title
           //
@@ -57116,9 +57568,9 @@
             return result;
           };
         },
-        { '../common/utils': 182 },
+        { '../common/utils': 183 },
       ],
-      187: [
+      188: [
         function(require, module, exports) {
           // Main parser class
 
@@ -57729,21 +58181,21 @@
           module.exports = MarkdownIt;
         },
         {
-          './common/utils': 182,
-          './helpers': 183,
-          './parser_block': 188,
-          './parser_core': 189,
-          './parser_inline': 190,
-          './presets/commonmark': 191,
-          './presets/default': 192,
-          './presets/zero': 193,
-          './renderer': 194,
-          'linkify-it': 176,
-          mdurl: 233,
-          punycode: 241,
+          './common/utils': 183,
+          './helpers': 184,
+          './parser_block': 189,
+          './parser_core': 190,
+          './parser_inline': 191,
+          './presets/commonmark': 192,
+          './presets/default': 193,
+          './presets/zero': 194,
+          './renderer': 195,
+          'linkify-it': 177,
+          mdurl: 234,
+          punycode: 242,
         },
       ],
-      188: [
+      189: [
         function(require, module, exports) {
           /** internal
  * class ParserBlock
@@ -57900,22 +58352,22 @@
           module.exports = ParserBlock;
         },
         {
-          './ruler': 195,
-          './rules_block/blockquote': 196,
-          './rules_block/code': 197,
-          './rules_block/fence': 198,
-          './rules_block/heading': 199,
-          './rules_block/hr': 200,
-          './rules_block/html_block': 201,
-          './rules_block/lheading': 202,
-          './rules_block/list': 203,
-          './rules_block/paragraph': 204,
-          './rules_block/reference': 205,
-          './rules_block/state_block': 206,
-          './rules_block/table': 207,
+          './ruler': 196,
+          './rules_block/blockquote': 197,
+          './rules_block/code': 198,
+          './rules_block/fence': 199,
+          './rules_block/heading': 200,
+          './rules_block/hr': 201,
+          './rules_block/html_block': 202,
+          './rules_block/lheading': 203,
+          './rules_block/list': 204,
+          './rules_block/paragraph': 205,
+          './rules_block/reference': 206,
+          './rules_block/state_block': 207,
+          './rules_block/table': 208,
         },
       ],
-      189: [
+      190: [
         function(require, module, exports) {
           /** internal
  * class Core
@@ -57971,17 +58423,17 @@
           module.exports = Core;
         },
         {
-          './ruler': 195,
-          './rules_core/block': 208,
-          './rules_core/inline': 209,
-          './rules_core/linkify': 210,
-          './rules_core/normalize': 211,
-          './rules_core/replacements': 212,
-          './rules_core/smartquotes': 213,
-          './rules_core/state_core': 214,
+          './ruler': 196,
+          './rules_core/block': 209,
+          './rules_core/inline': 210,
+          './rules_core/linkify': 211,
+          './rules_core/normalize': 212,
+          './rules_core/replacements': 213,
+          './rules_core/smartquotes': 214,
+          './rules_core/state_core': 215,
         },
       ],
-      190: [
+      191: [
         function(require, module, exports) {
           /** internal
  * class ParserInline
@@ -58166,24 +58618,24 @@
           module.exports = ParserInline;
         },
         {
-          './ruler': 195,
-          './rules_inline/autolink': 215,
-          './rules_inline/backticks': 216,
-          './rules_inline/balance_pairs': 217,
-          './rules_inline/emphasis': 218,
-          './rules_inline/entity': 219,
-          './rules_inline/escape': 220,
-          './rules_inline/html_inline': 221,
-          './rules_inline/image': 222,
-          './rules_inline/link': 223,
-          './rules_inline/newline': 224,
-          './rules_inline/state_inline': 225,
-          './rules_inline/strikethrough': 226,
-          './rules_inline/text': 227,
-          './rules_inline/text_collapse': 228,
+          './ruler': 196,
+          './rules_inline/autolink': 216,
+          './rules_inline/backticks': 217,
+          './rules_inline/balance_pairs': 218,
+          './rules_inline/emphasis': 219,
+          './rules_inline/entity': 220,
+          './rules_inline/escape': 221,
+          './rules_inline/html_inline': 222,
+          './rules_inline/image': 223,
+          './rules_inline/link': 224,
+          './rules_inline/newline': 225,
+          './rules_inline/state_inline': 226,
+          './rules_inline/strikethrough': 227,
+          './rules_inline/text': 228,
+          './rules_inline/text_collapse': 229,
         },
       ],
-      191: [
+      192: [
         function(require, module, exports) {
           // Commonmark default options
 
@@ -58257,7 +58709,7 @@
         },
         {},
       ],
-      192: [
+      193: [
         function(require, module, exports) {
           // markdown-it default options
 
@@ -58300,7 +58752,7 @@
         },
         {},
       ],
-      193: [
+      194: [
         function(require, module, exports) {
           // "Zero" preset, with nothing enabled. Useful for manual configuring of simple
           // modes. For example, to parse bold/italic only.
@@ -58353,7 +58805,7 @@
         },
         {},
       ],
-      194: [
+      195: [
         function(require, module, exports) {
           /**
  * class Renderer
@@ -58730,9 +59182,9 @@
 
           module.exports = Renderer;
         },
-        { './common/utils': 182 },
+        { './common/utils': 183 },
       ],
-      195: [
+      196: [
         function(require, module, exports) {
           /**
  * class Ruler
@@ -59102,7 +59554,7 @@
         },
         {},
       ],
-      196: [
+      197: [
         function(require, module, exports) {
           // Block quotes
 
@@ -59420,9 +59872,9 @@
             return true;
           };
         },
-        { '../common/utils': 182 },
+        { '../common/utils': 183 },
       ],
-      197: [
+      198: [
         function(require, module, exports) {
           // Code block (4 spaces padded)
 
@@ -59470,7 +59922,7 @@
         },
         {},
       ],
-      198: [
+      199: [
         function(require, module, exports) {
           // fences (``` lang, ~~~ lang)
 
@@ -59589,7 +60041,7 @@
         },
         {},
       ],
-      199: [
+      200: [
         function(require, module, exports) {
           // heading (#, ##, ...)
 
@@ -59656,9 +60108,9 @@
             return true;
           };
         },
-        { '../common/utils': 182 },
+        { '../common/utils': 183 },
       ],
-      200: [
+      201: [
         function(require, module, exports) {
           // Horizontal rule
 
@@ -59719,9 +60171,9 @@
             return true;
           };
         },
-        { '../common/utils': 182 },
+        { '../common/utils': 183 },
       ],
-      201: [
+      202: [
         function(require, module, exports) {
           // HTML block
 
@@ -59834,9 +60286,9 @@
             return true;
           };
         },
-        { '../common/html_blocks': 180, '../common/html_re': 181 },
+        { '../common/html_blocks': 181, '../common/html_re': 182 },
       ],
-      202: [
+      203: [
         function(require, module, exports) {
           // lheading (---, ===)
 
@@ -59945,7 +60397,7 @@
         },
         {},
       ],
-      203: [
+      204: [
         function(require, module, exports) {
           // Lists
 
@@ -60319,9 +60771,9 @@
             return true;
           };
         },
-        { '../common/utils': 182 },
+        { '../common/utils': 183 },
       ],
-      204: [
+      205: [
         function(require, module, exports) {
           // Paragraph
 
@@ -60389,7 +60841,7 @@
         },
         {},
       ],
-      205: [
+      206: [
         function(require, module, exports) {
           'use strict';
           var normalizeReference = require('../common/utils')
@@ -60623,9 +61075,9 @@
             return true;
           };
         },
-        { '../common/utils': 182 },
+        { '../common/utils': 183 },
       ],
-      206: [
+      207: [
         function(require, module, exports) {
           // Parser state class
 
@@ -60897,9 +61349,9 @@
 
           module.exports = StateBlock;
         },
-        { '../common/utils': 182, '../token': 229 },
+        { '../common/utils': 183, '../token': 230 },
       ],
-      207: [
+      208: [
         function(require, module, exports) {
           // GFM table, non-standard
 
@@ -61148,9 +61600,9 @@
             return true;
           };
         },
-        { '../common/utils': 182 },
+        { '../common/utils': 183 },
       ],
-      208: [
+      209: [
         function(require, module, exports) {
           'use strict';
           module.exports = function block(state) {
@@ -61174,7 +61626,7 @@
         },
         {},
       ],
-      209: [
+      210: [
         function(require, module, exports) {
           'use strict';
           module.exports = function inline(state) {
@@ -61199,7 +61651,7 @@
         },
         {},
       ],
-      210: [
+      211: [
         function(require, module, exports) {
           // Replace link-like texts with link nodes.
           //
@@ -61368,9 +61820,9 @@
             }
           };
         },
-        { '../common/utils': 182 },
+        { '../common/utils': 183 },
       ],
-      211: [
+      212: [
         function(require, module, exports) {
           // Normalize input string
 
@@ -61392,7 +61844,7 @@
         },
         {},
       ],
-      212: [
+      213: [
         function(require, module, exports) {
           // Simple typographyc replacements
           //
@@ -61513,7 +61965,7 @@
         },
         {},
       ],
-      213: [
+      214: [
         function(require, module, exports) {
           // Convert straight quotation marks to typographic ones
           //
@@ -61759,9 +62211,9 @@
             }
           };
         },
-        { '../common/utils': 182 },
+        { '../common/utils': 183 },
       ],
-      214: [
+      215: [
         function(require, module, exports) {
           // Core state object
           //
@@ -61781,9 +62233,9 @@
 
           module.exports = StateCore;
         },
-        { '../token': 229 },
+        { '../token': 230 },
       ],
-      215: [
+      216: [
         function(require, module, exports) {
           // Process autolinks '<protocol:...>'
 
@@ -61870,7 +62322,7 @@
         },
         {},
       ],
-      216: [
+      217: [
         function(require, module, exports) {
           // Parse backticks
 
@@ -61934,7 +62386,7 @@
         },
         {},
       ],
-      217: [
+      218: [
         function(require, module, exports) {
           // For each opening emphasis-like marker find a matching closing one
           //
@@ -61988,7 +62440,7 @@
         },
         {},
       ],
-      218: [
+      219: [
         function(require, module, exports) {
           // Process *this* and _that_
           //
@@ -62127,7 +62579,7 @@
         },
         {},
       ],
-      219: [
+      220: [
         function(require, module, exports) {
           // Process html entity - &#123;, &#xAF;, &quot;, ...
 
@@ -62189,9 +62641,9 @@
             return true;
           };
         },
-        { '../common/entities': 179, '../common/utils': 182 },
+        { '../common/entities': 180, '../common/utils': 183 },
       ],
-      220: [
+      221: [
         function(require, module, exports) {
           // Process escaped chars and hardbreaks
 
@@ -62257,9 +62709,9 @@
             return true;
           };
         },
-        { '../common/utils': 182 },
+        { '../common/utils': 183 },
       ],
-      221: [
+      222: [
         function(require, module, exports) {
           // Process html tags
 
@@ -62313,9 +62765,9 @@
             return true;
           };
         },
-        { '../common/html_re': 181 },
+        { '../common/html_re': 182 },
       ],
-      222: [
+      223: [
         function(require, module, exports) {
           // Process ![image](<src> "title")
 
@@ -62499,9 +62951,9 @@
             return true;
           };
         },
-        { '../common/utils': 182 },
+        { '../common/utils': 183 },
       ],
-      223: [
+      224: [
         function(require, module, exports) {
           // Process [link](<to> "stuff")
 
@@ -62677,9 +63129,9 @@
             return true;
           };
         },
-        { '../common/utils': 182 },
+        { '../common/utils': 183 },
       ],
-      224: [
+      225: [
         function(require, module, exports) {
           // Proceess '\n'
 
@@ -62727,9 +63179,9 @@
             return true;
           };
         },
-        { '../common/utils': 182 },
+        { '../common/utils': 183 },
       ],
-      225: [
+      226: [
         function(require, module, exports) {
           // Inline parser state
 
@@ -62871,9 +63323,9 @@
 
           module.exports = StateInline;
         },
-        { '../common/utils': 182, '../token': 229 },
+        { '../common/utils': 183, '../token': 230 },
       ],
-      226: [
+      227: [
         function(require, module, exports) {
           // ~~strike through~~
           //
@@ -63007,7 +63459,7 @@
         },
         {},
       ],
-      227: [
+      228: [
         function(require, module, exports) {
           // Skip text characters for text token, place those to pending buffer
           // and increment current pos
@@ -63106,7 +63558,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      228: [
+      229: [
         function(require, module, exports) {
           // Merge adjacent text nodes into one, and re-calculate all token levels
           //
@@ -63147,7 +63599,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      229: [
+      230: [
         function(require, module, exports) {
           // Token class
 
@@ -63346,7 +63798,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      230: [
+      231: [
         function(require, module, exports) {
           'use strict';
           /* eslint-disable no-bitwise */
@@ -63489,7 +63941,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      231: [
+      232: [
         function(require, module, exports) {
           'use strict';
           var encodeCache = {};
@@ -63596,7 +64048,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      232: [
+      233: [
         function(require, module, exports) {
           'use strict';
           module.exports = function format(url) {
@@ -63623,7 +64075,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      233: [
+      234: [
         function(require, module, exports) {
           'use strict';
           module.exports.encode = require('./encode');
@@ -63631,9 +64083,9 @@ module.exports = function text(state, silent) {
           module.exports.format = require('./format');
           module.exports.parse = require('./parse');
         },
-        { './decode': 230, './encode': 231, './format': 232, './parse': 234 },
+        { './decode': 231, './encode': 232, './format': 233, './parse': 235 },
       ],
-      234: [
+      235: [
         function(require, module, exports) {
           // Copyright Joyent, Inc. and other Node contributors.
           //
@@ -63970,7 +64422,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      235: [
+      236: [
         function(require, module, exports) {
           // shim for using process in browser
           var process = (module.exports = {});
@@ -64167,7 +64619,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      236: [
+      237: [
         function(require, module, exports) {
           (function(process) {
             /**
@@ -64273,13 +64725,13 @@ module.exports = function text(state, silent) {
           }.call(this, require('_process')));
         },
         {
-          './lib/ReactPropTypesSecret': 240,
-          _process: 235,
-          'fbjs/lib/invariant': 71,
-          'fbjs/lib/warning': 72,
+          './lib/ReactPropTypesSecret': 241,
+          _process: 236,
+          'fbjs/lib/invariant': 72,
+          'fbjs/lib/warning': 73,
         },
       ],
-      237: [
+      238: [
         function(require, module, exports) {
           /**
  * Copyright 2013-present, Facebook, Inc.
@@ -64335,9 +64787,9 @@ module.exports = function text(state, silent) {
             return ReactPropTypes;
           };
         },
-        { 'fbjs/lib/emptyFunction': 70, 'fbjs/lib/invariant': 71 },
+        { 'fbjs/lib/emptyFunction': 71, 'fbjs/lib/invariant': 72 },
       ],
-      238: [
+      239: [
         function(require, module, exports) {
           (function(process) {
             /**
@@ -65067,15 +65519,15 @@ module.exports = function text(state, silent) {
           }.call(this, require('_process')));
         },
         {
-          './checkPropTypes': 236,
-          './lib/ReactPropTypesSecret': 240,
-          _process: 235,
-          'fbjs/lib/emptyFunction': 70,
-          'fbjs/lib/invariant': 71,
-          'fbjs/lib/warning': 72,
+          './checkPropTypes': 237,
+          './lib/ReactPropTypesSecret': 241,
+          _process: 236,
+          'fbjs/lib/emptyFunction': 71,
+          'fbjs/lib/invariant': 72,
+          'fbjs/lib/warning': 73,
         },
       ],
-      239: [
+      240: [
         function(require, module, exports) {
           (function(process) {
             /**
@@ -65117,12 +65569,12 @@ module.exports = function text(state, silent) {
           }.call(this, require('_process')));
         },
         {
-          './factoryWithThrowingShims': 237,
-          './factoryWithTypeCheckers': 238,
-          _process: 235,
+          './factoryWithThrowingShims': 238,
+          './factoryWithTypeCheckers': 239,
+          _process: 236,
         },
       ],
-      240: [
+      241: [
         function(require, module, exports) {
           /**
  * Copyright 2013-present, Facebook, Inc.
@@ -65141,7 +65593,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      241: [
+      242: [
         function(require, module, exports) {
           (function(global) {
             /*! https://mths.be/punycode v1.4.1 by @mathias */
@@ -65710,7 +66162,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      242: [
+      243: [
         function(require, module, exports) {
           (function(process, global) {
             'use strict';
@@ -65875,33 +66327,33 @@ module.exports = function text(state, silent) {
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { _process: 235, 'hotkeys-js': 174, 'prop-types': 239 },
+        { _process: 236, 'hotkeys-js': 175, 'prop-types': 240 },
       ],
-      243: [
+      244: [
         function(require, module, exports) {
           module.exports = /[\0-\x1F\x7F-\x9F]/;
         },
         {},
       ],
-      244: [
+      245: [
         function(require, module, exports) {
           module.exports = /[\xAD\u0600-\u0605\u061C\u06DD\u070F\u08E2\u180E\u200B-\u200F\u202A-\u202E\u2060-\u2064\u2066-\u206F\uFEFF\uFFF9-\uFFFB]|\uD804\uDCBD|\uD82F[\uDCA0-\uDCA3]|\uD834[\uDD73-\uDD7A]|\uDB40[\uDC01\uDC20-\uDC7F]/;
         },
         {},
       ],
-      245: [
+      246: [
         function(require, module, exports) {
           module.exports = /[!-#%-\*,-/:;\?@\[-\]_\{\}\xA1\xA7\xAB\xB6\xB7\xBB\xBF\u037E\u0387\u055A-\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A-\u066D\u06D4\u0700-\u070D\u07F7-\u07F9\u0830-\u083E\u085E\u0964\u0965\u0970\u0AF0\u0DF4\u0E4F\u0E5A\u0E5B\u0F04-\u0F12\u0F14\u0F3A-\u0F3D\u0F85\u0FD0-\u0FD4\u0FD9\u0FDA\u104A-\u104F\u10FB\u1360-\u1368\u1400\u166D\u166E\u169B\u169C\u16EB-\u16ED\u1735\u1736\u17D4-\u17D6\u17D8-\u17DA\u1800-\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0-\u1AA6\u1AA8-\u1AAD\u1B5A-\u1B60\u1BFC-\u1BFF\u1C3B-\u1C3F\u1C7E\u1C7F\u1CC0-\u1CC7\u1CD3\u2010-\u2027\u2030-\u2043\u2045-\u2051\u2053-\u205E\u207D\u207E\u208D\u208E\u2308-\u230B\u2329\u232A\u2768-\u2775\u27C5\u27C6\u27E6-\u27EF\u2983-\u2998\u29D8-\u29DB\u29FC\u29FD\u2CF9-\u2CFC\u2CFE\u2CFF\u2D70\u2E00-\u2E2E\u2E30-\u2E44\u3001-\u3003\u3008-\u3011\u3014-\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D-\uA60F\uA673\uA67E\uA6F2-\uA6F7\uA874-\uA877\uA8CE\uA8CF\uA8F8-\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1-\uA9CD\uA9DE\uA9DF\uAA5C-\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uFD3E\uFD3F\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01-\uFF03\uFF05-\uFF0A\uFF0C-\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B-\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F-\uFF65]|\uD800[\uDD00-\uDD02\uDF9F\uDFD0]|\uD801\uDD6F|\uD802[\uDC57\uDD1F\uDD3F\uDE50-\uDE58\uDE7F\uDEF0-\uDEF6\uDF39-\uDF3F\uDF99-\uDF9C]|\uD804[\uDC47-\uDC4D\uDCBB\uDCBC\uDCBE-\uDCC1\uDD40-\uDD43\uDD74\uDD75\uDDC5-\uDDC9\uDDCD\uDDDB\uDDDD-\uDDDF\uDE38-\uDE3D\uDEA9]|\uD805[\uDC4B-\uDC4F\uDC5B\uDC5D\uDCC6\uDDC1-\uDDD7\uDE41-\uDE43\uDE60-\uDE6C\uDF3C-\uDF3E]|\uD807[\uDC41-\uDC45\uDC70\uDC71]|\uD809[\uDC70-\uDC74]|\uD81A[\uDE6E\uDE6F\uDEF5\uDF37-\uDF3B\uDF44]|\uD82F\uDC9F|\uD836[\uDE87-\uDE8B]|\uD83A[\uDD5E\uDD5F]/;
         },
         {},
       ],
-      246: [
+      247: [
         function(require, module, exports) {
           module.exports = /[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]/;
         },
         {},
       ],
-      247: [
+      248: [
         function(require, module, exports) {
           'use strict';
           exports.Any = require('./properties/Any/regex');
@@ -65911,20 +66363,20 @@ module.exports = function text(state, silent) {
           exports.Z = require('./categories/Z/regex');
         },
         {
-          './categories/Cc/regex': 243,
-          './categories/Cf/regex': 244,
-          './categories/P/regex': 245,
-          './categories/Z/regex': 246,
-          './properties/Any/regex': 248,
+          './categories/Cc/regex': 244,
+          './categories/Cf/regex': 245,
+          './categories/P/regex': 246,
+          './categories/Z/regex': 247,
+          './properties/Any/regex': 249,
         },
       ],
-      248: [
+      249: [
         function(require, module, exports) {
           module.exports = /[\0-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]/;
         },
         {},
       ],
-      249: [
+      250: [
         function(require, module, exports) {
           if (typeof Object.create === 'function') {
             // implementation from standard node.js 'util' module
@@ -65952,7 +66404,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      250: [
+      251: [
         function(require, module, exports) {
           module.exports = function isBuffer(arg) {
             return (
@@ -65966,7 +66418,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      251: [
+      252: [
         function(require, module, exports) {
           (function(process, global) {
             // Copyright Joyent, Inc. and other Node contributors.
@@ -66647,7 +67099,7 @@ module.exports = function text(state, silent) {
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { './support/isBuffer': 250, _process: 235, inherits: 249 },
+        { './support/isBuffer': 251, _process: 236, inherits: 250 },
       ],
     },
     {},

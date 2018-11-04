@@ -9,8 +9,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import { buildClientSchema, GraphQLSchema, parse, print } from 'graphql';
-
+import {
+  buildClientSchema,
+  GraphQLScalarType,
+  GraphQLObjectType,
+  GraphQLList,
+  GraphQLSchema,
+  parse,
+  print,
+} from 'graphql';
+import { emitter } from './DocExplorer/TypeDoc';
 import Hotkeys from 'react-hot-keys';
 import { ExecuteButton } from './ExecuteButton';
 import { ToolbarButton } from './ToolbarButton';
@@ -150,8 +158,10 @@ export class GraphiQL extends React.Component {
 
     // Utility for keeping CodeMirror correctly sized.
     this.codeMirrorSizer = new CodeMirrorSizer();
-
     global.g = this;
+    this.statement = emitter.addListener('Statement', data =>
+      this.handleAutoStatement(data),
+    );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -242,6 +252,7 @@ export class GraphiQL extends React.Component {
     this._storage.set('docExplorerWidth', this.state.docExplorerWidth);
     this._storage.set('docExplorerOpen', this.state.docExplorerOpen);
     this._storage.set('historyPaneOpen', this.state.historyPaneOpen);
+    emitter.removeListener(this.statement);
   }
 
   render() {
@@ -1012,6 +1023,63 @@ export class GraphiQL extends React.Component {
     let token = null;
     token = xToken;
     this.setState({ xToken: token });
+  }
+  handleAutoStatement(data) {
+    if (data.queryOrMutation) {
+      this.handleQuery(data);
+    } else {
+      this.handleMutation(data);
+    }
+  }
+  handleQuery(data) {
+    const defaultStatement = 'query Q{';
+    let statement = defaultStatement + data.field.name + '{ ';
+    // 最外层没有做判断直接获取到type下的Fields
+    const fields = data.field.type.getFields();
+    // 遍历fields判断其类型
+    for (const m in fields) {
+      // GraphQLScalarType
+      if (fields[m].type instanceof GraphQLScalarType) {
+        statement += fields[m].name + ' ';
+      } else if (fields[m].type instanceof GraphQLList) {
+        // GraphQLList
+        const contentFields = fields[m].type.ofType.getFields();
+        statement += fields[m].name + '{ ';
+        // 判断GraphQLList下面的每个元素
+        for (const i in contentFields) {
+          if (contentFields[i].type instanceof GraphQLScalarType) {
+            statement += contentFields[i].name + ' ';
+          } else if (contentFields[i].type instanceof GraphQLObjectType) {
+            // GraphQLObjectType
+            statement += contentFields[i].name + '{ id }';
+          } else if (contentFields[i].type instanceof GraphQLList) {
+            // 说明该对象存在item，itemsList为单个获取到的item中的对象
+            statement += contentFields[i].name + '{ ';
+            const itemList = contentFields[i].type.ofType.getFields();
+            for (const j in itemList) {
+              if (itemList[j].type instanceof GraphQLScalarType) {
+                statement += itemList[j].name + ' ';
+              } else if (itemList[j].type instanceof GraphQLObjectType) {
+                statement += itemList[j].name + '{ id }';
+              }
+            }
+            statement += ' }';
+          }
+        }
+        statement += ' }';
+      } else if (fields[m].type instanceof GraphQLObjectType) {
+        // GraphQLObjectType
+        statement += fields[m].name + '{ id }';
+      }
+    }
+    statement += ' } }';
+    console.log(statement);
+    this.setState({ query: statement });
+    this.handlePrettifyQuery();
+  }
+
+  handleMutation(data) {
+    console.log(data);
   }
 }
 

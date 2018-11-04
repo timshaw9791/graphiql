@@ -14,24 +14,24 @@ import PropTypes from 'prop-types';
 
 export default class TextContent extends React.Component {
   static propTypes = {
-    Text: PropTypes.string,
+    text: PropTypes.string,
     className: PropTypes.string,
   };
 
   shouldComponentUpdate(nextProps) {
-    return this.props.Text !== nextProps.Text;
+    return this.props.text !== nextProps.text;
   }
 
   render() {
-    const Text = this.props.Text;
+    const text = this.props.text;
 
-    if (!Text) {
+    if (!text) {
       return <div />;
     }
     return (
       <div
         className={this.props.className}
-        dangerouslySetInnerHTML={{ __html: Text }}
+        dangerouslySetInnerHTML={{ __html: text }}
       />
     );
   }
