@@ -29,8 +29,13 @@ export function handleStatement(data) {
   }
   statement +=
     '(' + setType + ')' + '{' + data.field.name + '(' + parameter + ') {';
-  const fields = data.field.type.getFields();
-  statement += f(fields) + ' } }';
+  if (data.field.type instanceof GraphQLScalarType) {
+    statement += data.field.type + ' ';
+  } else {
+    const fields = data.field.type.getFields();
+    statement += f(fields);
+  }
+  statement += '} }';
   return statement;
 }
 
