@@ -9,15 +9,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import {
-  buildClientSchema,
-  GraphQLScalarType,
-  GraphQLObjectType,
-  GraphQLList,
-  GraphQLSchema,
-  parse,
-  print,
-} from 'graphql';
+import { buildClientSchema, GraphQLSchema, parse, print } from 'graphql';
 import { emitter } from './DocExplorer/TypeDoc';
 import Hotkeys from 'react-hot-keys';
 import { ExecuteButton } from './ExecuteButton';
@@ -43,6 +35,7 @@ import {
   introspectionQuerySansSubscriptions,
 } from '../utility/introspectionQueries';
 import { EditToken } from './EditToken';
+import { handleStatement } from '../utility/handleStatement';
 
 const DEFAULT_DOC_EXPLORER_WIDTH = 350;
 const DEFAULT_VARIABLE_EXPLORER_HEIGHT = 200;
@@ -159,9 +152,15 @@ export class GraphiQL extends React.Component {
     // Utility for keeping CodeMirror correctly sized.
     this.codeMirrorSizer = new CodeMirrorSizer();
     global.g = this;
-    this.statement = emitter.addListener('Statement', data =>
-      this.handleAutoStatement(data),
-    );
+    this.statement = emitter.addListener('Statement', data => {
+      const statement = handleStatement(data);
+      this.setState(
+        {
+          query: statement,
+        },
+        this.handlePrettifyQuery,
+      );
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -466,28 +465,28 @@ export class GraphiQL extends React.Component {
   }
 
   /**
-     * Get the query editor CodeMirror instance.
-     *
-     * @public
-     */
+   * Get the query editor CodeMirror instance.
+   *
+   * @public
+   */
   getQueryEditor() {
     return this.queryEditorComponent.getCodeMirror();
   }
 
   /**
-     * Get the variable editor CodeMirror instance.
-     *
-     * @public
-     */
+   * Get the variable editor CodeMirror instance.
+   *
+   * @public
+   */
   getVariableEditor() {
     return this.variableEditorComponent.getCodeMirror();
   }
 
   /**
-     * Refresh all CodeMirror instances.
-     *
-     * @public
-     */
+   * Refresh all CodeMirror instances.
+   *
+   * @public
+   */
   refresh() {
     this.queryEditorComponent.getCodeMirror().refresh();
     this.variableEditorComponent.getCodeMirror().refresh();
@@ -495,11 +494,11 @@ export class GraphiQL extends React.Component {
   }
 
   /**
-     * Inspect the query, automatically filling in selection sets for non-leaf
-     * fields which do not yet have them.
-     *
-     * @public
-     */
+   * Inspect the query, automatically filling in selection sets for non-leaf
+   * fields which do not yet have them.
+   *
+   * @public
+   */
   autoCompleteLeafs() {
     const { insertions, result } = fillLeafs(
       this.state.schema,
@@ -1023,63 +1022,6 @@ export class GraphiQL extends React.Component {
     let token = null;
     token = xToken;
     this.setState({ xToken: token });
-  }
-  handleAutoStatement(data) {
-    if (data.queryOrMutation) {
-      this.handleQuery(data);
-    } else {
-      this.handleMutation(data);
-    }
-  }
-  handleQuery(data) {
-    const defaultStatement = 'query Q{';
-    let statement = defaultStatement + data.field.name + '{ ';
-    // 最外层没有做判断直接获取到type下的Fields
-    const fields = data.field.type.getFields();
-    // 遍历fields判断其类型
-    for (const m in fields) {
-      // GraphQLScalarType
-      if (fields[m].type instanceof GraphQLScalarType) {
-        statement += fields[m].name + ' ';
-      } else if (fields[m].type instanceof GraphQLList) {
-        // GraphQLList
-        const contentFields = fields[m].type.ofType.getFields();
-        statement += fields[m].name + '{ ';
-        // 判断GraphQLList下面的每个元素
-        for (const i in contentFields) {
-          if (contentFields[i].type instanceof GraphQLScalarType) {
-            statement += contentFields[i].name + ' ';
-          } else if (contentFields[i].type instanceof GraphQLObjectType) {
-            // GraphQLObjectType
-            statement += contentFields[i].name + '{ id }';
-          } else if (contentFields[i].type instanceof GraphQLList) {
-            // 说明该对象存在item，itemsList为单个获取到的item中的对象
-            statement += contentFields[i].name + '{ ';
-            const itemList = contentFields[i].type.ofType.getFields();
-            for (const j in itemList) {
-              if (itemList[j].type instanceof GraphQLScalarType) {
-                statement += itemList[j].name + ' ';
-              } else if (itemList[j].type instanceof GraphQLObjectType) {
-                statement += itemList[j].name + '{ id }';
-              }
-            }
-            statement += ' }';
-          }
-        }
-        statement += ' }';
-      } else if (fields[m].type instanceof GraphQLObjectType) {
-        // GraphQLObjectType
-        statement += fields[m].name + '{ id }';
-      }
-    }
-    statement += ' } }';
-    console.log(statement);
-    this.setState({ query: statement });
-    this.handlePrettifyQuery();
-  }
-
-  handleMutation(data) {
-    console.log(data);
   }
 }
 

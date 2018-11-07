@@ -13,9 +13,6 @@ import MD from 'markdown-it';
 import { normalizeWhitespace } from '../utility/normalizeWhitespace';
 import onHasCompletion from '../utility/onHasCompletion';
 
-const EventEmitter = require('events').EventEmitter;
-const emitter = new EventEmitter();
-
 const md = new MD();
 const AUTO_COMPLETE_AFTER_KEY = /^[a-zA-Z0-9_@(]$/;
 
@@ -75,10 +72,6 @@ export class QueryEditor extends React.Component {
     require('codemirror-graphql/info');
     require('codemirror-graphql/jump');
     require('codemirror-graphql/mode');
-
-    this.autoQuery = emitter.addListener('AutoQuery', msg =>
-      console.log('a' + msg),
-    );
 
     this.editor = CodeMirror(this._node, {
       value: this.props.value || '',
@@ -182,8 +175,6 @@ export class QueryEditor extends React.Component {
     this.editor.off('keyup', this._onKeyUp);
     this.editor.off('hasCompletion', this._onHasCompletion);
     this.editor = null;
-
-    emitter.removeListener(this.autoQuery); // 取消事件
   }
 
   render() {
