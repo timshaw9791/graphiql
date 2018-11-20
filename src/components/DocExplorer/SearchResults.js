@@ -12,6 +12,8 @@ import PropTypes from 'prop-types';
 import Argument from './Argument';
 import TypeLink from './TypeLink';
 import MarkdownContent from './MarkdownContent';
+import { ToolbarButton } from '../ToolbarButton';
+import { emitter } from './TypeDoc';
 
 export default class SearchResults extends React.Component {
   static propTypes = {
@@ -113,6 +115,21 @@ export default class SearchResults extends React.Component {
                 </span>,
                 ')',
               ]}
+              {// 判断type的名称来区分是否显示按钮
+              // Determine the name of type to distinguish whether a button is displayed or not
+              type.name === 'QueryType_JPA' ||
+                type.name === 'Mutation_SpringMVC'
+                ? <ToolbarButton
+                    title={'Statement'}
+                    onClick={() => {
+                      emitter.emit('Statement', {
+                        field,
+                        queryOrMutation: !(type.name === 'Mutation_SpringMVC'),
+                      });
+                    }}
+                    label={'Statement'}
+                  />
+                : ''}
               <MarkdownContent
                 className="doc-type-description"
                 markdown={field.description || 'No Description'}

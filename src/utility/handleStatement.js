@@ -5,12 +5,15 @@ export function handleStatement(data) {
   let setType = '';
   let parameter = '';
   let statement;
+  // 判断是query还是mutation
   if (data.queryOrMutation) {
     statement = 'query get';
   } else {
     statement = 'mutation ';
   }
+  // 加上对象名称组成操作名称
   statement += data.field.name;
+  // 如果对象里有参数那么就循环 添加参数
   if (data.field.args.length) {
     let type = '';
     let args = '';
@@ -26,19 +29,21 @@ export function handleStatement(data) {
       setType += '$' + args + ':' + type + '! ';
       parameter += args + ':$' + args + ' ';
     }
+    statement +=
+      '(' + setType + ')' + '{' + data.field.name + '(' + parameter + ') {';
   }
-  statement +=
-    '(' + setType + ')' + '{' + data.field.name + '(' + parameter + ') {';
+  // 判断 如果是GraphQLScalarType 就加上名字然后返回
   if (data.field.type instanceof GraphQLScalarType) {
-    statement += data.field.type + ' ';
+    statement += '{' + data.field.name + '}';
   } else {
+    // 不是GraphQLScalarType那就是GraphQLObjectType或者是GraphQLList放入递归算法
     const fields = data.field.type.getFields();
-    statement += f(fields);
+    statement += f(fields) + '} }';
   }
-  statement += '} }';
   return statement;
 }
 
+// 递归算法取值然后拼接
 function f(fields) {
   let rs = '';
   for (const m in fields) {
