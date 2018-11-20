@@ -438,8 +438,8 @@
           './DocExplorer/SearchBox': 8,
           './DocExplorer/SearchResults': 9,
           './DocExplorer/TypeDoc': 11,
-          graphql: 100,
-          'prop-types': 241,
+          graphql: 99,
+          'prop-types': 240,
         },
       ],
       2: [
@@ -520,7 +520,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { './DefaultValue': 3, './TypeLink': 12, 'prop-types': 241 },
+        { './DefaultValue': 3, './TypeLink': 12, 'prop-types': 240 },
       ],
       3: [
         function(require, module, exports) {
@@ -588,7 +588,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { graphql: 100, 'prop-types': 241 },
+        { graphql: 99, 'prop-types': 240 },
       ],
       4: [
         function(require, module, exports) {
@@ -819,7 +819,7 @@
           './MarkdownContent': 6,
           './TextContent': 10,
           './TypeLink': 12,
-          'prop-types': 241,
+          'prop-types': 240,
         },
       ],
       5: [
@@ -999,7 +999,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'markdown-it': 180, 'prop-types': 241 },
+        { 'markdown-it': 179, 'prop-types': 240 },
       ],
       7: [
         function(require, module, exports) {
@@ -1212,7 +1212,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { './MarkdownContent': 6, './TypeLink': 12, 'prop-types': 241 },
+        { './MarkdownContent': 6, './TypeLink': 12, 'prop-types': 240 },
       ],
       8: [
         function(require, module, exports) {
@@ -1382,7 +1382,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { '../../utility/debounce': 29, 'prop-types': 241 },
+        { '../../utility/debounce': 29, 'prop-types': 240 },
       ],
       9: [
         function(require, module, exports) {
@@ -1431,10 +1431,6 @@
             var _MarkdownContent = require('./MarkdownContent');
 
             var _MarkdownContent2 = _interopRequireDefault(_MarkdownContent);
-
-            var _ToolbarButton = require('../ToolbarButton');
-
-            var _TypeDoc = require('./TypeDoc');
 
             function _interopRequireDefault(obj) {
               return obj && obj.__esModule ? obj : { default: obj };
@@ -1638,26 +1634,6 @@
                                 ),
                                 ')',
                               ],
-                              // 判断type的名称来区分是否显示按钮
-                              // Determine the name of type to distinguish whether a button is displayed or not
-                              type.name === 'QueryType_JPA' ||
-                                type.name === 'Mutation_SpringMVC'
-                                ? _react2.default.createElement(
-                                    _ToolbarButton.ToolbarButton,
-                                    {
-                                      title: 'Statement',
-                                      onClick: function onClick() {
-                                        _TypeDoc.emitter.emit('Statement', {
-                                          field: field,
-                                          queryOrMutation: !(
-                                            type.name === 'Mutation_SpringMVC'
-                                          ),
-                                        });
-                                      },
-                                      label: 'Statement',
-                                    },
-                                  )
-                                : '',
                               _react2.default.createElement(
                                 _MarkdownContent2.default,
                                 {
@@ -1786,12 +1762,10 @@
           ));
         },
         {
-          '../ToolbarButton': 20,
           './Argument': 2,
           './MarkdownContent': 6,
-          './TypeDoc': 11,
           './TypeLink': 12,
-          'prop-types': 241,
+          'prop-types': 240,
         },
       ],
       10: [
@@ -1938,7 +1912,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 241 },
+        { 'prop-types': 240 },
       ],
       11: [
         function(require, module, exports) {
@@ -2330,7 +2304,8 @@
                 }),
                 // 判断type的名称来区分是否显示按钮
                 // Determine the name of type to distinguish whether a button is displayed or not
-                type.name === 'QueryType_JPA' ||
+                type.name === 'Test' ||
+                  type.name === 'QueryType_JPA' ||
                   type.name === 'Mutation_SpringMVC'
                   ? _react2.default.createElement(
                       _ToolbarButton.ToolbarButton,
@@ -2413,9 +2388,9 @@
           './MarkdownContent': 6,
           './TextContent': 10,
           './TypeLink': 12,
-          events: 71,
-          graphql: 100,
-          'prop-types': 241,
+          events: 70,
+          graphql: 99,
+          'prop-types': 240,
         },
       ],
       12: [
@@ -2583,7 +2558,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { graphql: 100, 'prop-types': 241 },
+        { graphql: 99, 'prop-types': 240 },
       ],
       13: [
         function(require, module, exports) {
@@ -2726,7 +2701,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 241 },
+        { 'prop-types': 240 },
       ],
       14: [
         function(require, module, exports) {
@@ -2988,7 +2963,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 241 },
+        { 'prop-types': 240 },
       ],
       15: [
         function(require, module, exports) {
@@ -3122,8 +3097,6 @@
             var _introspectionQueries = require('../utility/introspectionQueries');
 
             var _EditToken = require('./EditToken');
-
-            var _handleStatement = require('../utility/handleStatement');
 
             function _interopRequireDefault(obj) {
               return obj && obj.__esModule ? obj : { default: obj };
@@ -3302,15 +3275,7 @@
                     this.statement = _TypeDoc.emitter.addListener(
                       'Statement',
                       function(data) {
-                        var statement = (0, _handleStatement.handleStatement)(
-                          data,
-                        );
-                        _this2.setState(
-                          {
-                            query: statement,
-                          },
-                          _this2.handlePrettifyQuery,
-                        );
+                        return _this2.handleAutoStatement(data);
                       },
                     );
                   },
@@ -3744,10 +3709,10 @@
                   },
 
                   /**
-     * Get the query editor CodeMirror instance.
-     *
-     * @public
-     */
+       * Get the query editor CodeMirror instance.
+       *
+       * @public
+       */
                 },
                 {
                   key: 'getQueryEditor',
@@ -3756,10 +3721,10 @@
                   },
 
                   /**
-     * Get the variable editor CodeMirror instance.
-     *
-     * @public
-     */
+       * Get the variable editor CodeMirror instance.
+       *
+       * @public
+       */
                 },
                 {
                   key: 'getVariableEditor',
@@ -3768,10 +3733,10 @@
                   },
 
                   /**
-     * Refresh all CodeMirror instances.
-     *
-     * @public
-     */
+       * Refresh all CodeMirror instances.
+       *
+       * @public
+       */
                 },
                 {
                   key: 'refresh',
@@ -3782,11 +3747,11 @@
                   },
 
                   /**
-     * Inspect the query, automatically filling in selection sets for non-leaf
-     * fields which do not yet have them.
-     *
-     * @public
-     */
+       * Inspect the query, automatically filling in selection sets for non-leaf
+       * fields which do not yet have them.
+       *
+       * @public
+       */
                 },
                 {
                   key: 'autoCompleteLeafs',
@@ -4065,6 +4030,94 @@
                     var token = null;
                     token = xToken;
                     this.setState({ xToken: token });
+                  },
+                },
+                {
+                  key: 'handleAutoStatement',
+                  value: function handleAutoStatement(data) {
+                    if (data.queryOrMutation) {
+                      this.handleQuery(data);
+                    } else {
+                      this.handleMutation(data);
+                    }
+                  },
+                },
+                {
+                  key: 'handleQuery',
+                  value: function handleQuery(data) {
+                    var defaultStatement = 'query Q{';
+                    var statement = defaultStatement + data.field.name + '{ ';
+                    // 最外层没有做判断直接获取到type下的Fields
+                    var fields = data.field.type.getFields();
+                    // 遍历fields判断其类型
+                    for (var m in fields) {
+                      // GraphQLScalarType
+                      if (
+                        fields[m].type instanceof _graphql.GraphQLScalarType
+                      ) {
+                        statement += fields[m].name + ' ';
+                      } else if (
+                        fields[m].type instanceof _graphql.GraphQLList
+                      ) {
+                        // GraphQLList
+                        var contentFields = fields[m].type.ofType.getFields();
+                        statement += fields[m].name + '{ ';
+                        // 判断GraphQLList下面的每个元素
+                        for (var i in contentFields) {
+                          if (
+                            contentFields[i].type instanceof
+                            _graphql.GraphQLScalarType
+                          ) {
+                            statement += contentFields[i].name + ' ';
+                          } else if (
+                            contentFields[i].type instanceof
+                            _graphql.GraphQLObjectType
+                          ) {
+                            // GraphQLObjectType
+                            statement += contentFields[i].name + '{ id }';
+                          } else if (
+                            contentFields[i].type instanceof
+                            _graphql.GraphQLList
+                          ) {
+                            // 说明该对象存在item，itemsList为单个获取到的item中的对象
+                            statement += contentFields[i].name + '{ ';
+                            var itemList = contentFields[
+                              i
+                            ].type.ofType.getFields();
+                            for (var j in itemList) {
+                              if (
+                                itemList[j].type instanceof
+                                _graphql.GraphQLScalarType
+                              ) {
+                                statement += itemList[j].name + ' ';
+                              } else if (
+                                itemList[j].type instanceof
+                                _graphql.GraphQLObjectType
+                              ) {
+                                statement += itemList[j].name + '{ id }';
+                              }
+                            }
+                            statement += ' }';
+                          }
+                        }
+                        statement += ' }';
+                      } else if (
+                        fields[m].type instanceof _graphql.GraphQLObjectType
+                      ) {
+                        // GraphQLObjectType
+                        statement += fields[m].name + '{ id }';
+                      }
+                    }
+                    statement += ' } }';
+                    console.log(statement);
+                    this.setState({ query: statement });
+                    this.handlePrettifyQuery();
+                  },
+                },
+                {
+                  key: 'handleMutation',
+                  value: function handleMutation(data) {
+                    console.log(data);
                   },
                 },
               ]);
@@ -4599,8 +4652,7 @@
           '../utility/find': 32,
           '../utility/getQueryFacts': 33,
           '../utility/getSelectedOperationName': 34,
-          '../utility/handleStatement': 35,
-          '../utility/introspectionQueries': 36,
+          '../utility/introspectionQueries': 35,
           './DocExplorer': 1,
           './DocExplorer/TypeDoc': 11,
           './EditToken': 13,
@@ -4613,9 +4665,9 @@
           './ToolbarMenu': 22,
           './ToolbarSelect': 23,
           './VariableEditor': 24,
-          graphql: 100,
-          'prop-types': 241,
-          'react-hot-keys': 244,
+          graphql: 99,
+          'prop-types': 240,
+          'react-hot-keys': 243,
         },
       ],
       16: [
@@ -4902,7 +4954,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 241 },
+        { 'prop-types': 240 },
       ],
       17: [
         function(require, module, exports) {
@@ -5005,6 +5057,9 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *  LICENSE file in the root directory of this source tree.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
+            var EventEmitter = require('events').EventEmitter;
+            var emitter = new EventEmitter();
+
             var md = new _markdownIt2.default();
             var AUTO_COMPLETE_AFTER_KEY = /^[a-zA-Z0-9_@(]$/;
 
@@ -5092,6 +5147,12 @@
                     require('codemirror-graphql/info');
                     require('codemirror-graphql/jump');
                     require('codemirror-graphql/mode');
+
+                    this.autoQuery = emitter.addListener('AutoQuery', function(
+                      msg,
+                    ) {
+                      return console.log('a' + msg);
+                    });
 
                     this.editor = CodeMirror(this._node, {
                       value: this.props.value || '',
@@ -5224,6 +5285,8 @@
                     this.editor.off('keyup', this._onKeyUp);
                     this.editor.off('hasCompletion', this._onHasCompletion);
                     this.editor = null;
+
+                    emitter.removeListener(this.autoQuery); // 取消事件
                   },
                 },
                 {
@@ -5303,29 +5366,30 @@
           ));
         },
         {
-          '../utility/normalizeWhitespace': 37,
-          '../utility/onHasCompletion': 38,
-          codemirror: 69,
-          'codemirror-graphql/hint': 40,
-          'codemirror-graphql/info': 41,
-          'codemirror-graphql/jump': 42,
-          'codemirror-graphql/lint': 43,
-          'codemirror-graphql/mode': 44,
-          'codemirror/addon/comment/comment': 56,
-          'codemirror/addon/dialog/dialog': 57,
-          'codemirror/addon/edit/closebrackets': 58,
-          'codemirror/addon/edit/matchbrackets': 59,
-          'codemirror/addon/fold/brace-fold': 60,
-          'codemirror/addon/fold/foldgutter': 62,
-          'codemirror/addon/hint/show-hint': 63,
-          'codemirror/addon/lint/lint': 64,
-          'codemirror/addon/search/jump-to-line': 65,
-          'codemirror/addon/search/search': 66,
-          'codemirror/addon/search/searchcursor': 67,
-          'codemirror/keymap/sublime': 68,
-          graphql: 100,
-          'markdown-it': 180,
-          'prop-types': 241,
+          '../utility/normalizeWhitespace': 36,
+          '../utility/onHasCompletion': 37,
+          codemirror: 68,
+          'codemirror-graphql/hint': 39,
+          'codemirror-graphql/info': 40,
+          'codemirror-graphql/jump': 41,
+          'codemirror-graphql/lint': 42,
+          'codemirror-graphql/mode': 43,
+          'codemirror/addon/comment/comment': 55,
+          'codemirror/addon/dialog/dialog': 56,
+          'codemirror/addon/edit/closebrackets': 57,
+          'codemirror/addon/edit/matchbrackets': 58,
+          'codemirror/addon/fold/brace-fold': 59,
+          'codemirror/addon/fold/foldgutter': 61,
+          'codemirror/addon/hint/show-hint': 62,
+          'codemirror/addon/lint/lint': 63,
+          'codemirror/addon/search/jump-to-line': 64,
+          'codemirror/addon/search/search': 65,
+          'codemirror/addon/search/searchcursor': 66,
+          'codemirror/keymap/sublime': 67,
+          events: 70,
+          graphql: 99,
+          'markdown-it': 179,
+          'prop-types': 240,
         },
       ],
       18: [
@@ -5657,8 +5721,8 @@
         {
           '../utility/QueryStore': 27,
           './HistoryQuery': 16,
-          graphql: 100,
-          'prop-types': 241,
+          graphql: 99,
+          'prop-types': 240,
         },
       ],
       19: [
@@ -5917,17 +5981,17 @@
           ));
         },
         {
-          codemirror: 69,
-          'codemirror-graphql/results/mode': 45,
-          'codemirror-graphql/utils/info-addon': 50,
-          'codemirror/addon/dialog/dialog': 57,
-          'codemirror/addon/fold/brace-fold': 60,
-          'codemirror/addon/fold/foldgutter': 62,
-          'codemirror/addon/search/jump-to-line': 65,
-          'codemirror/addon/search/search': 66,
-          'codemirror/addon/search/searchcursor': 67,
-          'codemirror/keymap/sublime': 68,
-          'prop-types': 241,
+          codemirror: 68,
+          'codemirror-graphql/results/mode': 44,
+          'codemirror-graphql/utils/info-addon': 49,
+          'codemirror/addon/dialog/dialog': 56,
+          'codemirror/addon/fold/brace-fold': 59,
+          'codemirror/addon/fold/foldgutter': 61,
+          'codemirror/addon/search/jump-to-line': 64,
+          'codemirror/addon/search/search': 65,
+          'codemirror/addon/search/searchcursor': 66,
+          'codemirror/keymap/sublime': 67,
+          'prop-types': 240,
         },
       ],
       20: [
@@ -6094,7 +6158,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 241 },
+        { 'prop-types': 240 },
       ],
       21: [
         function(require, module, exports) {
@@ -6387,7 +6451,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 241 },
+        { 'prop-types': 240 },
       ],
       23: [
         function(require, module, exports) {
@@ -6684,7 +6748,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 241 },
+        { 'prop-types': 240 },
       ],
       24: [
         function(require, module, exports) {
@@ -7043,22 +7107,22 @@
           ));
         },
         {
-          '../utility/onHasCompletion': 38,
-          codemirror: 69,
-          'codemirror-graphql/variables/hint': 53,
-          'codemirror-graphql/variables/lint': 54,
-          'codemirror-graphql/variables/mode': 55,
-          'codemirror/addon/dialog/dialog': 57,
-          'codemirror/addon/edit/closebrackets': 58,
-          'codemirror/addon/edit/matchbrackets': 59,
-          'codemirror/addon/fold/brace-fold': 60,
-          'codemirror/addon/fold/foldgutter': 62,
-          'codemirror/addon/hint/show-hint': 63,
-          'codemirror/addon/lint/lint': 64,
-          'codemirror/addon/search/jump-to-line': 65,
-          'codemirror/addon/search/searchcursor': 67,
-          'codemirror/keymap/sublime': 68,
-          'prop-types': 241,
+          '../utility/onHasCompletion': 37,
+          codemirror: 68,
+          'codemirror-graphql/variables/hint': 52,
+          'codemirror-graphql/variables/lint': 53,
+          'codemirror-graphql/variables/mode': 54,
+          'codemirror/addon/dialog/dialog': 56,
+          'codemirror/addon/edit/closebrackets': 57,
+          'codemirror/addon/edit/matchbrackets': 58,
+          'codemirror/addon/fold/brace-fold': 59,
+          'codemirror/addon/fold/foldgutter': 61,
+          'codemirror/addon/hint/show-hint': 62,
+          'codemirror/addon/lint/lint': 63,
+          'codemirror/addon/search/jump-to-line': 64,
+          'codemirror/addon/search/searchcursor': 66,
+          'codemirror/keymap/sublime': 67,
+          'prop-types': 240,
         },
       ],
       25: [
@@ -7681,7 +7745,7 @@
             return str.substring(indentStart, indentEnd);
           }
         },
-        { graphql: 100 },
+        { graphql: 99 },
       ],
       32: [
         function(require, module, exports) {
@@ -7786,7 +7850,7 @@
             return variableToType;
           }
         },
-        { graphql: 100 },
+        { graphql: 99 },
       ],
       34: [
         function(require, module, exports) {
@@ -7851,89 +7915,6 @@
           Object.defineProperty(exports, '__esModule', {
             value: true,
           });
-          exports.handleStatement = handleStatement;
-
-          var _graphql = require('graphql');
-
-          function handleStatement(data) {
-            var setType = '';
-            var parameter = '';
-            var statement = void 0;
-            // 判断是query还是mutation
-            if (data.queryOrMutation) {
-              statement = 'query get';
-            } else {
-              statement = 'mutation ';
-            }
-            // 加上对象名称组成操作名称
-            statement += data.field.name;
-            // 如果对象里有参数那么就循环 添加参数
-            if (data.field.args.length) {
-              var type = '';
-              var args = '';
-              for (var i in data.field.args) {
-                if (data.field.args[i]) {
-                  args = data.field.args[i].name;
-                }
-                if (data.queryOrMutation) {
-                  type = data.field.args[i].type.name;
-                } else {
-                  type = data.field.args[i].type.ofType;
-                }
-                setType += '$' + args + ':' + type + '! ';
-                parameter += args + ':$' + args + ' ';
-              }
-              statement +=
-                '(' +
-                setType +
-                ')' +
-                '{' +
-                data.field.name +
-                '(' +
-                parameter +
-                ') {';
-            }
-            // 判断 如果是GraphQLScalarType 就加上名字然后返回
-            if (data.field.type instanceof _graphql.GraphQLScalarType) {
-              statement += '{' + data.field.name + '}';
-            } else {
-              // 不是GraphQLScalarType那就是GraphQLObjectType或者是GraphQLList放入递归算法
-              var fields = data.field.type.getFields();
-              statement += f(fields) + '} }';
-            }
-            return statement;
-          }
-
-          // 递归算法取值然后拼接
-          // 处理数据方法
-          function f(fields) {
-            var rs = '';
-            for (var m in fields) {
-              // GraphQLScalarType
-              if (fields[m].type instanceof _graphql.GraphQLScalarType) {
-                rs += fields[m].name + ' ';
-              } else if (fields[m].type instanceof _graphql.GraphQLList) {
-                // GraphQLList
-                var contentFields = fields[m].type.ofType.getFields();
-                rs += fields[m].name + '{ ';
-                // 判断GraphQLList下面的每个元素
-                rs += f(contentFields) + ' }';
-              } else if (fields[m].type instanceof _graphql.GraphQLObjectType) {
-                // GraphQLObjectType
-                rs += fields[m].name + '{ id }';
-              }
-            }
-            return rs;
-          }
-        },
-        { graphql: 100 },
-      ],
-      36: [
-        function(require, module, exports) {
-          'use strict';
-          Object.defineProperty(exports, '__esModule', {
-            value: true,
-          });
 
           var _graphql = require('graphql');
 
@@ -7950,9 +7931,9 @@
           var introspectionQuerySansSubscriptions = (exports.introspectionQuerySansSubscriptions =
             '\n  query IntrospectionQuery {\n    __schema {\n      queryType { name }\n      mutationType { name }\n      types {\n        ...FullType\n      }\n      directives {\n        name\n        description\n        locations\n        args {\n          ...InputValue\n        }\n      }\n    }\n  }\n\n  fragment FullType on __Type {\n    kind\n    name\n    description\n    fields(includeDeprecated: true) {\n      name\n      description\n      args {\n        ...InputValue\n      }\n      type {\n        ...TypeRef\n      }\n      isDeprecated\n      deprecationReason\n    }\n    inputFields {\n      ...InputValue\n    }\n    interfaces {\n      ...TypeRef\n    }\n    enumValues(includeDeprecated: true) {\n      name\n      description\n      isDeprecated\n      deprecationReason\n    }\n    possibleTypes {\n      ...TypeRef\n    }\n  }\n\n  fragment InputValue on __InputValue {\n    name\n    description\n    type { ...TypeRef }\n    defaultValue\n  }\n\n  fragment TypeRef on __Type {\n    kind\n    name\n    ofType {\n      kind\n      name\n      ofType {\n        kind\n        name\n        ofType {\n          kind\n          name\n          ofType {\n            kind\n            name\n            ofType {\n              kind\n              name\n              ofType {\n                kind\n                name\n                ofType {\n                  kind\n                  name\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n');
         },
-        { graphql: 100 },
+        { graphql: 99 },
       ],
-      37: [
+      36: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -7987,7 +7968,7 @@
         },
         {},
       ],
-      38: [
+      37: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -8105,9 +8086,9 @@
             return '<a class="typeName">' + type.name + '</a>';
           }
         },
-        { codemirror: 69, graphql: 100, 'markdown-it': 180 },
+        { codemirror: 68, graphql: 99, 'markdown-it': 179 },
       ],
-      39: [
+      38: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -8697,9 +8678,9 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'util/': 253 },
+        { 'util/': 252 },
       ],
-      40: [
+      39: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -8806,9 +8787,9 @@
             return results;
           });
         },
-        { codemirror: 69, 'graphql-language-service-interface': 81 },
+        { codemirror: 68, 'graphql-language-service-interface': 80 },
       ],
-      41: [
+      40: [
         function(require, module, exports) {
           'use strict';
           var _graphql = require('graphql');
@@ -9060,14 +9041,14 @@
           }
         },
         {
-          './utils/SchemaReference': 46,
-          './utils/getTypeInfo': 48,
-          './utils/info-addon': 50,
-          codemirror: 69,
-          graphql: 100,
+          './utils/SchemaReference': 45,
+          './utils/getTypeInfo': 47,
+          './utils/info-addon': 49,
+          codemirror: 68,
+          graphql: 99,
         },
       ],
-      42: [
+      41: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -9145,13 +9126,13 @@
           });
         },
         {
-          './utils/SchemaReference': 46,
-          './utils/getTypeInfo': 48,
-          './utils/jump-addon': 52,
-          codemirror: 69,
+          './utils/SchemaReference': 45,
+          './utils/getTypeInfo': 47,
+          './utils/jump-addon': 51,
+          codemirror: 68,
         },
       ],
-      43: [
+      42: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -9223,9 +9204,9 @@
             return results;
           });
         },
-        { codemirror: 69, 'graphql-language-service-interface': 81 },
+        { codemirror: 68, 'graphql-language-service-interface': 80 },
       ],
-      44: [
+      43: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -9303,9 +9284,9 @@
             return level * this.config.indentUnit;
           }
         },
-        { codemirror: 69, 'graphql-language-service-parser': 85 },
+        { codemirror: 68, 'graphql-language-service-parser': 84 },
       ],
-      45: [
+      44: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -9461,9 +9442,9 @@
             ],
           };
         },
-        { codemirror: 69, 'graphql-language-service-parser': 85 },
+        { codemirror: 68, 'graphql-language-service-parser': 84 },
       ],
-      46: [
+      45: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -9543,9 +9524,9 @@
             return fieldDef.name.slice(0, 2) === '__';
           }
         },
-        { graphql: 100 },
+        { graphql: 99 },
       ],
-      47: [
+      46: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -9576,7 +9557,7 @@
         },
         {},
       ],
-      48: [
+      47: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -9754,12 +9735,12 @@
           }
         },
         {
-          './forEachState': 47,
-          graphql: 100,
-          'graphql/type/introspection': 123,
+          './forEachState': 46,
+          graphql: 99,
+          'graphql/type/introspection': 122,
         },
       ],
-      49: [
+      48: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -9911,7 +9892,7 @@
         },
         {},
       ],
-      50: [
+      49: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -10122,9 +10103,9 @@
             );
           }
         },
-        { codemirror: 69 },
+        { codemirror: 68 },
       ],
-      51: [
+      50: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -10451,7 +10432,7 @@
         },
         {},
       ],
-      52: [
+      51: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -10633,9 +10614,9 @@
             marker.clear();
           }
         },
-        { codemirror: 69 },
+        { codemirror: 68 },
       ],
-      53: [
+      52: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -10853,13 +10834,13 @@
           }
         },
         {
-          '../utils/forEachState': 47,
-          '../utils/hintList': 49,
-          codemirror: 69,
-          graphql: 100,
+          '../utils/forEachState': 46,
+          '../utils/hintList': 48,
+          codemirror: 68,
+          graphql: 99,
         },
       ],
-      54: [
+      53: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -11092,9 +11073,9 @@
             return Array.prototype.concat.apply([], array.map(mapper));
           }
         },
-        { '../utils/jsonParse': 51, codemirror: 69, graphql: 100 },
+        { '../utils/jsonParse': 50, codemirror: 68, graphql: 99 },
       ],
-      55: [
+      54: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -11271,9 +11252,9 @@
             };
           }
         },
-        { codemirror: 69, 'graphql-language-service-parser': 85 },
+        { codemirror: 68, 'graphql-language-service-parser': 84 },
       ],
-      56: [
+      55: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -11603,9 +11584,9 @@
             });
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 68 },
       ],
-      57: [
+      56: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -11806,9 +11787,9 @@
             });
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 68 },
       ],
-      58: [
+      57: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -12061,9 +12042,9 @@
             }
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 68 },
       ],
-      59: [
+      58: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -12294,9 +12275,9 @@
             });
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 68 },
       ],
-      60: [
+      59: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -12453,9 +12434,9 @@
             });
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 68 },
       ],
-      61: [
+      60: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -12619,9 +12600,9 @@
             });
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 68 },
       ],
-      62: [
+      61: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -12790,9 +12771,9 @@
             }
           });
         },
-        { '../../lib/codemirror': 69, './foldcode': 61 },
+        { '../../lib/codemirror': 68, './foldcode': 60 },
       ],
-      63: [
+      62: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -13402,9 +13383,9 @@
             CodeMirror.defineOption('hintOptions', null);
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 68 },
       ],
-      64: [
+      63: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -13726,9 +13707,9 @@
             });
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 68 },
       ],
-      65: [
+      64: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -13802,9 +13783,9 @@
             CodeMirror.keyMap['default']['Alt-G'] = 'jumpToLine';
           });
         },
-        { '../../lib/codemirror': 69, '../dialog/dialog': 57 },
+        { '../../lib/codemirror': 68, '../dialog/dialog': 56 },
       ],
-      66: [
+      65: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -14198,12 +14179,12 @@
           });
         },
         {
-          '../../lib/codemirror': 69,
-          '../dialog/dialog': 57,
-          './searchcursor': 67,
+          '../../lib/codemirror': 68,
+          '../dialog/dialog': 56,
+          './searchcursor': 66,
         },
       ],
-      67: [
+      66: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -14663,9 +14644,9 @@
             });
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 68 },
       ],
-      68: [
+      67: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -15511,12 +15492,12 @@
           });
         },
         {
-          '../addon/edit/matchbrackets': 59,
-          '../addon/search/searchcursor': 67,
-          '../lib/codemirror': 69,
+          '../addon/edit/matchbrackets': 58,
+          '../addon/search/searchcursor': 66,
+          '../lib/codemirror': 68,
         },
       ],
-      69: [
+      68: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -30475,7 +30456,7 @@
         },
         {},
       ],
-      70: [
+      69: [
         function(require, module, exports) {
           module.exports = {
             Aacute: '\u00C1',
@@ -32607,7 +32588,7 @@
         },
         {},
       ],
-      71: [
+      70: [
         function(require, module, exports) {
           // Copyright Joyent, Inc. and other Node contributors.
           //
@@ -32911,7 +32892,7 @@
         },
         {},
       ],
-      72: [
+      71: [
         function(require, module, exports) {
           'use strict';
           /**
@@ -32922,7 +32903,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
           function makeEmptyFunction(arg) {
@@ -32953,7 +32934,7 @@
         },
         {},
       ],
-      73: [
+      72: [
         function(require, module, exports) {
           (function(process) {
             /**
@@ -33019,9 +33000,9 @@
             module.exports = invariant;
           }.call(this, require('_process')));
         },
-        { _process: 237 },
+        { _process: 236 },
       ],
-      74: [
+      73: [
         function(require, module, exports) {
           (function(process) {
             /**
@@ -33108,9 +33089,9 @@
             module.exports = warning;
           }.call(this, require('_process')));
         },
-        { './emptyFunction': 72, _process: 237 },
+        { './emptyFunction': 71, _process: 236 },
       ],
-      75: [
+      74: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -33141,7 +33122,7 @@
                                                                                                                                                            *  This source code is licensed under the license found in the
                                                                                                                                                            *  LICENSE file in the root directory of this source tree.
                                                                                                                                                            *
-                                                                                                                                                           *  
+                                                                                                                                                           *
                                                                                                                                                            */
 
           var GraphQLLanguageService = (exports.GraphQLLanguageService = (function() {
@@ -33487,15 +33468,15 @@
           })());
         },
         {
-          './getAutocompleteSuggestions': 77,
-          './getDefinition': 78,
-          './getDiagnostics': 79,
-          graphql: 100,
-          'graphql-language-service-utils': 89,
-          'graphql/language/kinds': 110,
+          './getAutocompleteSuggestions': 76,
+          './getDefinition': 77,
+          './getDiagnostics': 78,
+          graphql: 99,
+          'graphql-language-service-utils': 88,
+          'graphql/language/kinds': 109,
         },
       ],
-      76: [
+      75: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -33539,7 +33520,7 @@
  *  This source code is licensed under the license found in the
  *  LICENSE file in the root directory of this source tree.
  *
- *  
+ *
  */
 
           function getFieldDef(schema, type, fieldName) {
@@ -33712,9 +33693,9 @@
             return d[aLength][bLength];
           }
         },
-        { graphql: 100, 'graphql/type/introspection': 123 },
+        { graphql: 99, 'graphql/type/introspection': 122 },
       ],
-      77: [
+      76: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -33740,7 +33721,7 @@
                                                                                                                                                                                                                                                                    *  This source code is licensed under the license found in the
                                                                                                                                                                                                                                                                    *  LICENSE file in the root directory of this source tree.
                                                                                                                                                                                                                                                                    *
-                                                                                                                                                                                                                                                                   *  
+                                                                                                                                                                                                                                                                   *
                                                                                                                                                                                                                                                                    */
 
           exports.getAutocompleteSuggestions = getAutocompleteSuggestions;
@@ -34410,12 +34391,12 @@
           }
         },
         {
-          './autocompleteUtils': 76,
-          graphql: 100,
-          'graphql-language-service-parser': 85,
+          './autocompleteUtils': 75,
+          graphql: 99,
+          'graphql-language-service-parser': 84,
         },
       ],
-      78: [
+      77: [
         function(require, module, exports) {
           (function(process) {
             'use strict';
@@ -34443,7 +34424,7 @@
  *  This source code is licensed under the license found in the
  *  LICENSE file in the root directory of this source tree.
  *
- *  
+ *
  */
 
             var LANGUAGE = (exports.LANGUAGE = 'GraphQL');
@@ -34565,9 +34546,9 @@
             }
           }.call(this, require('_process')));
         },
-        { _process: 237, assert: 39, 'graphql-language-service-utils': 89 },
+        { _process: 236, assert: 38, 'graphql-language-service-utils': 88 },
       ],
-      79: [
+      78: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -34597,7 +34578,7 @@
  *  This source code is licensed under the license found in the
  *  LICENSE file in the root directory of this source tree.
  *
- *  
+ *
  */
 
           var SEVERITY = (exports.SEVERITY = {
@@ -34752,13 +34733,13 @@
           }
         },
         {
-          assert: 39,
-          graphql: 100,
-          'graphql-language-service-parser': 85,
-          'graphql-language-service-utils': 89,
+          assert: 38,
+          graphql: 99,
+          'graphql-language-service-parser': 84,
+          'graphql-language-service-utils': 88,
         },
       ],
-      80: [
+      79: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -34784,7 +34765,7 @@
                                                                                                                                                                                                                                                                    *  This source code is licensed under the license found in the
                                                                                                                                                                                                                                                                    *  LICENSE file in the root directory of this source tree.
                                                                                                                                                                                                                                                                    *
-                                                                                                                                                                                                                                                                   *  
+                                                                                                                                                                                                                                                                   *
                                                                                                                                                                                                                                                                    */
 
           exports.getOutline = getOutline;
@@ -34921,12 +34902,12 @@
           }
         },
         {
-          graphql: 100,
-          'graphql-language-service-utils': 89,
-          'graphql/language/kinds': 110,
+          graphql: 99,
+          'graphql-language-service-utils': 88,
+          'graphql/language/kinds': 109,
         },
       ],
-      81: [
+      80: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35032,15 +35013,15 @@
           });
         },
         {
-          './GraphQLLanguageService': 75,
-          './autocompleteUtils': 76,
-          './getAutocompleteSuggestions': 77,
-          './getDefinition': 78,
-          './getDiagnostics': 79,
-          './getOutline': 80,
+          './GraphQLLanguageService': 74,
+          './autocompleteUtils': 75,
+          './getAutocompleteSuggestions': 76,
+          './getDefinition': 77,
+          './getDiagnostics': 78,
+          './getOutline': 79,
         },
       ],
-      82: [
+      81: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35233,7 +35214,7 @@
       *  This source code is licensed under the license found in the
       *  LICENSE file in the root directory of this source tree.
       *
-      *  
+      *
       */
 
           /**
@@ -35251,7 +35232,7 @@
         },
         {},
       ],
-      83: [
+      82: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35276,7 +35257,7 @@
  *  This source code is licensed under the license found in the
  *  LICENSE file in the root directory of this source tree.
  *
- *  
+ *
  */
 
           // These functions help build matching rules for ParseRules.
@@ -35325,7 +35306,7 @@
         },
         {},
       ],
-      84: [
+      83: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35345,7 +35326,7 @@
  *  This source code is licensed under the license found in the
  *  LICENSE file in the root directory of this source tree.
  *
- *  
+ *
  */
 
           var isIgnored = (exports.isIgnored = function isIgnored(ch) {
@@ -35719,9 +35700,9 @@
             };
           }
         },
-        { './RuleHelpers': 83 },
+        { './RuleHelpers': 82 },
       ],
-      85: [
+      84: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35805,13 +35786,13 @@
           }
         },
         {
-          './CharacterStream': 82,
-          './RuleHelpers': 83,
-          './Rules': 84,
-          './onlineParser': 86,
+          './CharacterStream': 81,
+          './RuleHelpers': 82,
+          './Rules': 83,
+          './onlineParser': 85,
         },
       ],
-      86: [
+      85: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35837,7 +35818,7 @@
                                                                                                                                                                                                                                                                    *  This source code is licensed under the license found in the
                                                                                                                                                                                                                                                                    *  LICENSE file in the root directory of this source tree.
                                                                                                                                                                                                                                                                    *
-                                                                                                                                                                                                                                                                   *  
+                                                                                                                                                                                                                                                                   *
                                                                                                                                                                                                                                                                    */
 
           /**
@@ -36139,9 +36120,9 @@
             }
           }
         },
-        { './Rules': 84 },
+        { './Rules': 83 },
       ],
-      87: [
+      86: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36163,7 +36144,7 @@
  *  This source code is licensed under the license found in the
  *  LICENSE file in the root directory of this source tree.
  *
- *  
+ *
  */
 
           var Range = (exports.Range = (function() {
@@ -36245,7 +36226,7 @@
         },
         {},
       ],
-      88: [
+      87: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36287,7 +36268,7 @@
    *  This source code is licensed under the license found in the
    *  LICENSE file in the root directory of this source tree.
    *
-   *  
+   *
    */
 
           function pointToOffset(text, point) {
@@ -36306,9 +36287,9 @@
             );
           }
         },
-        { './Range': 87, graphql: 100 },
+        { './Range': 86, graphql: 99 },
       ],
-      89: [
+      88: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36367,12 +36348,12 @@
           });
         },
         {
-          './Range': 87,
-          './getASTNodeAtPosition': 88,
-          './validateWithCustomRules': 90,
+          './Range': 86,
+          './getASTNodeAtPosition': 87,
+          './validateWithCustomRules': 89,
         },
       ],
-      90: [
+      89: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36415,12 +36396,12 @@
    *  This source code is licensed under the license found in the
    *  LICENSE file in the root directory of this source tree.
    *
-   *  
+   *
    */
         },
-        { graphql: 100, 'graphql/validation/rules/NoUnusedFragments': 157 },
+        { graphql: 99, 'graphql/validation/rules/NoUnusedFragments': 156 },
       ],
-      91: [
+      90: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36545,9 +36526,9 @@
             name: { value: 'GraphQLError' },
           });
         },
-        { '../language/location': 112 },
+        { '../language/location': 111 },
       ],
-      92: [
+      91: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36587,9 +36568,9 @@
  *  of patent rights can be found in the PATENTS file in the same directory.
  */
         },
-        { '../jsutils/invariant': 102 },
+        { '../jsutils/invariant': 101 },
       ],
-      93: [
+      92: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36633,13 +36614,13 @@
           });
         },
         {
-          './GraphQLError': 91,
-          './formatError': 92,
-          './locatedError': 94,
-          './syntaxError': 95,
+          './GraphQLError': 90,
+          './formatError': 91,
+          './locatedError': 93,
+          './syntaxError': 94,
         },
       ],
-      94: [
+      93: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36682,9 +36663,9 @@
  *  of patent rights can be found in the PATENTS file in the same directory.
  */
         },
-        { './GraphQLError': 91 },
+        { './GraphQLError': 90 },
       ],
-      95: [
+      94: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36761,9 +36742,9 @@
             return Array(len - str.length + 1).join(' ') + str;
           }
         },
-        { '../language/location': 112, './GraphQLError': 91 },
+        { '../language/location': 111, './GraphQLError': 90 },
       ],
-      96: [
+      95: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -38110,20 +38091,20 @@
           }
         },
         {
-          '../error': 93,
-          '../jsutils/invariant': 102,
-          '../jsutils/isNullish': 104,
-          '../language/kinds': 110,
-          '../type/definition': 120,
-          '../type/directives': 121,
-          '../type/introspection': 123,
-          '../type/schema': 125,
-          '../utilities/typeFromAST': 143,
-          './values': 98,
-          iterall: 177,
+          '../error': 92,
+          '../jsutils/invariant': 101,
+          '../jsutils/isNullish': 103,
+          '../language/kinds': 109,
+          '../type/definition': 119,
+          '../type/directives': 120,
+          '../type/introspection': 122,
+          '../type/schema': 124,
+          '../utilities/typeFromAST': 142,
+          './values': 97,
+          iterall: 176,
         },
       ],
-      97: [
+      96: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -38160,9 +38141,9 @@
             },
           });
         },
-        { './execute': 96, './values': 98 },
+        { './execute': 95, './values': 97 },
       ],
-      98: [
+      97: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -38515,23 +38496,23 @@
           }
         },
         {
-          '../error': 93,
-          '../jsutils/find': 101,
-          '../jsutils/invariant': 102,
-          '../jsutils/isInvalid': 103,
-          '../jsutils/isNullish': 104,
-          '../jsutils/keyMap': 105,
-          '../language/kinds': 110,
-          '../language/printer': 114,
-          '../type/definition': 120,
-          '../utilities/isValidJSValue': 138,
-          '../utilities/isValidLiteralValue': 139,
-          '../utilities/typeFromAST': 143,
-          '../utilities/valueFromAST': 144,
-          iterall: 177,
+          '../error': 92,
+          '../jsutils/find': 100,
+          '../jsutils/invariant': 101,
+          '../jsutils/isInvalid': 102,
+          '../jsutils/isNullish': 103,
+          '../jsutils/keyMap': 104,
+          '../language/kinds': 109,
+          '../language/printer': 113,
+          '../type/definition': 119,
+          '../utilities/isValidJSValue': 137,
+          '../utilities/isValidLiteralValue': 138,
+          '../utilities/typeFromAST': 142,
+          '../utilities/valueFromAST': 143,
+          iterall: 176,
         },
       ],
-      99: [
+      98: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -38658,12 +38639,12 @@
           }
         },
         {
-          './execution/execute': 96,
-          './language/parser': 113,
-          './validation/validate': 173,
+          './execution/execute': 95,
+          './language/parser': 112,
+          './validation/validate': 172,
         },
       ],
-      100: [
+      99: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39445,17 +39426,17 @@
           });
         },
         {
-          './error': 93,
-          './execution': 97,
-          './graphql': 99,
-          './language': 109,
-          './subscription': 117,
-          './type': 122,
-          './utilities': 136,
-          './validation': 145,
+          './error': 92,
+          './execution': 96,
+          './graphql': 98,
+          './language': 108,
+          './subscription': 116,
+          './type': 121,
+          './utilities': 135,
+          './validation': 144,
         },
       ],
-      101: [
+      100: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39482,7 +39463,7 @@
         },
         {},
       ],
-      102: [
+      101: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39507,7 +39488,7 @@
         },
         {},
       ],
-      103: [
+      102: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39533,7 +39514,7 @@
         },
         {},
       ],
-      104: [
+      103: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39559,7 +39540,7 @@
         },
         {},
       ],
-      105: [
+      104: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39607,7 +39588,7 @@
         },
         {},
       ],
-      106: [
+      105: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39649,7 +39630,7 @@
         },
         {},
       ],
-      107: [
+      106: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39689,7 +39670,7 @@
         },
         {},
       ],
-      108: [
+      107: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39785,7 +39766,7 @@
         },
         {},
       ],
-      109: [
+      108: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39912,16 +39893,16 @@
           exports.Kind = Kind;
         },
         {
-          './kinds': 110,
-          './lexer': 111,
-          './location': 112,
-          './parser': 113,
-          './printer': 114,
-          './source': 115,
-          './visitor': 116,
+          './kinds': 109,
+          './lexer': 110,
+          './location': 111,
+          './parser': 112,
+          './printer': 113,
+          './source': 114,
+          './visitor': 115,
         },
       ],
-      110: [
+      109: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -40021,7 +40002,7 @@
         },
         {},
       ],
-      111: [
+      110: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -40743,9 +40724,9 @@
             );
           }
         },
-        { '../error': 93 },
+        { '../error': 92 },
       ],
-      112: [
+      111: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -40788,7 +40769,7 @@
         },
         {},
       ],
-      113: [
+      112: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -41914,9 +41895,9 @@
             return nodes;
           }
         },
-        { '../error': 93, './kinds': 110, './lexer': 111, './source': 115 },
+        { '../error': 92, './kinds': 109, './lexer': 110, './source': 114 },
       ],
-      114: [
+      113: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -42289,9 +42270,9 @@
             return maybeString && maybeString.replace(/\n/g, '\n  ');
           }
         },
-        { './visitor': 116 },
+        { './visitor': 115 },
       ],
-      115: [
+      114: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -42328,7 +42309,7 @@
         },
         {},
       ],
-      116: [
+      115: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -42766,7 +42747,7 @@
         },
         {},
       ],
-      117: [
+      116: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -42788,9 +42769,9 @@
             },
           });
         },
-        { './subscribe': 119 },
+        { './subscribe': 118 },
       ],
-      118: [
+      117: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -42820,7 +42801,7 @@
                                                                                                                                                                                                                    * LICENSE file in the root directory of this source tree. An additional grant
                                                                                                                                                                                                                    * of patent rights can be found in the PATENTS file in the same directory.
                                                                                                                                                                                                                    *
-                                                                                                                                                                                                                   * 
+                                                                                                                                                                                                                   *
                                                                                                                                                                                                                    */
 
           /**
@@ -42884,9 +42865,9 @@
             return { value: value, done: false };
           }
         },
-        { iterall: 177 },
+        { iterall: 176 },
       ],
-      119: [
+      118: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -42967,7 +42948,7 @@
    * LICENSE file in the root directory of this source tree. An additional grant
    * of patent rights can be found in the PATENTS file in the same directory.
    *
-   * 
+   *
    */
 
           function subscribeImpl(
@@ -43118,14 +43099,14 @@
           }
         },
         {
-          '../execution/execute': 96,
-          '../jsutils/invariant': 102,
-          '../type/schema': 125,
-          './mapAsyncIterator': 118,
-          iterall: 177,
+          '../execution/execute': 95,
+          '../jsutils/invariant': 101,
+          '../type/schema': 124,
+          './mapAsyncIterator': 117,
+          iterall: 176,
         },
       ],
-      120: [
+      119: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -44182,13 +44163,13 @@
             GraphQLNonNull.prototype.toString;
         },
         {
-          '../jsutils/invariant': 102,
-          '../jsutils/isNullish': 104,
-          '../language/kinds': 110,
-          '../utilities/assertValidName': 127,
+          '../jsutils/invariant': 101,
+          '../jsutils/isNullish': 103,
+          '../language/kinds': 109,
+          '../utilities/assertValidName': 126,
         },
       ],
-      121: [
+      120: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -44384,13 +44365,13 @@
           ]);
         },
         {
-          '../jsutils/invariant': 102,
-          '../utilities/assertValidName': 127,
-          './definition': 120,
-          './scalars': 124,
+          '../jsutils/invariant': 101,
+          '../utilities/assertValidName': 126,
+          './definition': 119,
+          './scalars': 123,
         },
       ],
-      122: [
+      121: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -44707,14 +44688,14 @@
           });
         },
         {
-          './definition': 120,
-          './directives': 121,
-          './introspection': 123,
-          './scalars': 124,
-          './schema': 125,
+          './definition': 119,
+          './directives': 120,
+          './introspection': 122,
+          './scalars': 123,
+          './schema': 124,
         },
       ],
-      123: [
+      122: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -45348,15 +45329,15 @@
           });
         },
         {
-          '../jsutils/isInvalid': 103,
-          '../language/printer': 114,
-          '../utilities/astFromValue': 128,
-          './definition': 120,
-          './directives': 121,
-          './scalars': 124,
+          '../jsutils/isInvalid': 102,
+          '../language/printer': 113,
+          '../utilities/astFromValue': 127,
+          './definition': 119,
+          './directives': 120,
+          './scalars': 123,
         },
       ],
-      124: [
+      123: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -45525,9 +45506,9 @@
             },
           ));
         },
-        { '../language/kinds': 110, './definition': 120 },
+        { '../language/kinds': 109, './definition': 119 },
       ],
-      125: [
+      124: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -45910,15 +45891,15 @@
           }
         },
         {
-          '../jsutils/find': 101,
-          '../jsutils/invariant': 102,
-          '../utilities/typeComparators': 142,
-          './definition': 120,
-          './directives': 121,
-          './introspection': 123,
+          '../jsutils/find': 100,
+          '../jsutils/invariant': 101,
+          '../utilities/typeComparators': 141,
+          './definition': 119,
+          './directives': 120,
+          './introspection': 122,
         },
       ],
-      126: [
+      125: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -46221,14 +46202,14 @@
           }
         },
         {
-          '../jsutils/find': 101,
-          '../language/kinds': 110,
-          '../type/definition': 120,
-          '../type/introspection': 123,
-          './typeFromAST': 143,
+          '../jsutils/find': 100,
+          '../language/kinds': 109,
+          '../type/definition': 119,
+          '../type/introspection': 122,
+          './typeFromAST': 142,
         },
       ],
-      127: [
+      126: [
         function(require, module, exports) {
           (function(process) {
             'use strict';
@@ -46314,9 +46295,9 @@
             }
           }.call(this, require('_process')));
         },
-        { _process: 237 },
+        { _process: 236 },
       ],
-      128: [
+      127: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -46503,16 +46484,16 @@
  */
         },
         {
-          '../jsutils/invariant': 102,
-          '../jsutils/isInvalid': 103,
-          '../jsutils/isNullish': 104,
-          '../language/kinds': 110,
-          '../type/definition': 120,
-          '../type/scalars': 124,
-          iterall: 177,
+          '../jsutils/invariant': 101,
+          '../jsutils/isInvalid': 102,
+          '../jsutils/isNullish': 103,
+          '../language/kinds': 109,
+          '../type/definition': 119,
+          '../type/scalars': 123,
+          iterall: 176,
         },
       ],
-      129: [
+      128: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -47093,21 +47074,21 @@
           }
         },
         {
-          '../execution/values': 98,
-          '../jsutils/invariant': 102,
-          '../jsutils/keyValMap': 106,
-          '../language/kinds': 110,
-          '../language/lexer': 111,
-          '../language/parser': 113,
-          '../type/definition': 120,
-          '../type/directives': 121,
-          '../type/introspection': 123,
-          '../type/scalars': 124,
-          '../type/schema': 125,
-          './valueFromAST': 144,
+          '../execution/values': 97,
+          '../jsutils/invariant': 101,
+          '../jsutils/keyValMap': 105,
+          '../language/kinds': 109,
+          '../language/lexer': 110,
+          '../language/parser': 112,
+          '../type/definition': 119,
+          '../type/directives': 120,
+          '../type/introspection': 122,
+          '../type/scalars': 123,
+          '../type/schema': 124,
+          './valueFromAST': 143,
         },
       ],
-      130: [
+      129: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -47507,19 +47488,19 @@
           }
         },
         {
-          '../jsutils/invariant': 102,
-          '../jsutils/keyMap': 105,
-          '../jsutils/keyValMap': 106,
-          '../language/parser': 113,
-          '../type/definition': 120,
-          '../type/directives': 121,
-          '../type/introspection': 123,
-          '../type/scalars': 124,
-          '../type/schema': 125,
-          './valueFromAST': 144,
+          '../jsutils/invariant': 101,
+          '../jsutils/keyMap': 104,
+          '../jsutils/keyValMap': 105,
+          '../language/parser': 112,
+          '../type/definition': 119,
+          '../type/directives': 120,
+          '../type/introspection': 122,
+          '../type/scalars': 123,
+          '../type/schema': 124,
+          './valueFromAST': 143,
         },
       ],
-      131: [
+      130: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -47556,7 +47537,7 @@
         },
         {},
       ],
-      132: [
+      131: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -48230,21 +48211,21 @@
           }
         },
         {
-          '../error/GraphQLError': 91,
-          '../jsutils/invariant': 102,
-          '../jsutils/keyMap': 105,
-          '../jsutils/keyValMap': 106,
-          '../language/kinds': 110,
-          '../type/definition': 120,
-          '../type/directives': 121,
-          '../type/introspection': 123,
-          '../type/scalars': 124,
-          '../type/schema': 125,
-          './buildASTSchema': 129,
-          './valueFromAST': 144,
+          '../error/GraphQLError': 90,
+          '../jsutils/invariant': 101,
+          '../jsutils/keyMap': 104,
+          '../jsutils/keyValMap': 105,
+          '../language/kinds': 109,
+          '../type/definition': 119,
+          '../type/directives': 120,
+          '../type/introspection': 122,
+          '../type/scalars': 123,
+          '../type/schema': 124,
+          './buildASTSchema': 128,
+          './valueFromAST': 143,
         },
       ],
-      133: [
+      132: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -48860,9 +48841,9 @@
             return breakingChanges;
           }
         },
-        { '../type/definition': 120, '../type/schema': 125 },
+        { '../type/definition': 119, '../type/schema': 124 },
       ],
-      134: [
+      133: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -48949,14 +48930,14 @@
  */
         },
         {
-          '../error/GraphQLError': 91,
-          '../language/visitor': 116,
-          '../type/definition': 120,
-          '../type/schema': 125,
-          './TypeInfo': 126,
+          '../error/GraphQLError': 90,
+          '../language/visitor': 115,
+          '../type/definition': 119,
+          '../type/schema': 124,
+          './TypeInfo': 125,
         },
       ],
-      135: [
+      134: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49003,9 +48984,9 @@
  *  of patent rights can be found in the PATENTS file in the same directory.
  */
         },
-        { '../language/kinds': 110 },
+        { '../language/kinds': 109 },
       ],
-      136: [
+      135: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49217,27 +49198,27 @@
           });
         },
         {
-          './TypeInfo': 126,
-          './assertValidName': 127,
-          './astFromValue': 128,
-          './buildASTSchema': 129,
-          './buildClientSchema': 130,
-          './concatAST': 131,
-          './extendSchema': 132,
-          './findBreakingChanges': 133,
-          './findDeprecatedUsages': 134,
-          './getOperationAST': 135,
-          './introspectionQuery': 137,
-          './isValidJSValue': 138,
-          './isValidLiteralValue': 139,
-          './schemaPrinter': 140,
-          './separateOperations': 141,
-          './typeComparators': 142,
-          './typeFromAST': 143,
-          './valueFromAST': 144,
+          './TypeInfo': 125,
+          './assertValidName': 126,
+          './astFromValue': 127,
+          './buildASTSchema': 128,
+          './buildClientSchema': 129,
+          './concatAST': 130,
+          './extendSchema': 131,
+          './findBreakingChanges': 132,
+          './findDeprecatedUsages': 133,
+          './getOperationAST': 134,
+          './introspectionQuery': 136,
+          './isValidJSValue': 137,
+          './isValidLiteralValue': 138,
+          './schemaPrinter': 139,
+          './separateOperations': 140,
+          './typeComparators': 141,
+          './typeFromAST': 142,
+          './valueFromAST': 143,
         },
       ],
-      137: [
+      136: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49256,7 +49237,7 @@
         },
         {},
       ],
-      138: [
+      137: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49398,13 +49379,13 @@
           }
         },
         {
-          '../jsutils/invariant': 102,
-          '../jsutils/isNullish': 104,
-          '../type/definition': 120,
-          iterall: 177,
+          '../jsutils/invariant': 101,
+          '../jsutils/isNullish': 103,
+          '../type/definition': 119,
+          iterall: 176,
         },
       ],
-      139: [
+      138: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49562,14 +49543,14 @@
  */
         },
         {
-          '../jsutils/invariant': 102,
-          '../jsutils/keyMap': 105,
-          '../language/kinds': 110,
-          '../language/printer': 114,
-          '../type/definition': 120,
+          '../jsutils/invariant': 101,
+          '../jsutils/keyMap': 104,
+          '../language/kinds': 109,
+          '../language/printer': 113,
+          '../type/definition': 119,
         },
       ],
-      140: [
+      139: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49983,17 +49964,17 @@
           }
         },
         {
-          '../jsutils/invariant': 102,
-          '../jsutils/isInvalid': 103,
-          '../jsutils/isNullish': 104,
-          '../language/printer': 114,
-          '../type/definition': 120,
-          '../type/directives': 121,
-          '../type/scalars': 124,
-          '../utilities/astFromValue': 128,
+          '../jsutils/invariant': 101,
+          '../jsutils/isInvalid': 102,
+          '../jsutils/isNullish': 103,
+          '../language/printer': 113,
+          '../type/definition': 119,
+          '../type/directives': 120,
+          '../type/scalars': 123,
+          '../utilities/astFromValue': 127,
         },
       ],
-      141: [
+      140: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50098,9 +50079,9 @@
             }
           }
         },
-        { '../language/visitor': 116 },
+        { '../language/visitor': 115 },
       ],
-      142: [
+      141: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50244,9 +50225,9 @@
             return false;
           }
         },
-        { '../type/definition': 120 },
+        { '../type/definition': 119 },
       ],
-      143: [
+      142: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50325,12 +50306,12 @@
           var typeFromAST = (exports.typeFromAST = typeFromASTImpl);
         },
         {
-          '../jsutils/invariant': 102,
-          '../language/kinds': 110,
-          '../type/definition': 120,
+          '../jsutils/invariant': 101,
+          '../language/kinds': 109,
+          '../type/definition': 119,
         },
       ],
-      144: [
+      143: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50548,15 +50529,15 @@
           }
         },
         {
-          '../jsutils/invariant': 102,
-          '../jsutils/isInvalid': 103,
-          '../jsutils/isNullish': 104,
-          '../jsutils/keyMap': 105,
-          '../language/kinds': 110,
-          '../type/definition': 120,
+          '../jsutils/invariant': 101,
+          '../jsutils/isInvalid': 102,
+          '../jsutils/isNullish': 103,
+          '../jsutils/keyMap': 104,
+          '../language/kinds': 109,
+          '../type/definition': 119,
         },
       ],
-      145: [
+      144: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50822,37 +50803,37 @@
           });
         },
         {
-          './rules/ArgumentsOfCorrectType': 146,
-          './rules/DefaultValuesOfCorrectType': 147,
-          './rules/FieldsOnCorrectType': 148,
-          './rules/FragmentsOnCompositeTypes': 149,
-          './rules/KnownArgumentNames': 150,
-          './rules/KnownDirectives': 151,
-          './rules/KnownFragmentNames': 152,
-          './rules/KnownTypeNames': 153,
-          './rules/LoneAnonymousOperation': 154,
-          './rules/NoFragmentCycles': 155,
-          './rules/NoUndefinedVariables': 156,
-          './rules/NoUnusedFragments': 157,
-          './rules/NoUnusedVariables': 158,
-          './rules/OverlappingFieldsCanBeMerged': 159,
-          './rules/PossibleFragmentSpreads': 160,
-          './rules/ProvidedNonNullArguments': 161,
-          './rules/ScalarLeafs': 162,
-          './rules/SingleFieldSubscriptions': 163,
-          './rules/UniqueArgumentNames': 164,
-          './rules/UniqueDirectivesPerLocation': 165,
-          './rules/UniqueFragmentNames': 166,
-          './rules/UniqueInputFieldNames': 167,
-          './rules/UniqueOperationNames': 168,
-          './rules/UniqueVariableNames': 169,
-          './rules/VariablesAreInputTypes': 170,
-          './rules/VariablesInAllowedPosition': 171,
-          './specifiedRules': 172,
-          './validate': 173,
+          './rules/ArgumentsOfCorrectType': 145,
+          './rules/DefaultValuesOfCorrectType': 146,
+          './rules/FieldsOnCorrectType': 147,
+          './rules/FragmentsOnCompositeTypes': 148,
+          './rules/KnownArgumentNames': 149,
+          './rules/KnownDirectives': 150,
+          './rules/KnownFragmentNames': 151,
+          './rules/KnownTypeNames': 152,
+          './rules/LoneAnonymousOperation': 153,
+          './rules/NoFragmentCycles': 154,
+          './rules/NoUndefinedVariables': 155,
+          './rules/NoUnusedFragments': 156,
+          './rules/NoUnusedVariables': 157,
+          './rules/OverlappingFieldsCanBeMerged': 158,
+          './rules/PossibleFragmentSpreads': 159,
+          './rules/ProvidedNonNullArguments': 160,
+          './rules/ScalarLeafs': 161,
+          './rules/SingleFieldSubscriptions': 162,
+          './rules/UniqueArgumentNames': 163,
+          './rules/UniqueDirectivesPerLocation': 164,
+          './rules/UniqueFragmentNames': 165,
+          './rules/UniqueInputFieldNames': 166,
+          './rules/UniqueOperationNames': 167,
+          './rules/UniqueVariableNames': 168,
+          './rules/VariablesAreInputTypes': 169,
+          './rules/VariablesInAllowedPosition': 170,
+          './specifiedRules': 171,
+          './validate': 172,
         },
       ],
-      146: [
+      145: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50923,12 +50904,12 @@
           }
         },
         {
-          '../../error': 93,
-          '../../language/printer': 114,
-          '../../utilities/isValidLiteralValue': 139,
+          '../../error': 92,
+          '../../language/printer': 113,
+          '../../utilities/isValidLiteralValue': 138,
         },
       ],
-      147: [
+      146: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51038,13 +51019,13 @@
           }
         },
         {
-          '../../error': 93,
-          '../../language/printer': 114,
-          '../../type/definition': 120,
-          '../../utilities/isValidLiteralValue': 139,
+          '../../error': 92,
+          '../../language/printer': 113,
+          '../../type/definition': 119,
+          '../../utilities/isValidLiteralValue': 138,
         },
       ],
-      148: [
+      147: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51210,13 +51191,13 @@
           }
         },
         {
-          '../../error': 93,
-          '../../jsutils/quotedOrList': 107,
-          '../../jsutils/suggestionList': 108,
-          '../../type/definition': 120,
+          '../../error': 92,
+          '../../jsutils/quotedOrList': 106,
+          '../../jsutils/suggestionList': 107,
+          '../../type/definition': 119,
         },
       ],
-      149: [
+      148: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51307,13 +51288,13 @@
           }
         },
         {
-          '../../error': 93,
-          '../../language/printer': 114,
-          '../../type/definition': 120,
-          '../../utilities/typeFromAST': 143,
+          '../../error': 92,
+          '../../language/printer': 113,
+          '../../type/definition': 119,
+          '../../utilities/typeFromAST': 142,
         },
       ],
-      150: [
+      149: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51483,15 +51464,15 @@
           }
         },
         {
-          '../../error': 93,
-          '../../jsutils/find': 101,
-          '../../jsutils/invariant': 102,
-          '../../jsutils/quotedOrList': 107,
-          '../../jsutils/suggestionList': 108,
-          '../../language/kinds': 110,
+          '../../error': 92,
+          '../../jsutils/find': 100,
+          '../../jsutils/invariant': 101,
+          '../../jsutils/quotedOrList': 106,
+          '../../jsutils/suggestionList': 107,
+          '../../language/kinds': 109,
         },
       ],
-      151: [
+      150: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51660,13 +51641,13 @@
           }
         },
         {
-          '../../error': 93,
-          '../../jsutils/find': 101,
-          '../../language/kinds': 110,
-          '../../type/directives': 121,
+          '../../error': 92,
+          '../../jsutils/find': 100,
+          '../../language/kinds': 109,
+          '../../type/directives': 120,
         },
       ],
-      152: [
+      151: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51713,9 +51694,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 92 },
       ],
-      153: [
+      152: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51804,12 +51785,12 @@
           }
         },
         {
-          '../../error': 93,
-          '../../jsutils/quotedOrList': 107,
-          '../../jsutils/suggestionList': 108,
+          '../../error': 92,
+          '../../jsutils/quotedOrList': 106,
+          '../../jsutils/suggestionList': 107,
         },
       ],
-      154: [
+      153: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51862,9 +51843,9 @@
             };
           }
         },
-        { '../../error': 93, '../../language/kinds': 110 },
+        { '../../error': 92, '../../language/kinds': 109 },
       ],
-      155: [
+      154: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51970,9 +51951,9 @@
             }
           }
         },
-        { '../../error': 93 },
+        { '../../error': 92 },
       ],
-      156: [
+      155: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -52043,9 +52024,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 92 },
       ],
-      157: [
+      156: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -52115,9 +52096,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 92 },
       ],
-      158: [
+      157: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -52191,9 +52172,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 92 },
       ],
-      159: [
+      158: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53108,15 +53089,15 @@
           }
         },
         {
-          '../../error': 93,
-          '../../jsutils/find': 101,
-          '../../language/kinds': 110,
-          '../../language/printer': 114,
-          '../../type/definition': 120,
-          '../../utilities/typeFromAST': 143,
+          '../../error': 92,
+          '../../jsutils/find': 100,
+          '../../language/kinds': 109,
+          '../../language/printer': 113,
+          '../../type/definition': 119,
+          '../../utilities/typeFromAST': 142,
         },
       ],
-      160: [
+      159: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53238,12 +53219,12 @@
           }
         },
         {
-          '../../error': 93,
-          '../../utilities/typeComparators': 142,
-          '../../utilities/typeFromAST': 143,
+          '../../error': 92,
+          '../../utilities/typeComparators': 141,
+          '../../utilities/typeFromAST': 142,
         },
       ],
-      161: [
+      160: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53377,12 +53358,12 @@
           }
         },
         {
-          '../../error': 93,
-          '../../jsutils/keyMap': 105,
-          '../../type/definition': 120,
+          '../../error': 92,
+          '../../jsutils/keyMap': 104,
+          '../../type/definition': 119,
         },
       ],
-      162: [
+      161: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53463,9 +53444,9 @@
             };
           }
         },
-        { '../../error': 93, '../../type/definition': 120 },
+        { '../../error': 92, '../../type/definition': 119 },
       ],
-      163: [
+      162: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53516,9 +53497,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 92 },
       ],
-      164: [
+      163: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53574,9 +53555,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 92 },
       ],
-      165: [
+      164: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53637,9 +53618,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 92 },
       ],
-      166: [
+      165: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53691,9 +53672,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 92 },
       ],
-      167: [
+      166: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53756,9 +53737,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 92 },
       ],
-      168: [
+      167: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53818,9 +53799,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 92 },
       ],
-      169: [
+      168: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53874,9 +53855,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 92 },
       ],
-      170: [
+      169: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53945,13 +53926,13 @@
           }
         },
         {
-          '../../error': 93,
-          '../../language/printer': 114,
-          '../../type/definition': 120,
-          '../../utilities/typeFromAST': 143,
+          '../../error': 92,
+          '../../language/printer': 113,
+          '../../type/definition': 119,
+          '../../utilities/typeFromAST': 142,
         },
       ],
-      171: [
+      170: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -54054,13 +54035,13 @@
           }
         },
         {
-          '../../error': 93,
-          '../../type/definition': 120,
-          '../../utilities/typeComparators': 142,
-          '../../utilities/typeFromAST': 143,
+          '../../error': 92,
+          '../../type/definition': 119,
+          '../../utilities/typeComparators': 141,
+          '../../utilities/typeFromAST': 142,
         },
       ],
-      172: [
+      171: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -54217,35 +54198,35 @@
           // Spec Section: "Lone Anonymous Operation"
         },
         {
-          './rules/ArgumentsOfCorrectType': 146,
-          './rules/DefaultValuesOfCorrectType': 147,
-          './rules/FieldsOnCorrectType': 148,
-          './rules/FragmentsOnCompositeTypes': 149,
-          './rules/KnownArgumentNames': 150,
-          './rules/KnownDirectives': 151,
-          './rules/KnownFragmentNames': 152,
-          './rules/KnownTypeNames': 153,
-          './rules/LoneAnonymousOperation': 154,
-          './rules/NoFragmentCycles': 155,
-          './rules/NoUndefinedVariables': 156,
-          './rules/NoUnusedFragments': 157,
-          './rules/NoUnusedVariables': 158,
-          './rules/OverlappingFieldsCanBeMerged': 159,
-          './rules/PossibleFragmentSpreads': 160,
-          './rules/ProvidedNonNullArguments': 161,
-          './rules/ScalarLeafs': 162,
-          './rules/SingleFieldSubscriptions': 163,
-          './rules/UniqueArgumentNames': 164,
-          './rules/UniqueDirectivesPerLocation': 165,
-          './rules/UniqueFragmentNames': 166,
-          './rules/UniqueInputFieldNames': 167,
-          './rules/UniqueOperationNames': 168,
-          './rules/UniqueVariableNames': 169,
-          './rules/VariablesAreInputTypes': 170,
-          './rules/VariablesInAllowedPosition': 171,
+          './rules/ArgumentsOfCorrectType': 145,
+          './rules/DefaultValuesOfCorrectType': 146,
+          './rules/FieldsOnCorrectType': 147,
+          './rules/FragmentsOnCompositeTypes': 148,
+          './rules/KnownArgumentNames': 149,
+          './rules/KnownDirectives': 150,
+          './rules/KnownFragmentNames': 151,
+          './rules/KnownTypeNames': 152,
+          './rules/LoneAnonymousOperation': 153,
+          './rules/NoFragmentCycles': 154,
+          './rules/NoUndefinedVariables': 155,
+          './rules/NoUnusedFragments': 156,
+          './rules/NoUnusedVariables': 157,
+          './rules/OverlappingFieldsCanBeMerged': 158,
+          './rules/PossibleFragmentSpreads': 159,
+          './rules/ProvidedNonNullArguments': 160,
+          './rules/ScalarLeafs': 161,
+          './rules/SingleFieldSubscriptions': 162,
+          './rules/UniqueArgumentNames': 163,
+          './rules/UniqueDirectivesPerLocation': 164,
+          './rules/UniqueFragmentNames': 165,
+          './rules/UniqueInputFieldNames': 166,
+          './rules/UniqueOperationNames': 167,
+          './rules/UniqueVariableNames': 168,
+          './rules/VariablesAreInputTypes': 169,
+          './rules/VariablesInAllowedPosition': 170,
         },
       ],
-      173: [
+      172: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -54543,24 +54524,24 @@
           })());
         },
         {
-          '../error': 93,
-          '../jsutils/invariant': 102,
-          '../language/kinds': 110,
-          '../language/visitor': 116,
-          '../type/schema': 125,
-          '../utilities/TypeInfo': 126,
-          './specifiedRules': 172,
+          '../error': 92,
+          '../jsutils/invariant': 101,
+          '../language/kinds': 109,
+          '../language/visitor': 115,
+          '../type/schema': 124,
+          '../utilities/TypeInfo': 125,
+          './specifiedRules': 171,
         },
       ],
-      174: [
+      173: [
         function(require, module, exports) {
           /*!
  * hotkeys-js v3.3.8
  * A simple micro-library for defining and dispatching keyboard shortcuts. It has no dependencies.
- * 
+ *
  * Copyright (c) 2018 kenny wong <wowohoo@qq.com>
  * http://jaywcjlove.github.io/hotkeys
- * 
+ *
  * Licensed under the MIT license.
  */
 
@@ -54988,7 +54969,7 @@
         },
         {},
       ],
-      175: [
+      174: [
         function(require, module, exports) {
           /*! hotkeys-js v3.3.8 | MIT (c) 2018 kenny wong <wowohoo@qq.com> | http://jaywcjlove.github.io/hotkeys */
           'use strict';
@@ -55286,7 +55267,7 @@
         },
         {},
       ],
-      176: [
+      175: [
         function(require, module, exports) {
           (function(process) {
             if (process.env.NODE_ENV === 'production') {
@@ -55297,12 +55278,12 @@
           }.call(this, require('_process')));
         },
         {
-          './dist/hotkeys.common.js': 174,
-          './dist/hotkeys.common.min.js': 175,
-          _process: 237,
+          './dist/hotkeys.common.js': 173,
+          './dist/hotkeys.common.min.js': 174,
+          _process: 236,
         },
       ],
-      177: [
+      176: [
         function(require, module, exports) {
           /**
  * Copyright (c) 2016, Lee Byron
@@ -55968,7 +55949,7 @@
         },
         {},
       ],
-      178: [
+      177: [
         function(require, module, exports) {
           'use strict';
           ////////////////////////////////////////////////////////////////////////////////
@@ -56662,9 +56643,9 @@
 
           module.exports = LinkifyIt;
         },
-        { './lib/re': 179 },
+        { './lib/re': 178 },
       ],
-      179: [
+      178: [
         function(require, module, exports) {
           'use strict';
           module.exports = function(opts) {
@@ -56886,20 +56867,20 @@
           };
         },
         {
-          'uc.micro/categories/Cc/regex': 245,
-          'uc.micro/categories/P/regex': 247,
-          'uc.micro/categories/Z/regex': 248,
-          'uc.micro/properties/Any/regex': 250,
+          'uc.micro/categories/Cc/regex': 244,
+          'uc.micro/categories/P/regex': 246,
+          'uc.micro/categories/Z/regex': 247,
+          'uc.micro/properties/Any/regex': 249,
         },
       ],
-      180: [
+      179: [
         function(require, module, exports) {
           'use strict';
           module.exports = require('./lib/');
         },
-        { './lib/': 189 },
+        { './lib/': 188 },
       ],
-      181: [
+      180: [
         function(require, module, exports) {
           // HTML5 entities map: { name -> utf16string }
           //
@@ -56907,9 +56888,9 @@
           /*eslint quotes:0*/
           module.exports = require('entities/maps/entities.json');
         },
-        { 'entities/maps/entities.json': 70 },
+        { 'entities/maps/entities.json': 69 },
       ],
-      182: [
+      181: [
         function(require, module, exports) {
           // List of valid html blocks names, accorting to commonmark spec
           // http://jgm.github.io/CommonMark/spec.html#html-blocks
@@ -56983,7 +56964,7 @@
         },
         {},
       ],
-      183: [
+      182: [
         function(require, module, exports) {
           // Regexps to match html elements
 
@@ -57032,7 +57013,7 @@
         },
         {},
       ],
-      184: [
+      183: [
         function(require, module, exports) {
           // Utilities
           //
@@ -57350,13 +57331,13 @@
           exports.normalizeReference = normalizeReference;
         },
         {
-          './entities': 181,
-          mdurl: 235,
-          'uc.micro': 249,
-          'uc.micro/categories/P/regex': 247,
+          './entities': 180,
+          mdurl: 234,
+          'uc.micro': 248,
+          'uc.micro/categories/P/regex': 246,
         },
       ],
-      185: [
+      184: [
         function(require, module, exports) {
           // Just a shortcut for bulk export
           'use strict';
@@ -57365,12 +57346,12 @@
           exports.parseLinkTitle = require('./parse_link_title');
         },
         {
-          './parse_link_destination': 186,
-          './parse_link_label': 187,
-          './parse_link_title': 188,
+          './parse_link_destination': 185,
+          './parse_link_label': 186,
+          './parse_link_title': 187,
         },
       ],
-      186: [
+      185: [
         function(require, module, exports) {
           // Parse link destination
           //
@@ -57463,9 +57444,9 @@
             return result;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 183 },
       ],
-      187: [
+      186: [
         function(require, module, exports) {
           // Parse link label
           //
@@ -57524,7 +57505,7 @@
         },
         {},
       ],
-      188: [
+      187: [
         function(require, module, exports) {
           // Parse link title
           //
@@ -57587,9 +57568,9 @@
             return result;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 183 },
       ],
-      189: [
+      188: [
         function(require, module, exports) {
           // Main parser class
 
@@ -58200,21 +58181,21 @@
           module.exports = MarkdownIt;
         },
         {
-          './common/utils': 184,
-          './helpers': 185,
-          './parser_block': 190,
-          './parser_core': 191,
-          './parser_inline': 192,
-          './presets/commonmark': 193,
-          './presets/default': 194,
-          './presets/zero': 195,
-          './renderer': 196,
-          'linkify-it': 178,
-          mdurl: 235,
-          punycode: 243,
+          './common/utils': 183,
+          './helpers': 184,
+          './parser_block': 189,
+          './parser_core': 190,
+          './parser_inline': 191,
+          './presets/commonmark': 192,
+          './presets/default': 193,
+          './presets/zero': 194,
+          './renderer': 195,
+          'linkify-it': 177,
+          mdurl: 234,
+          punycode: 242,
         },
       ],
-      190: [
+      189: [
         function(require, module, exports) {
           /** internal
  * class ParserBlock
@@ -58371,22 +58352,22 @@
           module.exports = ParserBlock;
         },
         {
-          './ruler': 197,
-          './rules_block/blockquote': 198,
-          './rules_block/code': 199,
-          './rules_block/fence': 200,
-          './rules_block/heading': 201,
-          './rules_block/hr': 202,
-          './rules_block/html_block': 203,
-          './rules_block/lheading': 204,
-          './rules_block/list': 205,
-          './rules_block/paragraph': 206,
-          './rules_block/reference': 207,
-          './rules_block/state_block': 208,
-          './rules_block/table': 209,
+          './ruler': 196,
+          './rules_block/blockquote': 197,
+          './rules_block/code': 198,
+          './rules_block/fence': 199,
+          './rules_block/heading': 200,
+          './rules_block/hr': 201,
+          './rules_block/html_block': 202,
+          './rules_block/lheading': 203,
+          './rules_block/list': 204,
+          './rules_block/paragraph': 205,
+          './rules_block/reference': 206,
+          './rules_block/state_block': 207,
+          './rules_block/table': 208,
         },
       ],
-      191: [
+      190: [
         function(require, module, exports) {
           /** internal
  * class Core
@@ -58442,17 +58423,17 @@
           module.exports = Core;
         },
         {
-          './ruler': 197,
-          './rules_core/block': 210,
-          './rules_core/inline': 211,
-          './rules_core/linkify': 212,
-          './rules_core/normalize': 213,
-          './rules_core/replacements': 214,
-          './rules_core/smartquotes': 215,
-          './rules_core/state_core': 216,
+          './ruler': 196,
+          './rules_core/block': 209,
+          './rules_core/inline': 210,
+          './rules_core/linkify': 211,
+          './rules_core/normalize': 212,
+          './rules_core/replacements': 213,
+          './rules_core/smartquotes': 214,
+          './rules_core/state_core': 215,
         },
       ],
-      192: [
+      191: [
         function(require, module, exports) {
           /** internal
  * class ParserInline
@@ -58637,24 +58618,24 @@
           module.exports = ParserInline;
         },
         {
-          './ruler': 197,
-          './rules_inline/autolink': 217,
-          './rules_inline/backticks': 218,
-          './rules_inline/balance_pairs': 219,
-          './rules_inline/emphasis': 220,
-          './rules_inline/entity': 221,
-          './rules_inline/escape': 222,
-          './rules_inline/html_inline': 223,
-          './rules_inline/image': 224,
-          './rules_inline/link': 225,
-          './rules_inline/newline': 226,
-          './rules_inline/state_inline': 227,
-          './rules_inline/strikethrough': 228,
-          './rules_inline/text': 229,
-          './rules_inline/text_collapse': 230,
+          './ruler': 196,
+          './rules_inline/autolink': 216,
+          './rules_inline/backticks': 217,
+          './rules_inline/balance_pairs': 218,
+          './rules_inline/emphasis': 219,
+          './rules_inline/entity': 220,
+          './rules_inline/escape': 221,
+          './rules_inline/html_inline': 222,
+          './rules_inline/image': 223,
+          './rules_inline/link': 224,
+          './rules_inline/newline': 225,
+          './rules_inline/state_inline': 226,
+          './rules_inline/strikethrough': 227,
+          './rules_inline/text': 228,
+          './rules_inline/text_collapse': 229,
         },
       ],
-      193: [
+      192: [
         function(require, module, exports) {
           // Commonmark default options
 
@@ -58728,7 +58709,7 @@
         },
         {},
       ],
-      194: [
+      193: [
         function(require, module, exports) {
           // markdown-it default options
 
@@ -58771,7 +58752,7 @@
         },
         {},
       ],
-      195: [
+      194: [
         function(require, module, exports) {
           // "Zero" preset, with nothing enabled. Useful for manual configuring of simple
           // modes. For example, to parse bold/italic only.
@@ -58824,7 +58805,7 @@
         },
         {},
       ],
-      196: [
+      195: [
         function(require, module, exports) {
           /**
  * class Renderer
@@ -59201,9 +59182,9 @@
 
           module.exports = Renderer;
         },
-        { './common/utils': 184 },
+        { './common/utils': 183 },
       ],
-      197: [
+      196: [
         function(require, module, exports) {
           /**
  * class Ruler
@@ -59573,7 +59554,7 @@
         },
         {},
       ],
-      198: [
+      197: [
         function(require, module, exports) {
           // Block quotes
 
@@ -59891,9 +59872,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 183 },
       ],
-      199: [
+      198: [
         function(require, module, exports) {
           // Code block (4 spaces padded)
 
@@ -59941,7 +59922,7 @@
         },
         {},
       ],
-      200: [
+      199: [
         function(require, module, exports) {
           // fences (``` lang, ~~~ lang)
 
@@ -60060,7 +60041,7 @@
         },
         {},
       ],
-      201: [
+      200: [
         function(require, module, exports) {
           // heading (#, ##, ...)
 
@@ -60127,9 +60108,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 183 },
       ],
-      202: [
+      201: [
         function(require, module, exports) {
           // Horizontal rule
 
@@ -60190,9 +60171,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 183 },
       ],
-      203: [
+      202: [
         function(require, module, exports) {
           // HTML block
 
@@ -60305,9 +60286,9 @@
             return true;
           };
         },
-        { '../common/html_blocks': 182, '../common/html_re': 183 },
+        { '../common/html_blocks': 181, '../common/html_re': 182 },
       ],
-      204: [
+      203: [
         function(require, module, exports) {
           // lheading (---, ===)
 
@@ -60416,7 +60397,7 @@
         },
         {},
       ],
-      205: [
+      204: [
         function(require, module, exports) {
           // Lists
 
@@ -60790,9 +60771,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 183 },
       ],
-      206: [
+      205: [
         function(require, module, exports) {
           // Paragraph
 
@@ -60860,7 +60841,7 @@
         },
         {},
       ],
-      207: [
+      206: [
         function(require, module, exports) {
           'use strict';
           var normalizeReference = require('../common/utils')
@@ -61094,9 +61075,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 183 },
       ],
-      208: [
+      207: [
         function(require, module, exports) {
           // Parser state class
 
@@ -61368,9 +61349,9 @@
 
           module.exports = StateBlock;
         },
-        { '../common/utils': 184, '../token': 231 },
+        { '../common/utils': 183, '../token': 230 },
       ],
-      209: [
+      208: [
         function(require, module, exports) {
           // GFM table, non-standard
 
@@ -61619,9 +61600,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 183 },
       ],
-      210: [
+      209: [
         function(require, module, exports) {
           'use strict';
           module.exports = function block(state) {
@@ -61645,7 +61626,7 @@
         },
         {},
       ],
-      211: [
+      210: [
         function(require, module, exports) {
           'use strict';
           module.exports = function inline(state) {
@@ -61670,7 +61651,7 @@
         },
         {},
       ],
-      212: [
+      211: [
         function(require, module, exports) {
           // Replace link-like texts with link nodes.
           //
@@ -61839,9 +61820,9 @@
             }
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 183 },
       ],
-      213: [
+      212: [
         function(require, module, exports) {
           // Normalize input string
 
@@ -61863,7 +61844,7 @@
         },
         {},
       ],
-      214: [
+      213: [
         function(require, module, exports) {
           // Simple typographyc replacements
           //
@@ -61984,7 +61965,7 @@
         },
         {},
       ],
-      215: [
+      214: [
         function(require, module, exports) {
           // Convert straight quotation marks to typographic ones
           //
@@ -62230,9 +62211,9 @@
             }
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 183 },
       ],
-      216: [
+      215: [
         function(require, module, exports) {
           // Core state object
           //
@@ -62252,9 +62233,9 @@
 
           module.exports = StateCore;
         },
-        { '../token': 231 },
+        { '../token': 230 },
       ],
-      217: [
+      216: [
         function(require, module, exports) {
           // Process autolinks '<protocol:...>'
 
@@ -62341,7 +62322,7 @@
         },
         {},
       ],
-      218: [
+      217: [
         function(require, module, exports) {
           // Parse backticks
 
@@ -62405,7 +62386,7 @@
         },
         {},
       ],
-      219: [
+      218: [
         function(require, module, exports) {
           // For each opening emphasis-like marker find a matching closing one
           //
@@ -62459,7 +62440,7 @@
         },
         {},
       ],
-      220: [
+      219: [
         function(require, module, exports) {
           // Process *this* and _that_
           //
@@ -62598,7 +62579,7 @@
         },
         {},
       ],
-      221: [
+      220: [
         function(require, module, exports) {
           // Process html entity - &#123;, &#xAF;, &quot;, ...
 
@@ -62660,9 +62641,9 @@
             return true;
           };
         },
-        { '../common/entities': 181, '../common/utils': 184 },
+        { '../common/entities': 180, '../common/utils': 183 },
       ],
-      222: [
+      221: [
         function(require, module, exports) {
           // Process escaped chars and hardbreaks
 
@@ -62728,9 +62709,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 183 },
       ],
-      223: [
+      222: [
         function(require, module, exports) {
           // Process html tags
 
@@ -62784,9 +62765,9 @@
             return true;
           };
         },
-        { '../common/html_re': 183 },
+        { '../common/html_re': 182 },
       ],
-      224: [
+      223: [
         function(require, module, exports) {
           // Process ![image](<src> "title")
 
@@ -62970,9 +62951,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 183 },
       ],
-      225: [
+      224: [
         function(require, module, exports) {
           // Process [link](<to> "stuff")
 
@@ -63148,9 +63129,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 183 },
       ],
-      226: [
+      225: [
         function(require, module, exports) {
           // Proceess '\n'
 
@@ -63198,9 +63179,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 183 },
       ],
-      227: [
+      226: [
         function(require, module, exports) {
           // Inline parser state
 
@@ -63342,9 +63323,9 @@
 
           module.exports = StateInline;
         },
-        { '../common/utils': 184, '../token': 231 },
+        { '../common/utils': 183, '../token': 230 },
       ],
-      228: [
+      227: [
         function(require, module, exports) {
           // ~~strike through~~
           //
@@ -63478,7 +63459,7 @@
         },
         {},
       ],
-      229: [
+      228: [
         function(require, module, exports) {
           // Skip text characters for text token, place those to pending buffer
           // and increment current pos
@@ -63577,7 +63558,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      230: [
+      229: [
         function(require, module, exports) {
           // Merge adjacent text nodes into one, and re-calculate all token levels
           //
@@ -63618,7 +63599,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      231: [
+      230: [
         function(require, module, exports) {
           // Token class
 
@@ -63817,7 +63798,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      232: [
+      231: [
         function(require, module, exports) {
           'use strict';
           /* eslint-disable no-bitwise */
@@ -63960,7 +63941,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      233: [
+      232: [
         function(require, module, exports) {
           'use strict';
           var encodeCache = {};
@@ -64067,7 +64048,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      234: [
+      233: [
         function(require, module, exports) {
           'use strict';
           module.exports = function format(url) {
@@ -64094,7 +64075,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      235: [
+      234: [
         function(require, module, exports) {
           'use strict';
           module.exports.encode = require('./encode');
@@ -64102,9 +64083,9 @@ module.exports = function text(state, silent) {
           module.exports.format = require('./format');
           module.exports.parse = require('./parse');
         },
-        { './decode': 232, './encode': 233, './format': 234, './parse': 236 },
+        { './decode': 231, './encode': 232, './format': 233, './parse': 235 },
       ],
-      236: [
+      235: [
         function(require, module, exports) {
           // Copyright Joyent, Inc. and other Node contributors.
           //
@@ -64441,7 +64422,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      237: [
+      236: [
         function(require, module, exports) {
           // shim for using process in browser
           var process = (module.exports = {});
@@ -64638,7 +64619,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      238: [
+      237: [
         function(require, module, exports) {
           (function(process) {
             /**
@@ -64744,13 +64725,13 @@ module.exports = function text(state, silent) {
           }.call(this, require('_process')));
         },
         {
-          './lib/ReactPropTypesSecret': 242,
-          _process: 237,
-          'fbjs/lib/invariant': 73,
-          'fbjs/lib/warning': 74,
+          './lib/ReactPropTypesSecret': 241,
+          _process: 236,
+          'fbjs/lib/invariant': 72,
+          'fbjs/lib/warning': 73,
         },
       ],
-      239: [
+      238: [
         function(require, module, exports) {
           /**
  * Copyright 2013-present, Facebook, Inc.
@@ -64806,9 +64787,9 @@ module.exports = function text(state, silent) {
             return ReactPropTypes;
           };
         },
-        { 'fbjs/lib/emptyFunction': 72, 'fbjs/lib/invariant': 73 },
+        { 'fbjs/lib/emptyFunction': 71, 'fbjs/lib/invariant': 72 },
       ],
-      240: [
+      239: [
         function(require, module, exports) {
           (function(process) {
             /**
@@ -65538,15 +65519,15 @@ module.exports = function text(state, silent) {
           }.call(this, require('_process')));
         },
         {
-          './checkPropTypes': 238,
-          './lib/ReactPropTypesSecret': 242,
-          _process: 237,
-          'fbjs/lib/emptyFunction': 72,
-          'fbjs/lib/invariant': 73,
-          'fbjs/lib/warning': 74,
+          './checkPropTypes': 237,
+          './lib/ReactPropTypesSecret': 241,
+          _process: 236,
+          'fbjs/lib/emptyFunction': 71,
+          'fbjs/lib/invariant': 72,
+          'fbjs/lib/warning': 73,
         },
       ],
-      241: [
+      240: [
         function(require, module, exports) {
           (function(process) {
             /**
@@ -65588,12 +65569,12 @@ module.exports = function text(state, silent) {
           }.call(this, require('_process')));
         },
         {
-          './factoryWithThrowingShims': 239,
-          './factoryWithTypeCheckers': 240,
-          _process: 237,
+          './factoryWithThrowingShims': 238,
+          './factoryWithTypeCheckers': 239,
+          _process: 236,
         },
       ],
-      242: [
+      241: [
         function(require, module, exports) {
           /**
  * Copyright 2013-present, Facebook, Inc.
@@ -65612,7 +65593,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      243: [
+      242: [
         function(require, module, exports) {
           (function(global) {
             /*! https://mths.be/punycode v1.4.1 by @mathias */
@@ -66181,7 +66162,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      244: [
+      243: [
         function(require, module, exports) {
           (function(process, global) {
             'use strict';
@@ -66346,33 +66327,33 @@ module.exports = function text(state, silent) {
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { _process: 237, 'hotkeys-js': 176, 'prop-types': 241 },
+        { _process: 236, 'hotkeys-js': 175, 'prop-types': 240 },
       ],
-      245: [
+      244: [
         function(require, module, exports) {
           module.exports = /[\0-\x1F\x7F-\x9F]/;
         },
         {},
       ],
-      246: [
+      245: [
         function(require, module, exports) {
           module.exports = /[\xAD\u0600-\u0605\u061C\u06DD\u070F\u08E2\u180E\u200B-\u200F\u202A-\u202E\u2060-\u2064\u2066-\u206F\uFEFF\uFFF9-\uFFFB]|\uD804\uDCBD|\uD82F[\uDCA0-\uDCA3]|\uD834[\uDD73-\uDD7A]|\uDB40[\uDC01\uDC20-\uDC7F]/;
         },
         {},
       ],
-      247: [
+      246: [
         function(require, module, exports) {
           module.exports = /[!-#%-\*,-/:;\?@\[-\]_\{\}\xA1\xA7\xAB\xB6\xB7\xBB\xBF\u037E\u0387\u055A-\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A-\u066D\u06D4\u0700-\u070D\u07F7-\u07F9\u0830-\u083E\u085E\u0964\u0965\u0970\u0AF0\u0DF4\u0E4F\u0E5A\u0E5B\u0F04-\u0F12\u0F14\u0F3A-\u0F3D\u0F85\u0FD0-\u0FD4\u0FD9\u0FDA\u104A-\u104F\u10FB\u1360-\u1368\u1400\u166D\u166E\u169B\u169C\u16EB-\u16ED\u1735\u1736\u17D4-\u17D6\u17D8-\u17DA\u1800-\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0-\u1AA6\u1AA8-\u1AAD\u1B5A-\u1B60\u1BFC-\u1BFF\u1C3B-\u1C3F\u1C7E\u1C7F\u1CC0-\u1CC7\u1CD3\u2010-\u2027\u2030-\u2043\u2045-\u2051\u2053-\u205E\u207D\u207E\u208D\u208E\u2308-\u230B\u2329\u232A\u2768-\u2775\u27C5\u27C6\u27E6-\u27EF\u2983-\u2998\u29D8-\u29DB\u29FC\u29FD\u2CF9-\u2CFC\u2CFE\u2CFF\u2D70\u2E00-\u2E2E\u2E30-\u2E44\u3001-\u3003\u3008-\u3011\u3014-\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D-\uA60F\uA673\uA67E\uA6F2-\uA6F7\uA874-\uA877\uA8CE\uA8CF\uA8F8-\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1-\uA9CD\uA9DE\uA9DF\uAA5C-\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uFD3E\uFD3F\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01-\uFF03\uFF05-\uFF0A\uFF0C-\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B-\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F-\uFF65]|\uD800[\uDD00-\uDD02\uDF9F\uDFD0]|\uD801\uDD6F|\uD802[\uDC57\uDD1F\uDD3F\uDE50-\uDE58\uDE7F\uDEF0-\uDEF6\uDF39-\uDF3F\uDF99-\uDF9C]|\uD804[\uDC47-\uDC4D\uDCBB\uDCBC\uDCBE-\uDCC1\uDD40-\uDD43\uDD74\uDD75\uDDC5-\uDDC9\uDDCD\uDDDB\uDDDD-\uDDDF\uDE38-\uDE3D\uDEA9]|\uD805[\uDC4B-\uDC4F\uDC5B\uDC5D\uDCC6\uDDC1-\uDDD7\uDE41-\uDE43\uDE60-\uDE6C\uDF3C-\uDF3E]|\uD807[\uDC41-\uDC45\uDC70\uDC71]|\uD809[\uDC70-\uDC74]|\uD81A[\uDE6E\uDE6F\uDEF5\uDF37-\uDF3B\uDF44]|\uD82F\uDC9F|\uD836[\uDE87-\uDE8B]|\uD83A[\uDD5E\uDD5F]/;
         },
         {},
       ],
-      248: [
+      247: [
         function(require, module, exports) {
           module.exports = /[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]/;
         },
         {},
       ],
-      249: [
+      248: [
         function(require, module, exports) {
           'use strict';
           exports.Any = require('./properties/Any/regex');
@@ -66382,20 +66363,20 @@ module.exports = function text(state, silent) {
           exports.Z = require('./categories/Z/regex');
         },
         {
-          './categories/Cc/regex': 245,
-          './categories/Cf/regex': 246,
-          './categories/P/regex': 247,
-          './categories/Z/regex': 248,
-          './properties/Any/regex': 250,
+          './categories/Cc/regex': 244,
+          './categories/Cf/regex': 245,
+          './categories/P/regex': 246,
+          './categories/Z/regex': 247,
+          './properties/Any/regex': 249,
         },
       ],
-      250: [
+      249: [
         function(require, module, exports) {
           module.exports = /[\0-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]/;
         },
         {},
       ],
-      251: [
+      250: [
         function(require, module, exports) {
           if (typeof Object.create === 'function') {
             // implementation from standard node.js 'util' module
@@ -66423,7 +66404,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      252: [
+      251: [
         function(require, module, exports) {
           module.exports = function isBuffer(arg) {
             return (
@@ -66437,7 +66418,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      253: [
+      252: [
         function(require, module, exports) {
           (function(process, global) {
             // Copyright Joyent, Inc. and other Node contributors.
@@ -67118,7 +67099,7 @@ module.exports = function text(state, silent) {
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { './support/isBuffer': 252, _process: 237, inherits: 251 },
+        { './support/isBuffer': 251, _process: 236, inherits: 250 },
       ],
     },
     {},
