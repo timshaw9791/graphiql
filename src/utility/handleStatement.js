@@ -21,24 +21,27 @@ export function handleStatement(data) {
       if (data.field.args[i]) {
         args = data.field.args[i].name;
       }
-      if (data.queryOrMutation) {
-        type = data.field.args[i].type.name;
-      } else {
-        type = data.field.args[i].type.ofType;
-      }
+      // if (data.queryOrMutation) {
+      //   type = data.field.args[i].type.name;
+      // } else {
+      // type = data.field.args[i].type.ofType;
+      // }
+      type = data.field.args[i].type.ofType;
       setType += '$' + args + ':' + type + '! ';
       parameter += args + ':$' + args + ' ';
     }
-    statement +=
-      '(' + setType + ')' + '{' + data.field.name + '(' + parameter + ') {';
+    setType += '(' + setType + ')';
+    parameter += '(' + parameter + ')';
+    statement += setType;
   }
+  statement += '{' + data.field.name + parameter;
   // 判断 如果是GraphQLScalarType 就加上名字然后返回
   if (data.field.type instanceof GraphQLScalarType) {
-    statement += '{' + data.field.name + '}';
+    statement += '}';
   } else {
     // 不是GraphQLScalarType那就是GraphQLObjectType或者是GraphQLList放入递归算法
     const fields = data.field.type.getFields();
-    statement += f(fields) + '} }';
+    statement += '{' + f(fields) + '} }';
   }
   return statement;
 }
