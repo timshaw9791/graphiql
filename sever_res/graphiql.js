@@ -2331,7 +2331,8 @@
                 // 判断type的名称来区分是否显示按钮
                 // Determine the name of type to distinguish whether a button is displayed or not
                 type.name === 'QueryType_JPA' ||
-                  type.name === 'Mutation_SpringMVC'
+                  type.name === 'Mutation_SpringMVC' ||
+                  type.name === 'Test'
                   ? _react2.default.createElement(
                       _ToolbarButton.ToolbarButton,
                       {
@@ -7869,7 +7870,7 @@
             statement += data.field.name;
             // 如果对象里有参数那么就循环 添加参数
             if (data.field.args.length) {
-              var type = '';
+              var type = void 0;
               var args = '';
               for (var i in data.field.args) {
                 if (data.field.args[i]) {
@@ -7884,8 +7885,8 @@
                 setType += '$' + args + ':' + type + '! ';
                 parameter += args + ':$' + args + ' ';
               }
-              setType += '(' + setType + ')';
-              parameter += '(' + parameter + ')';
+              setType = '(' + setType + ')';
+              parameter = '(' + parameter + ')';
               statement += setType;
             }
             statement += '{' + data.field.name + parameter;
@@ -7915,11 +7916,29 @@
                 // 判断GraphQLList下面的每个元素
                 rs += f(contentFields) + ' }';
               } else if (fields[m].type instanceof _graphql.GraphQLObjectType) {
-                // GraphQLObjectType
-                rs += fields[m].name + '{ id }';
+                // GraphQLObjectType 判断是不是值对象
+                var objectFields = fields[m].type.getFields();
+                if (isInArray(objectFields)) {
+                  rs += fields[m].name + '{ id }';
+                } else {
+                  rs += fields[m].name + '{ ';
+                  // 判断GraphQLList下面的每个元素
+                  rs += f(objectFields) + ' }';
+                }
               }
             }
             return rs;
+          }
+
+          // 判断是否是值对象
+          function isInArray(array) {
+            var isIn = false;
+            for (var i in array) {
+              if (i === 'id') {
+                isIn = true;
+              }
+            }
+            return isIn;
           }
         },
         { graphql: 100 },

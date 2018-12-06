@@ -15,7 +15,7 @@ export function handleStatement(data) {
   statement += data.field.name;
   // 如果对象里有参数那么就循环 添加参数
   if (data.field.args.length) {
-    let type = '';
+    let type;
     let args = '';
     for (const i in data.field.args) {
       if (data.field.args[i]) {
@@ -30,8 +30,8 @@ export function handleStatement(data) {
       setType += '$' + args + ':' + type + '! ';
       parameter += args + ':$' + args + ' ';
     }
-    setType += '(' + setType + ')';
-    parameter += '(' + parameter + ')';
+    setType = '(' + setType + ')';
+    parameter = '(' + parameter + ')';
     statement += setType;
   }
   statement += '{' + data.field.name + parameter;
@@ -60,9 +60,27 @@ function f(fields) {
       // 判断GraphQLList下面的每个元素
       rs += f(contentFields) + ' }';
     } else if (fields[m].type instanceof GraphQLObjectType) {
-      // GraphQLObjectType
-      rs += fields[m].name + '{ id }';
+      // GraphQLObjectType 判断是不是值对象
+      const objectFields = fields[m].type.getFields();
+      if (isInArray(objectFields)) {
+        rs += fields[m].name + '{ id }';
+      } else {
+        rs += fields[m].name + '{ ';
+        // 判断GraphQLList下面的每个元素
+        rs += f(objectFields) + ' }';
+      }
     }
   }
   return rs;
+}
+
+// 判断是否是值对象
+function isInArray(array) {
+  let isIn = false;
+  for (const i in array) {
+    if (i === 'id') {
+      isIn = true;
+    }
+  }
+  return isIn;
 }

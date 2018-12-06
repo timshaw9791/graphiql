@@ -203,7 +203,9 @@ function Field({ type, field, onClickType, onClickField }) {
       <DefaultValue field={field} />
       {// 判断type的名称来区分是否显示按钮
       // Determine the name of type to distinguish whether a button is displayed or not
-      type.name === 'QueryType_JPA' || type.name === 'Mutation_SpringMVC'
+      type.name === 'QueryType_JPA' ||
+        type.name === 'Mutation_SpringMVC' ||
+        type.name === 'Test'
         ? <ToolbarButton
             title={'Statement'}
             onClick={() => {
