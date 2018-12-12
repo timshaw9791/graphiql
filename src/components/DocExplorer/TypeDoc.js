@@ -26,7 +26,7 @@ import DefaultValue from './DefaultValue';
 // 引用HandleDescription方法和TextContent组件 用来处理field的description
 import { HandleDescription } from './HandleDescription';
 import TextContent from './TextContent';
-import { ToolbarButton } from '../ToolbarButton';
+import { handleStatement } from './Statement';
 export default class TypeDoc extends React.Component {
   static propTypes = {
     schema: PropTypes.instanceOf(GraphQLSchema),
@@ -185,7 +185,6 @@ function Field({ type, field, onClickType, onClickField }) {
       <a
         className="field-name"
         onClick={event => onClickField(field, type, event)}>
-
         {field.name}
       </a>
       {field.args &&
@@ -201,22 +200,7 @@ function Field({ type, field, onClickType, onClickField }) {
       {': '}
       <TypeLink type={field.type} onClick={onClickType} />
       <DefaultValue field={field} />
-      {// 判断type的名称来区分是否显示按钮
-      // Determine the name of type to distinguish whether a button is displayed or not
-      type.name === 'QueryType_JPA' ||
-        type.name === 'Mutation_SpringMVC' ||
-        type.name === 'Test'
-        ? <ToolbarButton
-            title={'Statement'}
-            onClick={() => {
-              emitter.emit('Statement', {
-                field,
-                queryOrMutation: !(type.name === 'Mutation_SpringMVC'),
-              });
-            }}
-            label={'Statement'}
-          />
-        : ''}
+      {handleStatement(type, field)}
 
       {field.description &&
         <TextContent

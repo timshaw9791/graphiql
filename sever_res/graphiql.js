@@ -437,9 +437,9 @@
           './DocExplorer/SchemaDoc': 7,
           './DocExplorer/SearchBox': 8,
           './DocExplorer/SearchResults': 9,
-          './DocExplorer/TypeDoc': 11,
-          graphql: 100,
-          'prop-types': 241,
+          './DocExplorer/TypeDoc': 12,
+          graphql: 101,
+          'prop-types': 242,
         },
       ],
       2: [
@@ -520,7 +520,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { './DefaultValue': 3, './TypeLink': 12, 'prop-types': 241 },
+        { './DefaultValue': 3, './TypeLink': 13, 'prop-types': 242 },
       ],
       3: [
         function(require, module, exports) {
@@ -588,7 +588,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { graphql: 100, 'prop-types': 241 },
+        { graphql: 101, 'prop-types': 242 },
       ],
       4: [
         function(require, module, exports) {
@@ -817,9 +817,9 @@
           './Argument': 2,
           './HandleDescription': 5,
           './MarkdownContent': 6,
-          './TextContent': 10,
-          './TypeLink': 12,
-          'prop-types': 241,
+          './TextContent': 11,
+          './TypeLink': 13,
+          'prop-types': 242,
         },
       ],
       5: [
@@ -999,7 +999,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'markdown-it': 180, 'prop-types': 241 },
+        { 'markdown-it': 181, 'prop-types': 242 },
       ],
       7: [
         function(require, module, exports) {
@@ -1212,7 +1212,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { './MarkdownContent': 6, './TypeLink': 12, 'prop-types': 241 },
+        { './MarkdownContent': 6, './TypeLink': 13, 'prop-types': 242 },
       ],
       8: [
         function(require, module, exports) {
@@ -1382,7 +1382,7 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { '../../utility/debounce': 29, 'prop-types': 241 },
+        { '../../utility/debounce': 30, 'prop-types': 242 },
       ],
       9: [
         function(require, module, exports) {
@@ -1432,9 +1432,7 @@
 
             var _MarkdownContent2 = _interopRequireDefault(_MarkdownContent);
 
-            var _ToolbarButton = require('../ToolbarButton');
-
-            var _TypeDoc = require('./TypeDoc');
+            var _Statement = require('./Statement');
 
             function _interopRequireDefault(obj) {
               return obj && obj.__esModule ? obj : { default: obj };
@@ -1638,26 +1636,7 @@
                                 ),
                                 ')',
                               ],
-                              // 判断type的名称来区分是否显示按钮
-                              // Determine the name of type to distinguish whether a button is displayed or not
-                              type.name === 'QueryType_JPA' ||
-                                type.name === 'Mutation_SpringMVC'
-                                ? _react2.default.createElement(
-                                    _ToolbarButton.ToolbarButton,
-                                    {
-                                      title: 'Statement',
-                                      onClick: function onClick() {
-                                        _TypeDoc.emitter.emit('Statement', {
-                                          field: field,
-                                          queryOrMutation: !(
-                                            type.name === 'Mutation_SpringMVC'
-                                          ),
-                                        });
-                                      },
-                                      label: 'Statement',
-                                    },
-                                  )
-                                : '',
+                              (0, _Statement.handleStatement)(type, field),
                               _react2.default.createElement(
                                 _MarkdownContent2.default,
                                 {
@@ -1786,15 +1765,65 @@
           ));
         },
         {
-          '../ToolbarButton': 20,
           './Argument': 2,
           './MarkdownContent': 6,
-          './TypeDoc': 11,
-          './TypeLink': 12,
-          'prop-types': 241,
+          './Statement': 10,
+          './TypeLink': 13,
+          'prop-types': 242,
         },
       ],
       10: [
+        function(require, module, exports) {
+          (function(global) {
+            'use strict';
+            Object.defineProperty(exports, '__esModule', {
+              value: true,
+            });
+            exports.handleStatement = handleStatement;
+
+            var _ToolbarButton = require('../ToolbarButton');
+
+            var _TypeDoc = require('./TypeDoc');
+
+            var _react = typeof window !== 'undefined'
+              ? window['React']
+              : typeof global !== 'undefined' ? global['React'] : null;
+
+            var _react2 = _interopRequireDefault(_react);
+
+            function _interopRequireDefault(obj) {
+              return obj && obj.__esModule ? obj : { default: obj };
+            }
+
+            function handleStatement(type, field) {
+              // 判断type的名称来区分是否显示按钮
+              // Determine the name of type to distinguish whether a button is displayed or not
+              return type.name === 'QueryType_JPA' ||
+                type.name === 'Mutation_SpringMVC'
+                ? _react2.default.createElement(_ToolbarButton.ToolbarButton, {
+                    title: 'Statement',
+                    onClick: function onClick() {
+                      _TypeDoc.emitter.emit('Statement', {
+                        field: field,
+                        queryOrMutation: !(type.name === 'Mutation_SpringMVC'),
+                      });
+                    },
+                    label: 'Statement',
+                  })
+                : '';
+            }
+          }.call(
+            this,
+            typeof global !== 'undefined'
+              ? global
+              : typeof self !== 'undefined'
+                ? self
+                : typeof window !== 'undefined' ? window : {},
+          ));
+        },
+        { '../ToolbarButton': 21, './TypeDoc': 12 },
+      ],
+      11: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -1938,9 +1967,9 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 241 },
+        { 'prop-types': 242 },
       ],
-      11: [
+      12: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -2001,7 +2030,7 @@
 
             var _TextContent2 = _interopRequireDefault(_TextContent);
 
-            var _ToolbarButton = require('../ToolbarButton');
+            var _Statement = require('./Statement');
 
             function _interopRequireDefault(obj) {
               return obj && obj.__esModule ? obj : { default: obj };
@@ -2328,27 +2357,7 @@
                 _react2.default.createElement(_DefaultValue2.default, {
                   field: field,
                 }),
-                // 判断type的名称来区分是否显示按钮
-                // Determine the name of type to distinguish whether a button is displayed or not
-                type.name === 'QueryType_JPA' ||
-                  type.name === 'Mutation_SpringMVC' ||
-                  type.name === 'Test'
-                  ? _react2.default.createElement(
-                      _ToolbarButton.ToolbarButton,
-                      {
-                        title: 'Statement',
-                        onClick: function onClick() {
-                          emitter.emit('Statement', {
-                            field: field,
-                            queryOrMutation: !(
-                              type.name === 'Mutation_SpringMVC'
-                            ),
-                          });
-                        },
-                        label: 'Statement',
-                      },
-                    )
-                  : '',
+                (0, _Statement.handleStatement)(type, field),
                 field.description &&
                   _react2.default.createElement(_TextContent2.default, {
                     className: 'field-short-description',
@@ -2407,19 +2416,19 @@
           ));
         },
         {
-          '../ToolbarButton': 20,
           './Argument': 2,
           './DefaultValue': 3,
           './HandleDescription': 5,
           './MarkdownContent': 6,
-          './TextContent': 10,
-          './TypeLink': 12,
-          events: 71,
-          graphql: 100,
-          'prop-types': 241,
+          './Statement': 10,
+          './TextContent': 11,
+          './TypeLink': 13,
+          events: 72,
+          graphql: 101,
+          'prop-types': 242,
         },
       ],
-      12: [
+      13: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -2584,9 +2593,9 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { graphql: 100, 'prop-types': 241 },
+        { graphql: 101, 'prop-types': 242 },
       ],
-      13: [
+      14: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -2727,9 +2736,9 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 241 },
+        { 'prop-types': 242 },
       ],
-      14: [
+      15: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -2989,9 +2998,9 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 241 },
+        { 'prop-types': 242 },
       ],
-      15: [
+      16: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -3241,11 +3250,13 @@
 
                 // 绑定this
                 _this.handleTokenChange = _this.handleTokenChange.bind(_this);
-
+                _this.handleChange = _this.handleChange.bind(_this);
+                _this.handleSchema = _this.handleSchema.bind(_this);
                 // Initialize state
                 _this.state = _extends(
                   {
                     xToken: null,
+                    isFilter: false,
                     schema: props.schema,
                     query: query,
                     variables: variables,
@@ -3446,7 +3457,7 @@
                         return child.type === GraphiQL.Logo;
                       }) || _react2.default.createElement(GraphiQL.Logo, null);
                     /*
-      EditToken组件
+        EditToken组件
       */
 
                     var toolbar =
@@ -3475,6 +3486,21 @@
                         _react2.default.createElement(_EditToken.EditToken, {
                           onTokenChange: this.handleTokenChange,
                         }),
+                        _react2.default.createElement(
+                          'div',
+                          null,
+                          _react2.default.createElement(
+                            'label',
+                            null,
+                            _react2.default.createElement('input', {
+                              type: 'checkbox',
+                              name: 'isFilter',
+                              checked: this.state.isFilter,
+                              onChange: this.handleChange,
+                            }),
+                            '忽略默认属性',
+                          ),
+                        ),
                       );
 
                     var footer = (0, _find2.default)(children, function(child) {
@@ -4068,6 +4094,71 @@
                     this.setState({ xToken: token });
                   },
                 },
+                {
+                  key: 'handleChange',
+                  value: function handleChange() {
+                    var schema = this.state.schema;
+                    var isFilter = void 0;
+                    if (this.state.isFilter === false) {
+                      this.handleSchema(schema);
+                      isFilter = true;
+                    } else {
+                      this.setState(
+                        {
+                          schema: undefined,
+                        },
+                        this._fetchSchema,
+                      );
+                      this.docExplorerComponent.reset();
+                      isFilter = false;
+                    }
+                    this.setState({ isFilter: isFilter });
+                    console.log(this.state.schema);
+                  },
+                },
+                {
+                  key: 'handleSchema',
+                  value: function handleSchema(schema) {
+                    var base = [
+                      'number',
+                      'createtime',
+                      'updatetime',
+                      'updateactorid',
+                      'createactorid',
+                    ];
+                    for (var fields in schema) {
+                      if (
+                        fields === '_mutationType' ||
+                        fields === '_queryType'
+                      ) {
+                        var models = schema[fields]._fields;
+                        var properties = '';
+                        for (var model in models) {
+                          if (
+                            models[model].type instanceof
+                            _graphql.GraphQLObjectType
+                          ) {
+                            properties = models[model].type._fields;
+                          } else if (
+                            models[model].type instanceof _graphql.GraphQLList
+                          ) {
+                            properties =
+                              models[model].type._fields.content.type.ofType
+                                ._fields;
+                          }
+                          for (var name in properties) {
+                            if (base.indexOf(name) !== -1) {
+                              delete properties[name];
+                            }
+                          }
+                        }
+                      }
+                      this.setState({
+                        schema: schema,
+                      });
+                    }
+                  },
+                },
               ]);
 
               return GraphiQL;
@@ -4592,34 +4683,34 @@
           ));
         },
         {
-          '../utility/CodeMirrorSizer': 26,
-          '../utility/StorageAPI': 28,
-          '../utility/debounce': 29,
-          '../utility/elementPosition': 30,
-          '../utility/fillLeafs': 31,
-          '../utility/find': 32,
-          '../utility/getQueryFacts': 33,
-          '../utility/getSelectedOperationName': 34,
-          '../utility/handleStatement': 35,
-          '../utility/introspectionQueries': 36,
+          '../utility/CodeMirrorSizer': 27,
+          '../utility/StorageAPI': 29,
+          '../utility/debounce': 30,
+          '../utility/elementPosition': 31,
+          '../utility/fillLeafs': 32,
+          '../utility/find': 33,
+          '../utility/getQueryFacts': 34,
+          '../utility/getSelectedOperationName': 35,
+          '../utility/handleStatement': 36,
+          '../utility/introspectionQueries': 37,
           './DocExplorer': 1,
-          './DocExplorer/TypeDoc': 11,
-          './EditToken': 13,
-          './ExecuteButton': 14,
-          './QueryEditor': 17,
-          './QueryHistory': 18,
-          './ResultViewer': 19,
-          './ToolbarButton': 20,
-          './ToolbarGroup': 21,
-          './ToolbarMenu': 22,
-          './ToolbarSelect': 23,
-          './VariableEditor': 24,
-          graphql: 100,
-          'prop-types': 241,
-          'react-hot-keys': 244,
+          './DocExplorer/TypeDoc': 12,
+          './EditToken': 14,
+          './ExecuteButton': 15,
+          './QueryEditor': 18,
+          './QueryHistory': 19,
+          './ResultViewer': 20,
+          './ToolbarButton': 21,
+          './ToolbarGroup': 22,
+          './ToolbarMenu': 23,
+          './ToolbarSelect': 24,
+          './VariableEditor': 25,
+          graphql: 101,
+          'prop-types': 242,
+          'react-hot-keys': 245,
         },
       ],
-      16: [
+      17: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -4903,9 +4994,9 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 241 },
+        { 'prop-types': 242 },
       ],
-      17: [
+      18: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -5304,32 +5395,32 @@
           ));
         },
         {
-          '../utility/normalizeWhitespace': 37,
-          '../utility/onHasCompletion': 38,
-          codemirror: 69,
-          'codemirror-graphql/hint': 40,
-          'codemirror-graphql/info': 41,
-          'codemirror-graphql/jump': 42,
-          'codemirror-graphql/lint': 43,
-          'codemirror-graphql/mode': 44,
-          'codemirror/addon/comment/comment': 56,
-          'codemirror/addon/dialog/dialog': 57,
-          'codemirror/addon/edit/closebrackets': 58,
-          'codemirror/addon/edit/matchbrackets': 59,
-          'codemirror/addon/fold/brace-fold': 60,
-          'codemirror/addon/fold/foldgutter': 62,
-          'codemirror/addon/hint/show-hint': 63,
-          'codemirror/addon/lint/lint': 64,
-          'codemirror/addon/search/jump-to-line': 65,
-          'codemirror/addon/search/search': 66,
-          'codemirror/addon/search/searchcursor': 67,
-          'codemirror/keymap/sublime': 68,
-          graphql: 100,
-          'markdown-it': 180,
-          'prop-types': 241,
+          '../utility/normalizeWhitespace': 38,
+          '../utility/onHasCompletion': 39,
+          codemirror: 70,
+          'codemirror-graphql/hint': 41,
+          'codemirror-graphql/info': 42,
+          'codemirror-graphql/jump': 43,
+          'codemirror-graphql/lint': 44,
+          'codemirror-graphql/mode': 45,
+          'codemirror/addon/comment/comment': 57,
+          'codemirror/addon/dialog/dialog': 58,
+          'codemirror/addon/edit/closebrackets': 59,
+          'codemirror/addon/edit/matchbrackets': 60,
+          'codemirror/addon/fold/brace-fold': 61,
+          'codemirror/addon/fold/foldgutter': 63,
+          'codemirror/addon/hint/show-hint': 64,
+          'codemirror/addon/lint/lint': 65,
+          'codemirror/addon/search/jump-to-line': 66,
+          'codemirror/addon/search/search': 67,
+          'codemirror/addon/search/searchcursor': 68,
+          'codemirror/keymap/sublime': 69,
+          graphql: 101,
+          'markdown-it': 181,
+          'prop-types': 242,
         },
       ],
-      18: [
+      19: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -5656,13 +5747,13 @@
           ));
         },
         {
-          '../utility/QueryStore': 27,
-          './HistoryQuery': 16,
-          graphql: 100,
-          'prop-types': 241,
+          '../utility/QueryStore': 28,
+          './HistoryQuery': 17,
+          graphql: 101,
+          'prop-types': 242,
         },
       ],
-      19: [
+      20: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -5918,20 +6009,20 @@
           ));
         },
         {
-          codemirror: 69,
-          'codemirror-graphql/results/mode': 45,
-          'codemirror-graphql/utils/info-addon': 50,
-          'codemirror/addon/dialog/dialog': 57,
-          'codemirror/addon/fold/brace-fold': 60,
-          'codemirror/addon/fold/foldgutter': 62,
-          'codemirror/addon/search/jump-to-line': 65,
-          'codemirror/addon/search/search': 66,
-          'codemirror/addon/search/searchcursor': 67,
-          'codemirror/keymap/sublime': 68,
-          'prop-types': 241,
+          codemirror: 70,
+          'codemirror-graphql/results/mode': 46,
+          'codemirror-graphql/utils/info-addon': 51,
+          'codemirror/addon/dialog/dialog': 58,
+          'codemirror/addon/fold/brace-fold': 61,
+          'codemirror/addon/fold/foldgutter': 63,
+          'codemirror/addon/search/jump-to-line': 66,
+          'codemirror/addon/search/search': 67,
+          'codemirror/addon/search/searchcursor': 68,
+          'codemirror/keymap/sublime': 69,
+          'prop-types': 242,
         },
       ],
-      20: [
+      21: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -6095,9 +6186,9 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 241 },
+        { 'prop-types': 242 },
       ],
-      21: [
+      22: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -6147,7 +6238,7 @@
         },
         {},
       ],
-      22: [
+      23: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -6388,9 +6479,9 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 241 },
+        { 'prop-types': 242 },
       ],
-      23: [
+      24: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -6685,9 +6776,9 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'prop-types': 241 },
+        { 'prop-types': 242 },
       ],
-      24: [
+      25: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -7044,25 +7135,25 @@
           ));
         },
         {
-          '../utility/onHasCompletion': 38,
-          codemirror: 69,
-          'codemirror-graphql/variables/hint': 53,
-          'codemirror-graphql/variables/lint': 54,
-          'codemirror-graphql/variables/mode': 55,
-          'codemirror/addon/dialog/dialog': 57,
-          'codemirror/addon/edit/closebrackets': 58,
-          'codemirror/addon/edit/matchbrackets': 59,
-          'codemirror/addon/fold/brace-fold': 60,
-          'codemirror/addon/fold/foldgutter': 62,
-          'codemirror/addon/hint/show-hint': 63,
-          'codemirror/addon/lint/lint': 64,
-          'codemirror/addon/search/jump-to-line': 65,
-          'codemirror/addon/search/searchcursor': 67,
-          'codemirror/keymap/sublime': 68,
-          'prop-types': 241,
+          '../utility/onHasCompletion': 39,
+          codemirror: 70,
+          'codemirror-graphql/variables/hint': 54,
+          'codemirror-graphql/variables/lint': 55,
+          'codemirror-graphql/variables/mode': 56,
+          'codemirror/addon/dialog/dialog': 58,
+          'codemirror/addon/edit/closebrackets': 59,
+          'codemirror/addon/edit/matchbrackets': 60,
+          'codemirror/addon/fold/brace-fold': 61,
+          'codemirror/addon/fold/foldgutter': 63,
+          'codemirror/addon/hint/show-hint': 64,
+          'codemirror/addon/lint/lint': 65,
+          'codemirror/addon/search/jump-to-line': 66,
+          'codemirror/addon/search/searchcursor': 68,
+          'codemirror/keymap/sublime': 69,
+          'prop-types': 242,
         },
       ],
-      25: [
+      26: [
         function(require, module, exports) {
           'use strict';
           /**
@@ -7076,9 +7167,9 @@
           // The primary React component to use.
           module.exports = require('./components/GraphiQL').GraphiQL;
         },
-        { './components/GraphiQL': 15 },
+        { './components/GraphiQL': 16 },
       ],
-      26: [
+      27: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -7152,7 +7243,7 @@
         },
         {},
       ],
-      27: [
+      28: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -7305,7 +7396,7 @@
         },
         {},
       ],
-      28: [
+      29: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -7413,7 +7504,7 @@
         },
         {},
       ],
-      29: [
+      30: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -7448,7 +7539,7 @@
         },
         {},
       ],
-      30: [
+      31: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -7490,7 +7581,7 @@
         },
         {},
       ],
-      31: [
+      32: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -7682,9 +7773,9 @@
             return str.substring(indentStart, indentEnd);
           }
         },
-        { graphql: 100 },
+        { graphql: 101 },
       ],
-      32: [
+      33: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -7711,7 +7802,7 @@
         },
         {},
       ],
-      33: [
+      34: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -7787,9 +7878,9 @@
             return variableToType;
           }
         },
-        { graphql: 100 },
+        { graphql: 101 },
       ],
-      34: [
+      35: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -7846,7 +7937,7 @@
         },
         {},
       ],
-      35: [
+      36: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -7941,9 +8032,9 @@
             return isIn;
           }
         },
-        { graphql: 100 },
+        { graphql: 101 },
       ],
-      36: [
+      37: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -7965,9 +8056,9 @@
           var introspectionQuerySansSubscriptions = (exports.introspectionQuerySansSubscriptions =
             '\n  query IntrospectionQuery {\n    __schema {\n      queryType { name }\n      mutationType { name }\n      types {\n        ...FullType\n      }\n      directives {\n        name\n        description\n        locations\n        args {\n          ...InputValue\n        }\n      }\n    }\n  }\n\n  fragment FullType on __Type {\n    kind\n    name\n    description\n    fields(includeDeprecated: true) {\n      name\n      description\n      args {\n        ...InputValue\n      }\n      type {\n        ...TypeRef\n      }\n      isDeprecated\n      deprecationReason\n    }\n    inputFields {\n      ...InputValue\n    }\n    interfaces {\n      ...TypeRef\n    }\n    enumValues(includeDeprecated: true) {\n      name\n      description\n      isDeprecated\n      deprecationReason\n    }\n    possibleTypes {\n      ...TypeRef\n    }\n  }\n\n  fragment InputValue on __InputValue {\n    name\n    description\n    type { ...TypeRef }\n    defaultValue\n  }\n\n  fragment TypeRef on __Type {\n    kind\n    name\n    ofType {\n      kind\n      name\n      ofType {\n        kind\n        name\n        ofType {\n          kind\n          name\n          ofType {\n            kind\n            name\n            ofType {\n              kind\n              name\n              ofType {\n                kind\n                name\n                ofType {\n                  kind\n                  name\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n');
         },
-        { graphql: 100 },
+        { graphql: 101 },
       ],
-      37: [
+      38: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -8002,7 +8093,7 @@
         },
         {},
       ],
-      38: [
+      39: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -8120,9 +8211,9 @@
             return '<a class="typeName">' + type.name + '</a>';
           }
         },
-        { codemirror: 69, graphql: 100, 'markdown-it': 180 },
+        { codemirror: 70, graphql: 101, 'markdown-it': 181 },
       ],
-      39: [
+      40: [
         function(require, module, exports) {
           (function(global) {
             'use strict';
@@ -8712,9 +8803,9 @@
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { 'util/': 253 },
+        { 'util/': 254 },
       ],
-      40: [
+      41: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -8821,9 +8912,9 @@
             return results;
           });
         },
-        { codemirror: 69, 'graphql-language-service-interface': 81 },
+        { codemirror: 70, 'graphql-language-service-interface': 82 },
       ],
-      41: [
+      42: [
         function(require, module, exports) {
           'use strict';
           var _graphql = require('graphql');
@@ -9075,14 +9166,14 @@
           }
         },
         {
-          './utils/SchemaReference': 46,
-          './utils/getTypeInfo': 48,
-          './utils/info-addon': 50,
-          codemirror: 69,
-          graphql: 100,
+          './utils/SchemaReference': 47,
+          './utils/getTypeInfo': 49,
+          './utils/info-addon': 51,
+          codemirror: 70,
+          graphql: 101,
         },
       ],
-      42: [
+      43: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -9160,13 +9251,13 @@
           });
         },
         {
-          './utils/SchemaReference': 46,
-          './utils/getTypeInfo': 48,
-          './utils/jump-addon': 52,
-          codemirror: 69,
+          './utils/SchemaReference': 47,
+          './utils/getTypeInfo': 49,
+          './utils/jump-addon': 53,
+          codemirror: 70,
         },
       ],
-      43: [
+      44: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -9238,9 +9329,9 @@
             return results;
           });
         },
-        { codemirror: 69, 'graphql-language-service-interface': 81 },
+        { codemirror: 70, 'graphql-language-service-interface': 82 },
       ],
-      44: [
+      45: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -9318,9 +9409,9 @@
             return level * this.config.indentUnit;
           }
         },
-        { codemirror: 69, 'graphql-language-service-parser': 85 },
+        { codemirror: 70, 'graphql-language-service-parser': 86 },
       ],
-      45: [
+      46: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -9476,9 +9567,9 @@
             ],
           };
         },
-        { codemirror: 69, 'graphql-language-service-parser': 85 },
+        { codemirror: 70, 'graphql-language-service-parser': 86 },
       ],
-      46: [
+      47: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -9558,9 +9649,9 @@
             return fieldDef.name.slice(0, 2) === '__';
           }
         },
-        { graphql: 100 },
+        { graphql: 101 },
       ],
-      47: [
+      48: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -9591,7 +9682,7 @@
         },
         {},
       ],
-      48: [
+      49: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -9769,12 +9860,12 @@
           }
         },
         {
-          './forEachState': 47,
-          graphql: 100,
-          'graphql/type/introspection': 123,
+          './forEachState': 48,
+          graphql: 101,
+          'graphql/type/introspection': 124,
         },
       ],
-      49: [
+      50: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -9926,7 +10017,7 @@
         },
         {},
       ],
-      50: [
+      51: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -10137,9 +10228,9 @@
             );
           }
         },
-        { codemirror: 69 },
+        { codemirror: 70 },
       ],
-      51: [
+      52: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -10466,7 +10557,7 @@
         },
         {},
       ],
-      52: [
+      53: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -10648,9 +10739,9 @@
             marker.clear();
           }
         },
-        { codemirror: 69 },
+        { codemirror: 70 },
       ],
-      53: [
+      54: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -10868,13 +10959,13 @@
           }
         },
         {
-          '../utils/forEachState': 47,
-          '../utils/hintList': 49,
-          codemirror: 69,
-          graphql: 100,
+          '../utils/forEachState': 48,
+          '../utils/hintList': 50,
+          codemirror: 70,
+          graphql: 101,
         },
       ],
-      54: [
+      55: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -11107,9 +11198,9 @@
             return Array.prototype.concat.apply([], array.map(mapper));
           }
         },
-        { '../utils/jsonParse': 51, codemirror: 69, graphql: 100 },
+        { '../utils/jsonParse': 52, codemirror: 70, graphql: 101 },
       ],
-      55: [
+      56: [
         function(require, module, exports) {
           'use strict';
           var _codemirror = require('codemirror');
@@ -11286,9 +11377,9 @@
             };
           }
         },
-        { codemirror: 69, 'graphql-language-service-parser': 85 },
+        { codemirror: 70, 'graphql-language-service-parser': 86 },
       ],
-      56: [
+      57: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -11618,9 +11709,9 @@
             });
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 70 },
       ],
-      57: [
+      58: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -11821,9 +11912,9 @@
             });
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 70 },
       ],
-      58: [
+      59: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -12076,9 +12167,9 @@
             }
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 70 },
       ],
-      59: [
+      60: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -12309,9 +12400,9 @@
             });
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 70 },
       ],
-      60: [
+      61: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -12468,9 +12559,9 @@
             });
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 70 },
       ],
-      61: [
+      62: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -12634,9 +12725,9 @@
             });
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 70 },
       ],
-      62: [
+      63: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -12805,9 +12896,9 @@
             }
           });
         },
-        { '../../lib/codemirror': 69, './foldcode': 61 },
+        { '../../lib/codemirror': 70, './foldcode': 62 },
       ],
-      63: [
+      64: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -13417,9 +13508,9 @@
             CodeMirror.defineOption('hintOptions', null);
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 70 },
       ],
-      64: [
+      65: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -13741,9 +13832,9 @@
             });
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 70 },
       ],
-      65: [
+      66: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -13817,9 +13908,9 @@
             CodeMirror.keyMap['default']['Alt-G'] = 'jumpToLine';
           });
         },
-        { '../../lib/codemirror': 69, '../dialog/dialog': 57 },
+        { '../../lib/codemirror': 70, '../dialog/dialog': 58 },
       ],
-      66: [
+      67: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -14213,12 +14304,12 @@
           });
         },
         {
-          '../../lib/codemirror': 69,
-          '../dialog/dialog': 57,
-          './searchcursor': 67,
+          '../../lib/codemirror': 70,
+          '../dialog/dialog': 58,
+          './searchcursor': 68,
         },
       ],
-      67: [
+      68: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -14678,9 +14769,9 @@
             });
           });
         },
-        { '../../lib/codemirror': 69 },
+        { '../../lib/codemirror': 70 },
       ],
-      68: [
+      69: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -15526,12 +15617,12 @@
           });
         },
         {
-          '../addon/edit/matchbrackets': 59,
-          '../addon/search/searchcursor': 67,
-          '../lib/codemirror': 69,
+          '../addon/edit/matchbrackets': 60,
+          '../addon/search/searchcursor': 68,
+          '../lib/codemirror': 70,
         },
       ],
-      69: [
+      70: [
         function(require, module, exports) {
           // CodeMirror, copyright (c) by Marijn Haverbeke and others
           // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -30490,7 +30581,7 @@
         },
         {},
       ],
-      70: [
+      71: [
         function(require, module, exports) {
           module.exports = {
             Aacute: '\u00C1',
@@ -32622,7 +32713,7 @@
         },
         {},
       ],
-      71: [
+      72: [
         function(require, module, exports) {
           // Copyright Joyent, Inc. and other Node contributors.
           //
@@ -32926,7 +33017,7 @@
         },
         {},
       ],
-      72: [
+      73: [
         function(require, module, exports) {
           'use strict';
           /**
@@ -32968,7 +33059,7 @@
         },
         {},
       ],
-      73: [
+      74: [
         function(require, module, exports) {
           (function(process) {
             /**
@@ -33034,9 +33125,9 @@
             module.exports = invariant;
           }.call(this, require('_process')));
         },
-        { _process: 237 },
+        { _process: 238 },
       ],
-      74: [
+      75: [
         function(require, module, exports) {
           (function(process) {
             /**
@@ -33123,9 +33214,9 @@
             module.exports = warning;
           }.call(this, require('_process')));
         },
-        { './emptyFunction': 72, _process: 237 },
+        { './emptyFunction': 73, _process: 238 },
       ],
-      75: [
+      76: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -33502,15 +33593,15 @@
           })());
         },
         {
-          './getAutocompleteSuggestions': 77,
-          './getDefinition': 78,
-          './getDiagnostics': 79,
-          graphql: 100,
-          'graphql-language-service-utils': 89,
-          'graphql/language/kinds': 110,
+          './getAutocompleteSuggestions': 78,
+          './getDefinition': 79,
+          './getDiagnostics': 80,
+          graphql: 101,
+          'graphql-language-service-utils': 90,
+          'graphql/language/kinds': 111,
         },
       ],
-      76: [
+      77: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -33727,9 +33818,9 @@
             return d[aLength][bLength];
           }
         },
-        { graphql: 100, 'graphql/type/introspection': 123 },
+        { graphql: 101, 'graphql/type/introspection': 124 },
       ],
-      77: [
+      78: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -34425,12 +34516,12 @@
           }
         },
         {
-          './autocompleteUtils': 76,
-          graphql: 100,
-          'graphql-language-service-parser': 85,
+          './autocompleteUtils': 77,
+          graphql: 101,
+          'graphql-language-service-parser': 86,
         },
       ],
-      78: [
+      79: [
         function(require, module, exports) {
           (function(process) {
             'use strict';
@@ -34580,9 +34671,9 @@
             }
           }.call(this, require('_process')));
         },
-        { _process: 237, assert: 39, 'graphql-language-service-utils': 89 },
+        { _process: 238, assert: 40, 'graphql-language-service-utils': 90 },
       ],
-      79: [
+      80: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -34767,13 +34858,13 @@
           }
         },
         {
-          assert: 39,
-          graphql: 100,
-          'graphql-language-service-parser': 85,
-          'graphql-language-service-utils': 89,
+          assert: 40,
+          graphql: 101,
+          'graphql-language-service-parser': 86,
+          'graphql-language-service-utils': 90,
         },
       ],
-      80: [
+      81: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -34936,12 +35027,12 @@
           }
         },
         {
-          graphql: 100,
-          'graphql-language-service-utils': 89,
-          'graphql/language/kinds': 110,
+          graphql: 101,
+          'graphql-language-service-utils': 90,
+          'graphql/language/kinds': 111,
         },
       ],
-      81: [
+      82: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35047,15 +35138,15 @@
           });
         },
         {
-          './GraphQLLanguageService': 75,
-          './autocompleteUtils': 76,
-          './getAutocompleteSuggestions': 77,
-          './getDefinition': 78,
-          './getDiagnostics': 79,
-          './getOutline': 80,
+          './GraphQLLanguageService': 76,
+          './autocompleteUtils': 77,
+          './getAutocompleteSuggestions': 78,
+          './getDefinition': 79,
+          './getDiagnostics': 80,
+          './getOutline': 81,
         },
       ],
-      82: [
+      83: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35266,7 +35357,7 @@
         },
         {},
       ],
-      83: [
+      84: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35340,7 +35431,7 @@
         },
         {},
       ],
-      84: [
+      85: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35734,9 +35825,9 @@
             };
           }
         },
-        { './RuleHelpers': 83 },
+        { './RuleHelpers': 84 },
       ],
-      85: [
+      86: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -35820,13 +35911,13 @@
           }
         },
         {
-          './CharacterStream': 82,
-          './RuleHelpers': 83,
-          './Rules': 84,
-          './onlineParser': 86,
+          './CharacterStream': 83,
+          './RuleHelpers': 84,
+          './Rules': 85,
+          './onlineParser': 87,
         },
       ],
-      86: [
+      87: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36154,9 +36245,9 @@
             }
           }
         },
-        { './Rules': 84 },
+        { './Rules': 85 },
       ],
-      87: [
+      88: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36260,7 +36351,7 @@
         },
         {},
       ],
-      88: [
+      89: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36321,9 +36412,9 @@
             );
           }
         },
-        { './Range': 87, graphql: 100 },
+        { './Range': 88, graphql: 101 },
       ],
-      89: [
+      90: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36382,12 +36473,12 @@
           });
         },
         {
-          './Range': 87,
-          './getASTNodeAtPosition': 88,
-          './validateWithCustomRules': 90,
+          './Range': 88,
+          './getASTNodeAtPosition': 89,
+          './validateWithCustomRules': 91,
         },
       ],
-      90: [
+      91: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36433,9 +36524,9 @@
    *  
    */
         },
-        { graphql: 100, 'graphql/validation/rules/NoUnusedFragments': 157 },
+        { graphql: 101, 'graphql/validation/rules/NoUnusedFragments': 158 },
       ],
-      91: [
+      92: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36560,9 +36651,9 @@
             name: { value: 'GraphQLError' },
           });
         },
-        { '../language/location': 112 },
+        { '../language/location': 113 },
       ],
-      92: [
+      93: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36602,9 +36693,9 @@
  *  of patent rights can be found in the PATENTS file in the same directory.
  */
         },
-        { '../jsutils/invariant': 102 },
+        { '../jsutils/invariant': 103 },
       ],
-      93: [
+      94: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36648,13 +36739,13 @@
           });
         },
         {
-          './GraphQLError': 91,
-          './formatError': 92,
-          './locatedError': 94,
-          './syntaxError': 95,
+          './GraphQLError': 92,
+          './formatError': 93,
+          './locatedError': 95,
+          './syntaxError': 96,
         },
       ],
-      94: [
+      95: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36697,9 +36788,9 @@
  *  of patent rights can be found in the PATENTS file in the same directory.
  */
         },
-        { './GraphQLError': 91 },
+        { './GraphQLError': 92 },
       ],
-      95: [
+      96: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -36776,9 +36867,9 @@
             return Array(len - str.length + 1).join(' ') + str;
           }
         },
-        { '../language/location': 112, './GraphQLError': 91 },
+        { '../language/location': 113, './GraphQLError': 92 },
       ],
-      96: [
+      97: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -38125,20 +38216,20 @@
           }
         },
         {
-          '../error': 93,
-          '../jsutils/invariant': 102,
-          '../jsutils/isNullish': 104,
-          '../language/kinds': 110,
-          '../type/definition': 120,
-          '../type/directives': 121,
-          '../type/introspection': 123,
-          '../type/schema': 125,
-          '../utilities/typeFromAST': 143,
-          './values': 98,
-          iterall: 177,
+          '../error': 94,
+          '../jsutils/invariant': 103,
+          '../jsutils/isNullish': 105,
+          '../language/kinds': 111,
+          '../type/definition': 121,
+          '../type/directives': 122,
+          '../type/introspection': 124,
+          '../type/schema': 126,
+          '../utilities/typeFromAST': 144,
+          './values': 99,
+          iterall: 178,
         },
       ],
-      97: [
+      98: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -38175,9 +38266,9 @@
             },
           });
         },
-        { './execute': 96, './values': 98 },
+        { './execute': 97, './values': 99 },
       ],
-      98: [
+      99: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -38530,23 +38621,23 @@
           }
         },
         {
-          '../error': 93,
-          '../jsutils/find': 101,
-          '../jsutils/invariant': 102,
-          '../jsutils/isInvalid': 103,
-          '../jsutils/isNullish': 104,
-          '../jsutils/keyMap': 105,
-          '../language/kinds': 110,
-          '../language/printer': 114,
-          '../type/definition': 120,
-          '../utilities/isValidJSValue': 138,
-          '../utilities/isValidLiteralValue': 139,
-          '../utilities/typeFromAST': 143,
-          '../utilities/valueFromAST': 144,
-          iterall: 177,
+          '../error': 94,
+          '../jsutils/find': 102,
+          '../jsutils/invariant': 103,
+          '../jsutils/isInvalid': 104,
+          '../jsutils/isNullish': 105,
+          '../jsutils/keyMap': 106,
+          '../language/kinds': 111,
+          '../language/printer': 115,
+          '../type/definition': 121,
+          '../utilities/isValidJSValue': 139,
+          '../utilities/isValidLiteralValue': 140,
+          '../utilities/typeFromAST': 144,
+          '../utilities/valueFromAST': 145,
+          iterall: 178,
         },
       ],
-      99: [
+      100: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -38673,12 +38764,12 @@
           }
         },
         {
-          './execution/execute': 96,
-          './language/parser': 113,
-          './validation/validate': 173,
+          './execution/execute': 97,
+          './language/parser': 114,
+          './validation/validate': 174,
         },
       ],
-      100: [
+      101: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39460,17 +39551,17 @@
           });
         },
         {
-          './error': 93,
-          './execution': 97,
-          './graphql': 99,
-          './language': 109,
-          './subscription': 117,
-          './type': 122,
-          './utilities': 136,
-          './validation': 145,
+          './error': 94,
+          './execution': 98,
+          './graphql': 100,
+          './language': 110,
+          './subscription': 118,
+          './type': 123,
+          './utilities': 137,
+          './validation': 146,
         },
       ],
-      101: [
+      102: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39497,7 +39588,7 @@
         },
         {},
       ],
-      102: [
+      103: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39522,7 +39613,7 @@
         },
         {},
       ],
-      103: [
+      104: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39548,7 +39639,7 @@
         },
         {},
       ],
-      104: [
+      105: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39574,7 +39665,7 @@
         },
         {},
       ],
-      105: [
+      106: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39622,7 +39713,7 @@
         },
         {},
       ],
-      106: [
+      107: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39664,7 +39755,7 @@
         },
         {},
       ],
-      107: [
+      108: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39704,7 +39795,7 @@
         },
         {},
       ],
-      108: [
+      109: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39800,7 +39891,7 @@
         },
         {},
       ],
-      109: [
+      110: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -39927,16 +40018,16 @@
           exports.Kind = Kind;
         },
         {
-          './kinds': 110,
-          './lexer': 111,
-          './location': 112,
-          './parser': 113,
-          './printer': 114,
-          './source': 115,
-          './visitor': 116,
+          './kinds': 111,
+          './lexer': 112,
+          './location': 113,
+          './parser': 114,
+          './printer': 115,
+          './source': 116,
+          './visitor': 117,
         },
       ],
-      110: [
+      111: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -40036,7 +40127,7 @@
         },
         {},
       ],
-      111: [
+      112: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -40758,9 +40849,9 @@
             );
           }
         },
-        { '../error': 93 },
+        { '../error': 94 },
       ],
-      112: [
+      113: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -40803,7 +40894,7 @@
         },
         {},
       ],
-      113: [
+      114: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -41929,9 +42020,9 @@
             return nodes;
           }
         },
-        { '../error': 93, './kinds': 110, './lexer': 111, './source': 115 },
+        { '../error': 94, './kinds': 111, './lexer': 112, './source': 116 },
       ],
-      114: [
+      115: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -42304,9 +42395,9 @@
             return maybeString && maybeString.replace(/\n/g, '\n  ');
           }
         },
-        { './visitor': 116 },
+        { './visitor': 117 },
       ],
-      115: [
+      116: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -42343,7 +42434,7 @@
         },
         {},
       ],
-      116: [
+      117: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -42781,7 +42872,7 @@
         },
         {},
       ],
-      117: [
+      118: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -42803,9 +42894,9 @@
             },
           });
         },
-        { './subscribe': 119 },
+        { './subscribe': 120 },
       ],
-      118: [
+      119: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -42899,9 +42990,9 @@
             return { value: value, done: false };
           }
         },
-        { iterall: 177 },
+        { iterall: 178 },
       ],
-      119: [
+      120: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -43133,14 +43224,14 @@
           }
         },
         {
-          '../execution/execute': 96,
-          '../jsutils/invariant': 102,
-          '../type/schema': 125,
-          './mapAsyncIterator': 118,
-          iterall: 177,
+          '../execution/execute': 97,
+          '../jsutils/invariant': 103,
+          '../type/schema': 126,
+          './mapAsyncIterator': 119,
+          iterall: 178,
         },
       ],
-      120: [
+      121: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -44197,13 +44288,13 @@
             GraphQLNonNull.prototype.toString;
         },
         {
-          '../jsutils/invariant': 102,
-          '../jsutils/isNullish': 104,
-          '../language/kinds': 110,
-          '../utilities/assertValidName': 127,
+          '../jsutils/invariant': 103,
+          '../jsutils/isNullish': 105,
+          '../language/kinds': 111,
+          '../utilities/assertValidName': 128,
         },
       ],
-      121: [
+      122: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -44399,13 +44490,13 @@
           ]);
         },
         {
-          '../jsutils/invariant': 102,
-          '../utilities/assertValidName': 127,
-          './definition': 120,
-          './scalars': 124,
+          '../jsutils/invariant': 103,
+          '../utilities/assertValidName': 128,
+          './definition': 121,
+          './scalars': 125,
         },
       ],
-      122: [
+      123: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -44722,14 +44813,14 @@
           });
         },
         {
-          './definition': 120,
-          './directives': 121,
-          './introspection': 123,
-          './scalars': 124,
-          './schema': 125,
+          './definition': 121,
+          './directives': 122,
+          './introspection': 124,
+          './scalars': 125,
+          './schema': 126,
         },
       ],
-      123: [
+      124: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -45363,15 +45454,15 @@
           });
         },
         {
-          '../jsutils/isInvalid': 103,
-          '../language/printer': 114,
-          '../utilities/astFromValue': 128,
-          './definition': 120,
-          './directives': 121,
-          './scalars': 124,
+          '../jsutils/isInvalid': 104,
+          '../language/printer': 115,
+          '../utilities/astFromValue': 129,
+          './definition': 121,
+          './directives': 122,
+          './scalars': 125,
         },
       ],
-      124: [
+      125: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -45540,9 +45631,9 @@
             },
           ));
         },
-        { '../language/kinds': 110, './definition': 120 },
+        { '../language/kinds': 111, './definition': 121 },
       ],
-      125: [
+      126: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -45925,15 +46016,15 @@
           }
         },
         {
-          '../jsutils/find': 101,
-          '../jsutils/invariant': 102,
-          '../utilities/typeComparators': 142,
-          './definition': 120,
-          './directives': 121,
-          './introspection': 123,
+          '../jsutils/find': 102,
+          '../jsutils/invariant': 103,
+          '../utilities/typeComparators': 143,
+          './definition': 121,
+          './directives': 122,
+          './introspection': 124,
         },
       ],
-      126: [
+      127: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -46236,14 +46327,14 @@
           }
         },
         {
-          '../jsutils/find': 101,
-          '../language/kinds': 110,
-          '../type/definition': 120,
-          '../type/introspection': 123,
-          './typeFromAST': 143,
+          '../jsutils/find': 102,
+          '../language/kinds': 111,
+          '../type/definition': 121,
+          '../type/introspection': 124,
+          './typeFromAST': 144,
         },
       ],
-      127: [
+      128: [
         function(require, module, exports) {
           (function(process) {
             'use strict';
@@ -46329,9 +46420,9 @@
             }
           }.call(this, require('_process')));
         },
-        { _process: 237 },
+        { _process: 238 },
       ],
-      128: [
+      129: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -46518,16 +46609,16 @@
  */
         },
         {
-          '../jsutils/invariant': 102,
-          '../jsutils/isInvalid': 103,
-          '../jsutils/isNullish': 104,
-          '../language/kinds': 110,
-          '../type/definition': 120,
-          '../type/scalars': 124,
-          iterall: 177,
+          '../jsutils/invariant': 103,
+          '../jsutils/isInvalid': 104,
+          '../jsutils/isNullish': 105,
+          '../language/kinds': 111,
+          '../type/definition': 121,
+          '../type/scalars': 125,
+          iterall: 178,
         },
       ],
-      129: [
+      130: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -47108,21 +47199,21 @@
           }
         },
         {
-          '../execution/values': 98,
-          '../jsutils/invariant': 102,
-          '../jsutils/keyValMap': 106,
-          '../language/kinds': 110,
-          '../language/lexer': 111,
-          '../language/parser': 113,
-          '../type/definition': 120,
-          '../type/directives': 121,
-          '../type/introspection': 123,
-          '../type/scalars': 124,
-          '../type/schema': 125,
-          './valueFromAST': 144,
+          '../execution/values': 99,
+          '../jsutils/invariant': 103,
+          '../jsutils/keyValMap': 107,
+          '../language/kinds': 111,
+          '../language/lexer': 112,
+          '../language/parser': 114,
+          '../type/definition': 121,
+          '../type/directives': 122,
+          '../type/introspection': 124,
+          '../type/scalars': 125,
+          '../type/schema': 126,
+          './valueFromAST': 145,
         },
       ],
-      130: [
+      131: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -47522,19 +47613,19 @@
           }
         },
         {
-          '../jsutils/invariant': 102,
-          '../jsutils/keyMap': 105,
-          '../jsutils/keyValMap': 106,
-          '../language/parser': 113,
-          '../type/definition': 120,
-          '../type/directives': 121,
-          '../type/introspection': 123,
-          '../type/scalars': 124,
-          '../type/schema': 125,
-          './valueFromAST': 144,
+          '../jsutils/invariant': 103,
+          '../jsutils/keyMap': 106,
+          '../jsutils/keyValMap': 107,
+          '../language/parser': 114,
+          '../type/definition': 121,
+          '../type/directives': 122,
+          '../type/introspection': 124,
+          '../type/scalars': 125,
+          '../type/schema': 126,
+          './valueFromAST': 145,
         },
       ],
-      131: [
+      132: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -47571,7 +47662,7 @@
         },
         {},
       ],
-      132: [
+      133: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -48245,21 +48336,21 @@
           }
         },
         {
-          '../error/GraphQLError': 91,
-          '../jsutils/invariant': 102,
-          '../jsutils/keyMap': 105,
-          '../jsutils/keyValMap': 106,
-          '../language/kinds': 110,
-          '../type/definition': 120,
-          '../type/directives': 121,
-          '../type/introspection': 123,
-          '../type/scalars': 124,
-          '../type/schema': 125,
-          './buildASTSchema': 129,
-          './valueFromAST': 144,
+          '../error/GraphQLError': 92,
+          '../jsutils/invariant': 103,
+          '../jsutils/keyMap': 106,
+          '../jsutils/keyValMap': 107,
+          '../language/kinds': 111,
+          '../type/definition': 121,
+          '../type/directives': 122,
+          '../type/introspection': 124,
+          '../type/scalars': 125,
+          '../type/schema': 126,
+          './buildASTSchema': 130,
+          './valueFromAST': 145,
         },
       ],
-      133: [
+      134: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -48875,9 +48966,9 @@
             return breakingChanges;
           }
         },
-        { '../type/definition': 120, '../type/schema': 125 },
+        { '../type/definition': 121, '../type/schema': 126 },
       ],
-      134: [
+      135: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -48964,14 +49055,14 @@
  */
         },
         {
-          '../error/GraphQLError': 91,
-          '../language/visitor': 116,
-          '../type/definition': 120,
-          '../type/schema': 125,
-          './TypeInfo': 126,
+          '../error/GraphQLError': 92,
+          '../language/visitor': 117,
+          '../type/definition': 121,
+          '../type/schema': 126,
+          './TypeInfo': 127,
         },
       ],
-      135: [
+      136: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49018,9 +49109,9 @@
  *  of patent rights can be found in the PATENTS file in the same directory.
  */
         },
-        { '../language/kinds': 110 },
+        { '../language/kinds': 111 },
       ],
-      136: [
+      137: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49232,27 +49323,27 @@
           });
         },
         {
-          './TypeInfo': 126,
-          './assertValidName': 127,
-          './astFromValue': 128,
-          './buildASTSchema': 129,
-          './buildClientSchema': 130,
-          './concatAST': 131,
-          './extendSchema': 132,
-          './findBreakingChanges': 133,
-          './findDeprecatedUsages': 134,
-          './getOperationAST': 135,
-          './introspectionQuery': 137,
-          './isValidJSValue': 138,
-          './isValidLiteralValue': 139,
-          './schemaPrinter': 140,
-          './separateOperations': 141,
-          './typeComparators': 142,
-          './typeFromAST': 143,
-          './valueFromAST': 144,
+          './TypeInfo': 127,
+          './assertValidName': 128,
+          './astFromValue': 129,
+          './buildASTSchema': 130,
+          './buildClientSchema': 131,
+          './concatAST': 132,
+          './extendSchema': 133,
+          './findBreakingChanges': 134,
+          './findDeprecatedUsages': 135,
+          './getOperationAST': 136,
+          './introspectionQuery': 138,
+          './isValidJSValue': 139,
+          './isValidLiteralValue': 140,
+          './schemaPrinter': 141,
+          './separateOperations': 142,
+          './typeComparators': 143,
+          './typeFromAST': 144,
+          './valueFromAST': 145,
         },
       ],
-      137: [
+      138: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49271,7 +49362,7 @@
         },
         {},
       ],
-      138: [
+      139: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49413,13 +49504,13 @@
           }
         },
         {
-          '../jsutils/invariant': 102,
-          '../jsutils/isNullish': 104,
-          '../type/definition': 120,
-          iterall: 177,
+          '../jsutils/invariant': 103,
+          '../jsutils/isNullish': 105,
+          '../type/definition': 121,
+          iterall: 178,
         },
       ],
-      139: [
+      140: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49577,14 +49668,14 @@
  */
         },
         {
-          '../jsutils/invariant': 102,
-          '../jsutils/keyMap': 105,
-          '../language/kinds': 110,
-          '../language/printer': 114,
-          '../type/definition': 120,
+          '../jsutils/invariant': 103,
+          '../jsutils/keyMap': 106,
+          '../language/kinds': 111,
+          '../language/printer': 115,
+          '../type/definition': 121,
         },
       ],
-      140: [
+      141: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -49998,17 +50089,17 @@
           }
         },
         {
-          '../jsutils/invariant': 102,
-          '../jsutils/isInvalid': 103,
-          '../jsutils/isNullish': 104,
-          '../language/printer': 114,
-          '../type/definition': 120,
-          '../type/directives': 121,
-          '../type/scalars': 124,
-          '../utilities/astFromValue': 128,
+          '../jsutils/invariant': 103,
+          '../jsutils/isInvalid': 104,
+          '../jsutils/isNullish': 105,
+          '../language/printer': 115,
+          '../type/definition': 121,
+          '../type/directives': 122,
+          '../type/scalars': 125,
+          '../utilities/astFromValue': 129,
         },
       ],
-      141: [
+      142: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50113,9 +50204,9 @@
             }
           }
         },
-        { '../language/visitor': 116 },
+        { '../language/visitor': 117 },
       ],
-      142: [
+      143: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50259,9 +50350,9 @@
             return false;
           }
         },
-        { '../type/definition': 120 },
+        { '../type/definition': 121 },
       ],
-      143: [
+      144: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50340,12 +50431,12 @@
           var typeFromAST = (exports.typeFromAST = typeFromASTImpl);
         },
         {
-          '../jsutils/invariant': 102,
-          '../language/kinds': 110,
-          '../type/definition': 120,
+          '../jsutils/invariant': 103,
+          '../language/kinds': 111,
+          '../type/definition': 121,
         },
       ],
-      144: [
+      145: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50563,15 +50654,15 @@
           }
         },
         {
-          '../jsutils/invariant': 102,
-          '../jsutils/isInvalid': 103,
-          '../jsutils/isNullish': 104,
-          '../jsutils/keyMap': 105,
-          '../language/kinds': 110,
-          '../type/definition': 120,
+          '../jsutils/invariant': 103,
+          '../jsutils/isInvalid': 104,
+          '../jsutils/isNullish': 105,
+          '../jsutils/keyMap': 106,
+          '../language/kinds': 111,
+          '../type/definition': 121,
         },
       ],
-      145: [
+      146: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50837,37 +50928,37 @@
           });
         },
         {
-          './rules/ArgumentsOfCorrectType': 146,
-          './rules/DefaultValuesOfCorrectType': 147,
-          './rules/FieldsOnCorrectType': 148,
-          './rules/FragmentsOnCompositeTypes': 149,
-          './rules/KnownArgumentNames': 150,
-          './rules/KnownDirectives': 151,
-          './rules/KnownFragmentNames': 152,
-          './rules/KnownTypeNames': 153,
-          './rules/LoneAnonymousOperation': 154,
-          './rules/NoFragmentCycles': 155,
-          './rules/NoUndefinedVariables': 156,
-          './rules/NoUnusedFragments': 157,
-          './rules/NoUnusedVariables': 158,
-          './rules/OverlappingFieldsCanBeMerged': 159,
-          './rules/PossibleFragmentSpreads': 160,
-          './rules/ProvidedNonNullArguments': 161,
-          './rules/ScalarLeafs': 162,
-          './rules/SingleFieldSubscriptions': 163,
-          './rules/UniqueArgumentNames': 164,
-          './rules/UniqueDirectivesPerLocation': 165,
-          './rules/UniqueFragmentNames': 166,
-          './rules/UniqueInputFieldNames': 167,
-          './rules/UniqueOperationNames': 168,
-          './rules/UniqueVariableNames': 169,
-          './rules/VariablesAreInputTypes': 170,
-          './rules/VariablesInAllowedPosition': 171,
-          './specifiedRules': 172,
-          './validate': 173,
+          './rules/ArgumentsOfCorrectType': 147,
+          './rules/DefaultValuesOfCorrectType': 148,
+          './rules/FieldsOnCorrectType': 149,
+          './rules/FragmentsOnCompositeTypes': 150,
+          './rules/KnownArgumentNames': 151,
+          './rules/KnownDirectives': 152,
+          './rules/KnownFragmentNames': 153,
+          './rules/KnownTypeNames': 154,
+          './rules/LoneAnonymousOperation': 155,
+          './rules/NoFragmentCycles': 156,
+          './rules/NoUndefinedVariables': 157,
+          './rules/NoUnusedFragments': 158,
+          './rules/NoUnusedVariables': 159,
+          './rules/OverlappingFieldsCanBeMerged': 160,
+          './rules/PossibleFragmentSpreads': 161,
+          './rules/ProvidedNonNullArguments': 162,
+          './rules/ScalarLeafs': 163,
+          './rules/SingleFieldSubscriptions': 164,
+          './rules/UniqueArgumentNames': 165,
+          './rules/UniqueDirectivesPerLocation': 166,
+          './rules/UniqueFragmentNames': 167,
+          './rules/UniqueInputFieldNames': 168,
+          './rules/UniqueOperationNames': 169,
+          './rules/UniqueVariableNames': 170,
+          './rules/VariablesAreInputTypes': 171,
+          './rules/VariablesInAllowedPosition': 172,
+          './specifiedRules': 173,
+          './validate': 174,
         },
       ],
-      146: [
+      147: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -50938,12 +51029,12 @@
           }
         },
         {
-          '../../error': 93,
-          '../../language/printer': 114,
-          '../../utilities/isValidLiteralValue': 139,
+          '../../error': 94,
+          '../../language/printer': 115,
+          '../../utilities/isValidLiteralValue': 140,
         },
       ],
-      147: [
+      148: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51053,13 +51144,13 @@
           }
         },
         {
-          '../../error': 93,
-          '../../language/printer': 114,
-          '../../type/definition': 120,
-          '../../utilities/isValidLiteralValue': 139,
+          '../../error': 94,
+          '../../language/printer': 115,
+          '../../type/definition': 121,
+          '../../utilities/isValidLiteralValue': 140,
         },
       ],
-      148: [
+      149: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51225,13 +51316,13 @@
           }
         },
         {
-          '../../error': 93,
-          '../../jsutils/quotedOrList': 107,
-          '../../jsutils/suggestionList': 108,
-          '../../type/definition': 120,
+          '../../error': 94,
+          '../../jsutils/quotedOrList': 108,
+          '../../jsutils/suggestionList': 109,
+          '../../type/definition': 121,
         },
       ],
-      149: [
+      150: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51322,13 +51413,13 @@
           }
         },
         {
-          '../../error': 93,
-          '../../language/printer': 114,
-          '../../type/definition': 120,
-          '../../utilities/typeFromAST': 143,
+          '../../error': 94,
+          '../../language/printer': 115,
+          '../../type/definition': 121,
+          '../../utilities/typeFromAST': 144,
         },
       ],
-      150: [
+      151: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51498,15 +51589,15 @@
           }
         },
         {
-          '../../error': 93,
-          '../../jsutils/find': 101,
-          '../../jsutils/invariant': 102,
-          '../../jsutils/quotedOrList': 107,
-          '../../jsutils/suggestionList': 108,
-          '../../language/kinds': 110,
+          '../../error': 94,
+          '../../jsutils/find': 102,
+          '../../jsutils/invariant': 103,
+          '../../jsutils/quotedOrList': 108,
+          '../../jsutils/suggestionList': 109,
+          '../../language/kinds': 111,
         },
       ],
-      151: [
+      152: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51675,13 +51766,13 @@
           }
         },
         {
-          '../../error': 93,
-          '../../jsutils/find': 101,
-          '../../language/kinds': 110,
-          '../../type/directives': 121,
+          '../../error': 94,
+          '../../jsutils/find': 102,
+          '../../language/kinds': 111,
+          '../../type/directives': 122,
         },
       ],
-      152: [
+      153: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51728,9 +51819,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 94 },
       ],
-      153: [
+      154: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51819,12 +51910,12 @@
           }
         },
         {
-          '../../error': 93,
-          '../../jsutils/quotedOrList': 107,
-          '../../jsutils/suggestionList': 108,
+          '../../error': 94,
+          '../../jsutils/quotedOrList': 108,
+          '../../jsutils/suggestionList': 109,
         },
       ],
-      154: [
+      155: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51877,9 +51968,9 @@
             };
           }
         },
-        { '../../error': 93, '../../language/kinds': 110 },
+        { '../../error': 94, '../../language/kinds': 111 },
       ],
-      155: [
+      156: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -51985,9 +52076,9 @@
             }
           }
         },
-        { '../../error': 93 },
+        { '../../error': 94 },
       ],
-      156: [
+      157: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -52058,9 +52149,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 94 },
       ],
-      157: [
+      158: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -52130,9 +52221,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 94 },
       ],
-      158: [
+      159: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -52206,9 +52297,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 94 },
       ],
-      159: [
+      160: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53123,15 +53214,15 @@
           }
         },
         {
-          '../../error': 93,
-          '../../jsutils/find': 101,
-          '../../language/kinds': 110,
-          '../../language/printer': 114,
-          '../../type/definition': 120,
-          '../../utilities/typeFromAST': 143,
+          '../../error': 94,
+          '../../jsutils/find': 102,
+          '../../language/kinds': 111,
+          '../../language/printer': 115,
+          '../../type/definition': 121,
+          '../../utilities/typeFromAST': 144,
         },
       ],
-      160: [
+      161: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53253,12 +53344,12 @@
           }
         },
         {
-          '../../error': 93,
-          '../../utilities/typeComparators': 142,
-          '../../utilities/typeFromAST': 143,
+          '../../error': 94,
+          '../../utilities/typeComparators': 143,
+          '../../utilities/typeFromAST': 144,
         },
       ],
-      161: [
+      162: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53392,12 +53483,12 @@
           }
         },
         {
-          '../../error': 93,
-          '../../jsutils/keyMap': 105,
-          '../../type/definition': 120,
+          '../../error': 94,
+          '../../jsutils/keyMap': 106,
+          '../../type/definition': 121,
         },
       ],
-      162: [
+      163: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53478,9 +53569,9 @@
             };
           }
         },
-        { '../../error': 93, '../../type/definition': 120 },
+        { '../../error': 94, '../../type/definition': 121 },
       ],
-      163: [
+      164: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53531,9 +53622,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 94 },
       ],
-      164: [
+      165: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53589,9 +53680,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 94 },
       ],
-      165: [
+      166: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53652,9 +53743,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 94 },
       ],
-      166: [
+      167: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53706,9 +53797,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 94 },
       ],
-      167: [
+      168: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53771,9 +53862,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 94 },
       ],
-      168: [
+      169: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53833,9 +53924,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 94 },
       ],
-      169: [
+      170: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53889,9 +53980,9 @@
             };
           }
         },
-        { '../../error': 93 },
+        { '../../error': 94 },
       ],
-      170: [
+      171: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -53960,13 +54051,13 @@
           }
         },
         {
-          '../../error': 93,
-          '../../language/printer': 114,
-          '../../type/definition': 120,
-          '../../utilities/typeFromAST': 143,
+          '../../error': 94,
+          '../../language/printer': 115,
+          '../../type/definition': 121,
+          '../../utilities/typeFromAST': 144,
         },
       ],
-      171: [
+      172: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -54069,13 +54160,13 @@
           }
         },
         {
-          '../../error': 93,
-          '../../type/definition': 120,
-          '../../utilities/typeComparators': 142,
-          '../../utilities/typeFromAST': 143,
+          '../../error': 94,
+          '../../type/definition': 121,
+          '../../utilities/typeComparators': 143,
+          '../../utilities/typeFromAST': 144,
         },
       ],
-      172: [
+      173: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -54232,35 +54323,35 @@
           // Spec Section: "Lone Anonymous Operation"
         },
         {
-          './rules/ArgumentsOfCorrectType': 146,
-          './rules/DefaultValuesOfCorrectType': 147,
-          './rules/FieldsOnCorrectType': 148,
-          './rules/FragmentsOnCompositeTypes': 149,
-          './rules/KnownArgumentNames': 150,
-          './rules/KnownDirectives': 151,
-          './rules/KnownFragmentNames': 152,
-          './rules/KnownTypeNames': 153,
-          './rules/LoneAnonymousOperation': 154,
-          './rules/NoFragmentCycles': 155,
-          './rules/NoUndefinedVariables': 156,
-          './rules/NoUnusedFragments': 157,
-          './rules/NoUnusedVariables': 158,
-          './rules/OverlappingFieldsCanBeMerged': 159,
-          './rules/PossibleFragmentSpreads': 160,
-          './rules/ProvidedNonNullArguments': 161,
-          './rules/ScalarLeafs': 162,
-          './rules/SingleFieldSubscriptions': 163,
-          './rules/UniqueArgumentNames': 164,
-          './rules/UniqueDirectivesPerLocation': 165,
-          './rules/UniqueFragmentNames': 166,
-          './rules/UniqueInputFieldNames': 167,
-          './rules/UniqueOperationNames': 168,
-          './rules/UniqueVariableNames': 169,
-          './rules/VariablesAreInputTypes': 170,
-          './rules/VariablesInAllowedPosition': 171,
+          './rules/ArgumentsOfCorrectType': 147,
+          './rules/DefaultValuesOfCorrectType': 148,
+          './rules/FieldsOnCorrectType': 149,
+          './rules/FragmentsOnCompositeTypes': 150,
+          './rules/KnownArgumentNames': 151,
+          './rules/KnownDirectives': 152,
+          './rules/KnownFragmentNames': 153,
+          './rules/KnownTypeNames': 154,
+          './rules/LoneAnonymousOperation': 155,
+          './rules/NoFragmentCycles': 156,
+          './rules/NoUndefinedVariables': 157,
+          './rules/NoUnusedFragments': 158,
+          './rules/NoUnusedVariables': 159,
+          './rules/OverlappingFieldsCanBeMerged': 160,
+          './rules/PossibleFragmentSpreads': 161,
+          './rules/ProvidedNonNullArguments': 162,
+          './rules/ScalarLeafs': 163,
+          './rules/SingleFieldSubscriptions': 164,
+          './rules/UniqueArgumentNames': 165,
+          './rules/UniqueDirectivesPerLocation': 166,
+          './rules/UniqueFragmentNames': 167,
+          './rules/UniqueInputFieldNames': 168,
+          './rules/UniqueOperationNames': 169,
+          './rules/UniqueVariableNames': 170,
+          './rules/VariablesAreInputTypes': 171,
+          './rules/VariablesInAllowedPosition': 172,
         },
       ],
-      173: [
+      174: [
         function(require, module, exports) {
           'use strict';
           Object.defineProperty(exports, '__esModule', {
@@ -54558,16 +54649,16 @@
           })());
         },
         {
-          '../error': 93,
-          '../jsutils/invariant': 102,
-          '../language/kinds': 110,
-          '../language/visitor': 116,
-          '../type/schema': 125,
-          '../utilities/TypeInfo': 126,
-          './specifiedRules': 172,
+          '../error': 94,
+          '../jsutils/invariant': 103,
+          '../language/kinds': 111,
+          '../language/visitor': 117,
+          '../type/schema': 126,
+          '../utilities/TypeInfo': 127,
+          './specifiedRules': 173,
         },
       ],
-      174: [
+      175: [
         function(require, module, exports) {
           /*!
  * hotkeys-js v3.3.8
@@ -55003,7 +55094,7 @@
         },
         {},
       ],
-      175: [
+      176: [
         function(require, module, exports) {
           /*! hotkeys-js v3.3.8 | MIT (c) 2018 kenny wong <wowohoo@qq.com> | http://jaywcjlove.github.io/hotkeys */
           'use strict';
@@ -55301,7 +55392,7 @@
         },
         {},
       ],
-      176: [
+      177: [
         function(require, module, exports) {
           (function(process) {
             if (process.env.NODE_ENV === 'production') {
@@ -55312,12 +55403,12 @@
           }.call(this, require('_process')));
         },
         {
-          './dist/hotkeys.common.js': 174,
-          './dist/hotkeys.common.min.js': 175,
-          _process: 237,
+          './dist/hotkeys.common.js': 175,
+          './dist/hotkeys.common.min.js': 176,
+          _process: 238,
         },
       ],
-      177: [
+      178: [
         function(require, module, exports) {
           /**
  * Copyright (c) 2016, Lee Byron
@@ -55983,7 +56074,7 @@
         },
         {},
       ],
-      178: [
+      179: [
         function(require, module, exports) {
           'use strict';
           ////////////////////////////////////////////////////////////////////////////////
@@ -56677,9 +56768,9 @@
 
           module.exports = LinkifyIt;
         },
-        { './lib/re': 179 },
+        { './lib/re': 180 },
       ],
-      179: [
+      180: [
         function(require, module, exports) {
           'use strict';
           module.exports = function(opts) {
@@ -56901,20 +56992,20 @@
           };
         },
         {
-          'uc.micro/categories/Cc/regex': 245,
-          'uc.micro/categories/P/regex': 247,
-          'uc.micro/categories/Z/regex': 248,
-          'uc.micro/properties/Any/regex': 250,
+          'uc.micro/categories/Cc/regex': 246,
+          'uc.micro/categories/P/regex': 248,
+          'uc.micro/categories/Z/regex': 249,
+          'uc.micro/properties/Any/regex': 251,
         },
       ],
-      180: [
+      181: [
         function(require, module, exports) {
           'use strict';
           module.exports = require('./lib/');
         },
-        { './lib/': 189 },
+        { './lib/': 190 },
       ],
-      181: [
+      182: [
         function(require, module, exports) {
           // HTML5 entities map: { name -> utf16string }
           //
@@ -56922,9 +57013,9 @@
           /*eslint quotes:0*/
           module.exports = require('entities/maps/entities.json');
         },
-        { 'entities/maps/entities.json': 70 },
+        { 'entities/maps/entities.json': 71 },
       ],
-      182: [
+      183: [
         function(require, module, exports) {
           // List of valid html blocks names, accorting to commonmark spec
           // http://jgm.github.io/CommonMark/spec.html#html-blocks
@@ -56998,7 +57089,7 @@
         },
         {},
       ],
-      183: [
+      184: [
         function(require, module, exports) {
           // Regexps to match html elements
 
@@ -57047,7 +57138,7 @@
         },
         {},
       ],
-      184: [
+      185: [
         function(require, module, exports) {
           // Utilities
           //
@@ -57365,13 +57456,13 @@
           exports.normalizeReference = normalizeReference;
         },
         {
-          './entities': 181,
-          mdurl: 235,
-          'uc.micro': 249,
-          'uc.micro/categories/P/regex': 247,
+          './entities': 182,
+          mdurl: 236,
+          'uc.micro': 250,
+          'uc.micro/categories/P/regex': 248,
         },
       ],
-      185: [
+      186: [
         function(require, module, exports) {
           // Just a shortcut for bulk export
           'use strict';
@@ -57380,12 +57471,12 @@
           exports.parseLinkTitle = require('./parse_link_title');
         },
         {
-          './parse_link_destination': 186,
-          './parse_link_label': 187,
-          './parse_link_title': 188,
+          './parse_link_destination': 187,
+          './parse_link_label': 188,
+          './parse_link_title': 189,
         },
       ],
-      186: [
+      187: [
         function(require, module, exports) {
           // Parse link destination
           //
@@ -57478,9 +57569,9 @@
             return result;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 185 },
       ],
-      187: [
+      188: [
         function(require, module, exports) {
           // Parse link label
           //
@@ -57539,7 +57630,7 @@
         },
         {},
       ],
-      188: [
+      189: [
         function(require, module, exports) {
           // Parse link title
           //
@@ -57602,9 +57693,9 @@
             return result;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 185 },
       ],
-      189: [
+      190: [
         function(require, module, exports) {
           // Main parser class
 
@@ -58215,21 +58306,21 @@
           module.exports = MarkdownIt;
         },
         {
-          './common/utils': 184,
-          './helpers': 185,
-          './parser_block': 190,
-          './parser_core': 191,
-          './parser_inline': 192,
-          './presets/commonmark': 193,
-          './presets/default': 194,
-          './presets/zero': 195,
-          './renderer': 196,
-          'linkify-it': 178,
-          mdurl: 235,
-          punycode: 243,
+          './common/utils': 185,
+          './helpers': 186,
+          './parser_block': 191,
+          './parser_core': 192,
+          './parser_inline': 193,
+          './presets/commonmark': 194,
+          './presets/default': 195,
+          './presets/zero': 196,
+          './renderer': 197,
+          'linkify-it': 179,
+          mdurl: 236,
+          punycode: 244,
         },
       ],
-      190: [
+      191: [
         function(require, module, exports) {
           /** internal
  * class ParserBlock
@@ -58386,22 +58477,22 @@
           module.exports = ParserBlock;
         },
         {
-          './ruler': 197,
-          './rules_block/blockquote': 198,
-          './rules_block/code': 199,
-          './rules_block/fence': 200,
-          './rules_block/heading': 201,
-          './rules_block/hr': 202,
-          './rules_block/html_block': 203,
-          './rules_block/lheading': 204,
-          './rules_block/list': 205,
-          './rules_block/paragraph': 206,
-          './rules_block/reference': 207,
-          './rules_block/state_block': 208,
-          './rules_block/table': 209,
+          './ruler': 198,
+          './rules_block/blockquote': 199,
+          './rules_block/code': 200,
+          './rules_block/fence': 201,
+          './rules_block/heading': 202,
+          './rules_block/hr': 203,
+          './rules_block/html_block': 204,
+          './rules_block/lheading': 205,
+          './rules_block/list': 206,
+          './rules_block/paragraph': 207,
+          './rules_block/reference': 208,
+          './rules_block/state_block': 209,
+          './rules_block/table': 210,
         },
       ],
-      191: [
+      192: [
         function(require, module, exports) {
           /** internal
  * class Core
@@ -58457,17 +58548,17 @@
           module.exports = Core;
         },
         {
-          './ruler': 197,
-          './rules_core/block': 210,
-          './rules_core/inline': 211,
-          './rules_core/linkify': 212,
-          './rules_core/normalize': 213,
-          './rules_core/replacements': 214,
-          './rules_core/smartquotes': 215,
-          './rules_core/state_core': 216,
+          './ruler': 198,
+          './rules_core/block': 211,
+          './rules_core/inline': 212,
+          './rules_core/linkify': 213,
+          './rules_core/normalize': 214,
+          './rules_core/replacements': 215,
+          './rules_core/smartquotes': 216,
+          './rules_core/state_core': 217,
         },
       ],
-      192: [
+      193: [
         function(require, module, exports) {
           /** internal
  * class ParserInline
@@ -58652,24 +58743,24 @@
           module.exports = ParserInline;
         },
         {
-          './ruler': 197,
-          './rules_inline/autolink': 217,
-          './rules_inline/backticks': 218,
-          './rules_inline/balance_pairs': 219,
-          './rules_inline/emphasis': 220,
-          './rules_inline/entity': 221,
-          './rules_inline/escape': 222,
-          './rules_inline/html_inline': 223,
-          './rules_inline/image': 224,
-          './rules_inline/link': 225,
-          './rules_inline/newline': 226,
-          './rules_inline/state_inline': 227,
-          './rules_inline/strikethrough': 228,
-          './rules_inline/text': 229,
-          './rules_inline/text_collapse': 230,
+          './ruler': 198,
+          './rules_inline/autolink': 218,
+          './rules_inline/backticks': 219,
+          './rules_inline/balance_pairs': 220,
+          './rules_inline/emphasis': 221,
+          './rules_inline/entity': 222,
+          './rules_inline/escape': 223,
+          './rules_inline/html_inline': 224,
+          './rules_inline/image': 225,
+          './rules_inline/link': 226,
+          './rules_inline/newline': 227,
+          './rules_inline/state_inline': 228,
+          './rules_inline/strikethrough': 229,
+          './rules_inline/text': 230,
+          './rules_inline/text_collapse': 231,
         },
       ],
-      193: [
+      194: [
         function(require, module, exports) {
           // Commonmark default options
 
@@ -58743,7 +58834,7 @@
         },
         {},
       ],
-      194: [
+      195: [
         function(require, module, exports) {
           // markdown-it default options
 
@@ -58786,7 +58877,7 @@
         },
         {},
       ],
-      195: [
+      196: [
         function(require, module, exports) {
           // "Zero" preset, with nothing enabled. Useful for manual configuring of simple
           // modes. For example, to parse bold/italic only.
@@ -58839,7 +58930,7 @@
         },
         {},
       ],
-      196: [
+      197: [
         function(require, module, exports) {
           /**
  * class Renderer
@@ -59216,9 +59307,9 @@
 
           module.exports = Renderer;
         },
-        { './common/utils': 184 },
+        { './common/utils': 185 },
       ],
-      197: [
+      198: [
         function(require, module, exports) {
           /**
  * class Ruler
@@ -59588,7 +59679,7 @@
         },
         {},
       ],
-      198: [
+      199: [
         function(require, module, exports) {
           // Block quotes
 
@@ -59906,9 +59997,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 185 },
       ],
-      199: [
+      200: [
         function(require, module, exports) {
           // Code block (4 spaces padded)
 
@@ -59956,7 +60047,7 @@
         },
         {},
       ],
-      200: [
+      201: [
         function(require, module, exports) {
           // fences (``` lang, ~~~ lang)
 
@@ -60075,7 +60166,7 @@
         },
         {},
       ],
-      201: [
+      202: [
         function(require, module, exports) {
           // heading (#, ##, ...)
 
@@ -60142,9 +60233,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 185 },
       ],
-      202: [
+      203: [
         function(require, module, exports) {
           // Horizontal rule
 
@@ -60205,9 +60296,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 185 },
       ],
-      203: [
+      204: [
         function(require, module, exports) {
           // HTML block
 
@@ -60320,9 +60411,9 @@
             return true;
           };
         },
-        { '../common/html_blocks': 182, '../common/html_re': 183 },
+        { '../common/html_blocks': 183, '../common/html_re': 184 },
       ],
-      204: [
+      205: [
         function(require, module, exports) {
           // lheading (---, ===)
 
@@ -60431,7 +60522,7 @@
         },
         {},
       ],
-      205: [
+      206: [
         function(require, module, exports) {
           // Lists
 
@@ -60805,9 +60896,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 185 },
       ],
-      206: [
+      207: [
         function(require, module, exports) {
           // Paragraph
 
@@ -60875,7 +60966,7 @@
         },
         {},
       ],
-      207: [
+      208: [
         function(require, module, exports) {
           'use strict';
           var normalizeReference = require('../common/utils')
@@ -61109,9 +61200,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 185 },
       ],
-      208: [
+      209: [
         function(require, module, exports) {
           // Parser state class
 
@@ -61383,9 +61474,9 @@
 
           module.exports = StateBlock;
         },
-        { '../common/utils': 184, '../token': 231 },
+        { '../common/utils': 185, '../token': 232 },
       ],
-      209: [
+      210: [
         function(require, module, exports) {
           // GFM table, non-standard
 
@@ -61634,9 +61725,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 185 },
       ],
-      210: [
+      211: [
         function(require, module, exports) {
           'use strict';
           module.exports = function block(state) {
@@ -61660,7 +61751,7 @@
         },
         {},
       ],
-      211: [
+      212: [
         function(require, module, exports) {
           'use strict';
           module.exports = function inline(state) {
@@ -61685,7 +61776,7 @@
         },
         {},
       ],
-      212: [
+      213: [
         function(require, module, exports) {
           // Replace link-like texts with link nodes.
           //
@@ -61854,9 +61945,9 @@
             }
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 185 },
       ],
-      213: [
+      214: [
         function(require, module, exports) {
           // Normalize input string
 
@@ -61878,7 +61969,7 @@
         },
         {},
       ],
-      214: [
+      215: [
         function(require, module, exports) {
           // Simple typographyc replacements
           //
@@ -61999,7 +62090,7 @@
         },
         {},
       ],
-      215: [
+      216: [
         function(require, module, exports) {
           // Convert straight quotation marks to typographic ones
           //
@@ -62245,9 +62336,9 @@
             }
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 185 },
       ],
-      216: [
+      217: [
         function(require, module, exports) {
           // Core state object
           //
@@ -62267,9 +62358,9 @@
 
           module.exports = StateCore;
         },
-        { '../token': 231 },
+        { '../token': 232 },
       ],
-      217: [
+      218: [
         function(require, module, exports) {
           // Process autolinks '<protocol:...>'
 
@@ -62356,7 +62447,7 @@
         },
         {},
       ],
-      218: [
+      219: [
         function(require, module, exports) {
           // Parse backticks
 
@@ -62420,7 +62511,7 @@
         },
         {},
       ],
-      219: [
+      220: [
         function(require, module, exports) {
           // For each opening emphasis-like marker find a matching closing one
           //
@@ -62474,7 +62565,7 @@
         },
         {},
       ],
-      220: [
+      221: [
         function(require, module, exports) {
           // Process *this* and _that_
           //
@@ -62613,7 +62704,7 @@
         },
         {},
       ],
-      221: [
+      222: [
         function(require, module, exports) {
           // Process html entity - &#123;, &#xAF;, &quot;, ...
 
@@ -62675,9 +62766,9 @@
             return true;
           };
         },
-        { '../common/entities': 181, '../common/utils': 184 },
+        { '../common/entities': 182, '../common/utils': 185 },
       ],
-      222: [
+      223: [
         function(require, module, exports) {
           // Process escaped chars and hardbreaks
 
@@ -62743,9 +62834,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 185 },
       ],
-      223: [
+      224: [
         function(require, module, exports) {
           // Process html tags
 
@@ -62799,9 +62890,9 @@
             return true;
           };
         },
-        { '../common/html_re': 183 },
+        { '../common/html_re': 184 },
       ],
-      224: [
+      225: [
         function(require, module, exports) {
           // Process ![image](<src> "title")
 
@@ -62985,9 +63076,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 185 },
       ],
-      225: [
+      226: [
         function(require, module, exports) {
           // Process [link](<to> "stuff")
 
@@ -63163,9 +63254,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 185 },
       ],
-      226: [
+      227: [
         function(require, module, exports) {
           // Proceess '\n'
 
@@ -63213,9 +63304,9 @@
             return true;
           };
         },
-        { '../common/utils': 184 },
+        { '../common/utils': 185 },
       ],
-      227: [
+      228: [
         function(require, module, exports) {
           // Inline parser state
 
@@ -63357,9 +63448,9 @@
 
           module.exports = StateInline;
         },
-        { '../common/utils': 184, '../token': 231 },
+        { '../common/utils': 185, '../token': 232 },
       ],
-      228: [
+      229: [
         function(require, module, exports) {
           // ~~strike through~~
           //
@@ -63493,7 +63584,7 @@
         },
         {},
       ],
-      229: [
+      230: [
         function(require, module, exports) {
           // Skip text characters for text token, place those to pending buffer
           // and increment current pos
@@ -63592,7 +63683,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      230: [
+      231: [
         function(require, module, exports) {
           // Merge adjacent text nodes into one, and re-calculate all token levels
           //
@@ -63633,7 +63724,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      231: [
+      232: [
         function(require, module, exports) {
           // Token class
 
@@ -63832,7 +63923,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      232: [
+      233: [
         function(require, module, exports) {
           'use strict';
           /* eslint-disable no-bitwise */
@@ -63975,7 +64066,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      233: [
+      234: [
         function(require, module, exports) {
           'use strict';
           var encodeCache = {};
@@ -64082,7 +64173,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      234: [
+      235: [
         function(require, module, exports) {
           'use strict';
           module.exports = function format(url) {
@@ -64109,7 +64200,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      235: [
+      236: [
         function(require, module, exports) {
           'use strict';
           module.exports.encode = require('./encode');
@@ -64117,9 +64208,9 @@ module.exports = function text(state, silent) {
           module.exports.format = require('./format');
           module.exports.parse = require('./parse');
         },
-        { './decode': 232, './encode': 233, './format': 234, './parse': 236 },
+        { './decode': 233, './encode': 234, './format': 235, './parse': 237 },
       ],
-      236: [
+      237: [
         function(require, module, exports) {
           // Copyright Joyent, Inc. and other Node contributors.
           //
@@ -64456,7 +64547,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      237: [
+      238: [
         function(require, module, exports) {
           // shim for using process in browser
           var process = (module.exports = {});
@@ -64653,7 +64744,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      238: [
+      239: [
         function(require, module, exports) {
           (function(process) {
             /**
@@ -64759,13 +64850,13 @@ module.exports = function text(state, silent) {
           }.call(this, require('_process')));
         },
         {
-          './lib/ReactPropTypesSecret': 242,
-          _process: 237,
-          'fbjs/lib/invariant': 73,
-          'fbjs/lib/warning': 74,
+          './lib/ReactPropTypesSecret': 243,
+          _process: 238,
+          'fbjs/lib/invariant': 74,
+          'fbjs/lib/warning': 75,
         },
       ],
-      239: [
+      240: [
         function(require, module, exports) {
           /**
  * Copyright 2013-present, Facebook, Inc.
@@ -64821,9 +64912,9 @@ module.exports = function text(state, silent) {
             return ReactPropTypes;
           };
         },
-        { 'fbjs/lib/emptyFunction': 72, 'fbjs/lib/invariant': 73 },
+        { 'fbjs/lib/emptyFunction': 73, 'fbjs/lib/invariant': 74 },
       ],
-      240: [
+      241: [
         function(require, module, exports) {
           (function(process) {
             /**
@@ -65553,15 +65644,15 @@ module.exports = function text(state, silent) {
           }.call(this, require('_process')));
         },
         {
-          './checkPropTypes': 238,
-          './lib/ReactPropTypesSecret': 242,
-          _process: 237,
-          'fbjs/lib/emptyFunction': 72,
-          'fbjs/lib/invariant': 73,
-          'fbjs/lib/warning': 74,
+          './checkPropTypes': 239,
+          './lib/ReactPropTypesSecret': 243,
+          _process: 238,
+          'fbjs/lib/emptyFunction': 73,
+          'fbjs/lib/invariant': 74,
+          'fbjs/lib/warning': 75,
         },
       ],
-      241: [
+      242: [
         function(require, module, exports) {
           (function(process) {
             /**
@@ -65603,12 +65694,12 @@ module.exports = function text(state, silent) {
           }.call(this, require('_process')));
         },
         {
-          './factoryWithThrowingShims': 239,
-          './factoryWithTypeCheckers': 240,
-          _process: 237,
+          './factoryWithThrowingShims': 240,
+          './factoryWithTypeCheckers': 241,
+          _process: 238,
         },
       ],
-      242: [
+      243: [
         function(require, module, exports) {
           /**
  * Copyright 2013-present, Facebook, Inc.
@@ -65627,7 +65718,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      243: [
+      244: [
         function(require, module, exports) {
           (function(global) {
             /*! https://mths.be/punycode v1.4.1 by @mathias */
@@ -66196,7 +66287,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      244: [
+      245: [
         function(require, module, exports) {
           (function(process, global) {
             'use strict';
@@ -66361,33 +66452,33 @@ module.exports = function text(state, silent) {
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { _process: 237, 'hotkeys-js': 176, 'prop-types': 241 },
+        { _process: 238, 'hotkeys-js': 177, 'prop-types': 242 },
       ],
-      245: [
+      246: [
         function(require, module, exports) {
           module.exports = /[\0-\x1F\x7F-\x9F]/;
         },
         {},
       ],
-      246: [
+      247: [
         function(require, module, exports) {
           module.exports = /[\xAD\u0600-\u0605\u061C\u06DD\u070F\u08E2\u180E\u200B-\u200F\u202A-\u202E\u2060-\u2064\u2066-\u206F\uFEFF\uFFF9-\uFFFB]|\uD804\uDCBD|\uD82F[\uDCA0-\uDCA3]|\uD834[\uDD73-\uDD7A]|\uDB40[\uDC01\uDC20-\uDC7F]/;
         },
         {},
       ],
-      247: [
+      248: [
         function(require, module, exports) {
           module.exports = /[!-#%-\*,-/:;\?@\[-\]_\{\}\xA1\xA7\xAB\xB6\xB7\xBB\xBF\u037E\u0387\u055A-\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A-\u066D\u06D4\u0700-\u070D\u07F7-\u07F9\u0830-\u083E\u085E\u0964\u0965\u0970\u0AF0\u0DF4\u0E4F\u0E5A\u0E5B\u0F04-\u0F12\u0F14\u0F3A-\u0F3D\u0F85\u0FD0-\u0FD4\u0FD9\u0FDA\u104A-\u104F\u10FB\u1360-\u1368\u1400\u166D\u166E\u169B\u169C\u16EB-\u16ED\u1735\u1736\u17D4-\u17D6\u17D8-\u17DA\u1800-\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0-\u1AA6\u1AA8-\u1AAD\u1B5A-\u1B60\u1BFC-\u1BFF\u1C3B-\u1C3F\u1C7E\u1C7F\u1CC0-\u1CC7\u1CD3\u2010-\u2027\u2030-\u2043\u2045-\u2051\u2053-\u205E\u207D\u207E\u208D\u208E\u2308-\u230B\u2329\u232A\u2768-\u2775\u27C5\u27C6\u27E6-\u27EF\u2983-\u2998\u29D8-\u29DB\u29FC\u29FD\u2CF9-\u2CFC\u2CFE\u2CFF\u2D70\u2E00-\u2E2E\u2E30-\u2E44\u3001-\u3003\u3008-\u3011\u3014-\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D-\uA60F\uA673\uA67E\uA6F2-\uA6F7\uA874-\uA877\uA8CE\uA8CF\uA8F8-\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1-\uA9CD\uA9DE\uA9DF\uAA5C-\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uFD3E\uFD3F\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01-\uFF03\uFF05-\uFF0A\uFF0C-\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B-\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F-\uFF65]|\uD800[\uDD00-\uDD02\uDF9F\uDFD0]|\uD801\uDD6F|\uD802[\uDC57\uDD1F\uDD3F\uDE50-\uDE58\uDE7F\uDEF0-\uDEF6\uDF39-\uDF3F\uDF99-\uDF9C]|\uD804[\uDC47-\uDC4D\uDCBB\uDCBC\uDCBE-\uDCC1\uDD40-\uDD43\uDD74\uDD75\uDDC5-\uDDC9\uDDCD\uDDDB\uDDDD-\uDDDF\uDE38-\uDE3D\uDEA9]|\uD805[\uDC4B-\uDC4F\uDC5B\uDC5D\uDCC6\uDDC1-\uDDD7\uDE41-\uDE43\uDE60-\uDE6C\uDF3C-\uDF3E]|\uD807[\uDC41-\uDC45\uDC70\uDC71]|\uD809[\uDC70-\uDC74]|\uD81A[\uDE6E\uDE6F\uDEF5\uDF37-\uDF3B\uDF44]|\uD82F\uDC9F|\uD836[\uDE87-\uDE8B]|\uD83A[\uDD5E\uDD5F]/;
         },
         {},
       ],
-      248: [
+      249: [
         function(require, module, exports) {
           module.exports = /[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]/;
         },
         {},
       ],
-      249: [
+      250: [
         function(require, module, exports) {
           'use strict';
           exports.Any = require('./properties/Any/regex');
@@ -66397,20 +66488,20 @@ module.exports = function text(state, silent) {
           exports.Z = require('./categories/Z/regex');
         },
         {
-          './categories/Cc/regex': 245,
-          './categories/Cf/regex': 246,
-          './categories/P/regex': 247,
-          './categories/Z/regex': 248,
-          './properties/Any/regex': 250,
+          './categories/Cc/regex': 246,
+          './categories/Cf/regex': 247,
+          './categories/P/regex': 248,
+          './categories/Z/regex': 249,
+          './properties/Any/regex': 251,
         },
       ],
-      250: [
+      251: [
         function(require, module, exports) {
           module.exports = /[\0-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]/;
         },
         {},
       ],
-      251: [
+      252: [
         function(require, module, exports) {
           if (typeof Object.create === 'function') {
             // implementation from standard node.js 'util' module
@@ -66438,7 +66529,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      252: [
+      253: [
         function(require, module, exports) {
           module.exports = function isBuffer(arg) {
             return (
@@ -66452,7 +66543,7 @@ module.exports = function text(state, silent) {
         },
         {},
       ],
-      253: [
+      254: [
         function(require, module, exports) {
           (function(process, global) {
             // Copyright Joyent, Inc. and other Node contributors.
@@ -67133,10 +67224,10 @@ module.exports = function text(state, silent) {
                 : typeof window !== 'undefined' ? window : {},
           ));
         },
-        { './support/isBuffer': 252, _process: 237, inherits: 251 },
+        { './support/isBuffer': 253, _process: 238, inherits: 252 },
       ],
     },
     {},
-    [25],
-  )(25);
+    [26],
+  )(26);
 });

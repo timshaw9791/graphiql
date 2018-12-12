@@ -9,7 +9,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import { buildClientSchema, GraphQLSchema, parse, print } from 'graphql';
+import {
+  buildClientSchema,
+  GraphQLSchema,
+  parse,
+  print,
+  GraphQLObjectType,
+  GraphQLList,
+} from 'graphql';
 import { emitter } from './DocExplorer/TypeDoc';
 import Hotkeys from 'react-hot-keys';
 import { ExecuteButton } from './ExecuteButton';
@@ -107,10 +114,12 @@ export class GraphiQL extends React.Component {
 
     // 绑定this
     this.handleTokenChange = this.handleTokenChange.bind(this);
-
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSchema = this.handleSchema.bind(this);
     // Initialize state
     this.state = {
       xToken: null,
+      isFilter: false,
       schema: props.schema,
       query,
       variables,
@@ -261,8 +270,8 @@ export class GraphiQL extends React.Component {
       find(children, child => child.type === GraphiQL.Logo) ||
       <GraphiQL.Logo />;
     /*
-    EditToken组件
-*/
+      EditToken组件
+    */
 
     const toolbar =
       find(children, child => child.type === GraphiQL.Toolbar) ||
@@ -280,6 +289,18 @@ export class GraphiQL extends React.Component {
         />
 
         <EditToken onTokenChange={this.handleTokenChange} />
+
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              name="isFilter"
+              checked={this.state.isFilter}
+              onChange={this.handleChange}
+            />
+            {'忽略默认属性'}
+          </label>
+        </div>
 
       </GraphiQL.Toolbar>;
 
@@ -1022,6 +1043,62 @@ export class GraphiQL extends React.Component {
     let token = null;
     token = xToken;
     this.setState({ xToken: token });
+  }
+  //  判断是否选中
+  // TODO 需要剥离开来
+  handleChange() {
+    const schema = this.state.schema;
+    let isFilter;
+    if (this.state.isFilter === false) {
+      this.handleSchema(schema);
+      isFilter = true;
+    } else {
+      this.setState(
+        {
+          schema: undefined,
+        },
+        this._fetchSchema,
+      );
+      // 需要重新加载 docExplorerComponent
+      this.docExplorerComponent.reset();
+      isFilter = false;
+    }
+    this.setState({ isFilter });
+    console.log(this.state.schema);
+  }
+
+  //  判断是否是mutation或者是query
+  // TODO 需要剥离开来
+  handleSchema(schema) {
+    const base = [
+      'number',
+      'createtime',
+      'updatetime',
+      'updateactorid',
+      'createactorid',
+    ];
+    for (const fields in schema) {
+      if (fields === '_mutationType' || fields === '_queryType') {
+        const models = schema[fields]._fields;
+        let properties = '';
+        for (const model in models) {
+          if (models[model].type instanceof GraphQLObjectType) {
+            properties = models[model].type._fields;
+          } else if (models[model].type instanceof GraphQLList) {
+            properties = models[model].type._fields.content.type.ofType._fields;
+          }
+          // 直接暴力删除
+          for (const name in properties) {
+            if (base.indexOf(name) !== -1) {
+              delete properties[name];
+            }
+          }
+        }
+      }
+      this.setState({
+        schema,
+      });
+    }
   }
 }
 
