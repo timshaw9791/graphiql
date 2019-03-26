@@ -4093,6 +4093,8 @@
                     token = xToken;
                     this.setState({ xToken: token });
                   },
+                  //  判断是否选中
+                  // TODO 需要剥离开来
                 },
                 {
                   key: 'handleChange',
@@ -4109,12 +4111,16 @@
                         },
                         this._fetchSchema,
                       );
+                      // 需要重新加载 docExplorerComponent
                       this.docExplorerComponent.reset();
                       isFilter = false;
                     }
                     this.setState({ isFilter: isFilter });
                     console.log(this.state.schema);
                   },
+
+                  //  判断是否是mutation或者是query
+                  // TODO 需要剥离开来
                 },
                 {
                   key: 'handleSchema',
@@ -4146,6 +4152,7 @@
                               models[model].type._fields.content.type.ofType
                                 ._fields;
                           }
+                          // 直接暴力删除
                           for (var name in properties) {
                             if (base.indexOf(name) !== -1) {
                               delete properties[name];
@@ -7972,8 +7979,11 @@
                 // } else {
                 // type = data.field.args[i].type.ofType;
                 // }
-                type = data.field.args[i].type.ofType;
-                setType += '$' + args + ':' + type + '! ';
+                type = data.field.args[i].type;
+                if (type instanceof _graphql.GraphQLNonNull) {
+                  type = type.ofType + '!';
+                }
+                setType += '$' + args + ':' + type;
                 parameter += args + ':$' + args + ' ';
               }
               setType = '(' + setType + ')';

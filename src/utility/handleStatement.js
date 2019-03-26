@@ -1,5 +1,10 @@
 // 处理数据方法
-import { GraphQLList, GraphQLObjectType, GraphQLScalarType } from 'graphql';
+import {
+  GraphQLList,
+  GraphQLObjectType,
+  GraphQLScalarType,
+  GraphQLNonNull,
+} from 'graphql';
 
 export function handleStatement(data) {
   let setType = '';
@@ -26,8 +31,11 @@ export function handleStatement(data) {
       // } else {
       // type = data.field.args[i].type.ofType;
       // }
-      type = data.field.args[i].type.ofType;
-      setType += '$' + args + ':' + type + '! ';
+      type = data.field.args[i].type;
+      if (type instanceof GraphQLNonNull) {
+        type = type.ofType + '!';
+      }
+      setType += '$' + args + ':' + type;
       parameter += args + ':$' + args + ' ';
     }
     setType = '(' + setType + ')';
